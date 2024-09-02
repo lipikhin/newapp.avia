@@ -35,7 +35,7 @@ class ProfileController extends Controller
 
     {
 
-        return view('profile');
+        return view('user.profile');
 
     }
 
@@ -92,7 +92,8 @@ class ProfileController extends Controller
         }
         auth()->user()->update($input);
 
-        return back()->with('success', 'Profile updated successfully.');
+//        return back()->with('success', 'Profile updated successfully.');
+        return redirect()->route('home.index')->with('success', 'Profile updated successfully.');
 
     }
 }

@@ -19,23 +19,27 @@
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href={{asset('plugins/fontawesome-free/css/all.min')}}"
+    .css">
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Tempusdominus Bootstrap 4 -->
-    <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+    <link rel="stylesheet" href={{asset("plugins/tempusdominus-bootstrap-4/css
+    /tempusdominus-bootstrap-4.min.css")}}>
     <!-- iCheck -->
-    <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <link rel="stylesheet" href={{asset("plugins/icheck-bootstrap/icheck
+    -bootstrap.min.css")}}>
     <!-- JQVMap -->
-    <link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css">
+    <link rel="stylesheet" href={{asset("plugins/jqvmap/jqvmap.min.css")}}>
     <!-- Theme style -->
-    <link rel="stylesheet" href="dist/css/adminlte.min.css">
+    <link rel="stylesheet" href={{asset("dist/css/adminlte.min.css")}}>
     <!-- overlayScrollbars -->
-    <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+    <link rel="stylesheet"
+          href={{asset("plugins/overlayScrollbars/css/OverlayScrollbars.min.css")}}>
     <!-- Daterange picker -->
-    <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
+{{--    <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">--}}
     <!-- summernote -->
-    <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
+    <link rel="stylesheet" href={{asset("plugins/summernote/summernote-bs4.min.css")}}>
 
     <style>
         .colored-svg {
@@ -44,6 +48,18 @@
             /*filter: invert(31%) sepia(84%) saturate(5873%) hue-rotate(355deg) brightness(101%) contrast(106%);*/
             filter: brightness(0) saturate(100%) invert(24%) sepia(95%) saturate(2178%) hue-rotate(210deg) brightness(108%) contrast(98%);
             /* Настройте фильтры для получения желаемого цвета */
+        }
+        .user-panel {
+            overflow: visible !important; /* Разрешает выпадающему меню выходить за границы блока */
+            position: relative; /* Относительное позиционирование для корректной работы с dropdown */
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%; /* Раскрытие сразу под пользователем */
+            left: 0;
+            right: 0;
+            z-index: 1000; /* Убедитесь, что меню будет выше других элементов */
         }
     </style>
 
@@ -113,27 +129,26 @@
 
     <!-- Main Sidebar Container -->
 
-    <aside class="main-sidebar bg-secondary-subtle elevation-4">
+    <aside class="main-sidebar  elevation-4  bg-secondary-subtle ">
 
             <!-- Brand Logo -->
-            <div class="d-flex">
-                <a href="{{url('/')}}" class="brand-link">
-                <img src="{{asset('image/AT.png')}}" class="ms-3 " alt="AT" style="width: 36px; height: 36px">
-{{--                <span> "   "</span>--}}
+        <div class="">
 
-                    <img src="{{asset('image/AT_logo-rb.svg')}}" alt="AT" class="ms-1 colored-svg">
-                    {{--                        <span class="brand-text font-weight-light"></span>--}}
+            <div class="">
+                <a href="{{url('/')}}" class="brand-link">
+                    <img id="logo-small" src="{{asset('image/AT.png')}}"
+                         class="ms-2" alt="AT" style="width: 36px; height:
+                         36px; display: none;">
+                    <img id="logo-full" src="{{asset('image/AT_logo-rb.svg')}}" alt="AT" class="ms-1 colored-svg">
                 </a>
             </div>
 
-
-
-
+        </div>
 
 
         <!-- Sidebar -->
-        <div class=" " >
-            <ul class="">
+        <div class="" >
+            <ul class="justify-content d-flex">
                 <!-- Authentication Links -->
                 @guest
                     @if (Route::has('login'))
@@ -147,151 +162,96 @@
                         </li>
                     @endif
                 @else
-                    <div class="dropdown show">
-                        <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img src="/avatars/{{Auth::user()->avatar }}" class="rounded-circle " alt=" "
-                                 width="40">{{ Auth::user()->name }}
-                            <a class="text-white-50">
 
-                            </a>
+{{--                    <div class="user-panel mt-3  mb-3 ">--}}
+{{--                        <a>--}}
+{{--                            <div class="image">--}}
+{{--                                <img src="/avatars/{{Auth::user()->avatar }}" class="img-circle elevation-2" alt="User Image">--}}
+
+{{--                            </div>--}}
+{{--                            <div class="info">--}}
+{{--                                <a href="#" class="d-block">{{ Auth::user()->name }}</a>--}}
+{{--                            </div>--}}
+{{--                        </a>--}}
 
 
+{{--                    </div>--}}
 
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                            <a  class="sidebar-link" href="{{route('user.profile')}}">
-                                <i class="fa-solid fa-list pe-2"></i>
-                                Profile
-                            </a>
-                            <a  class="sidebar-link" href="{{ route('logout') }}"
-                                onclick="event.preventDefault();
-                                                         document.getElementById('logout-form').submit();" aria-labelledby="dropdownMenuLink">
-                                <i class="fa-solid fa-outdent pe-2"></i>
-                                {{ __('Logout') }}
-                            </a>
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                @csrf
-                            </form>
-                        </div>
-                    </div>
+{{--                    <div class="dropdown show ">--}}
+{{--                        <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink"--}}
+{{--                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">--}}
+{{--                            <img src="/avatars/{{Auth::user()->avatar }}" class="rounded-circle " alt=" "--}}
+{{--                                 width="40">{{ Auth::user()->name }}--}}
+
+{{--                        </a>--}}
+{{--                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">--}}
+{{--                            <a  class="sidebar-link" href="{{route('user.profile')}}">--}}
+{{--                                <i class="fa-solid fa-list pe-2"></i>--}}
+{{--                                Profile--}}
+{{--                            </a>--}}
+{{--                            <a  class="sidebar-link" href="{{ route('logout') }}"--}}
+{{--                                onclick="event.preventDefault();--}}
+{{--                                                         document.getElementById('logout-form').submit();" aria-labelledby="dropdownMenuLink">--}}
+{{--                                <i class="fa-solid fa-outdent pe-2"></i>--}}
+{{--                                {{ __('Logout') }}--}}
+{{--                            </a>--}}
+{{--                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">--}}
+{{--                                @csrf--}}
+{{--                            </form>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
                 @endguest
+
             </ul>
 
             <!--Sidebar navigation -->
-            <ul class="sidebar-nav ">
-                {{--                <li class="sidebar-header">--}}
-                {{--                    Tool--}}
-                {{--                </li>--}}
-
-                {{--                        <li class="sidebar-item">--}}
-                {{--                            <a href="#" class="sidebar-link">--}}
-                {{--                                <i class="fa-solid fa-list pe-2"></i>--}}
-                {{--                                __--}}
-                {{--                            </a>--}}
-                {{--                        </li>--}}
-
-                {{--                        <li class="sidebar-item">--}}
-                {{--                            <a href="#" class="sidebar-link">--}}
-                {{--                                <i class="fa-solid fa-gear pe-2"></i>--}}
-                {{--                                ___--}}
-                {{--                            </a>--}}
-                {{--                        </li>--}}
+            <ul class="">
 
 
-                <li class="sidebar-item">
-                    <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#pages"
-                       aria-expanded="false" aria-controls="pages">
-                        <i class="fa-solid fa-gear pe-2"></i>
-                        {{__('Additions')}}
-                    </a>
-                    <ul id="pages" class="sidebar-dropdown  collapse" data-bs-parent="#sidebar">
-
-                        @auth
-                            @if(Auth::user()->admin)
-
-                                <li class="sidebar-item">
-                                    <a href="{{route('admin.cmms.index')}}"
-                                       class="sidebar-link">
-                                        {{__('Manuals')}}</a>
-                                </li>
-
-
-
-                                <li class="sidebar-item">
-                                    <a href="{{route('admin.customers.index')}}"
-                                       class="sidebar-link">
-                                        {{__
-                                    ('Customers')}}</a>
-                                </li>
-                            @endif
-                        @endauth
-
-                        <li class="sidebar-item">
-                            <a href="#" class="sidebar-link"> {{__
-                                    ('Units')}}</a>
-                        </li>
-
-                    </ul>
-                </li>
-
-
-                <li class="sidebar-item">
-                    <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#library"
-                       aria-expanded="false" aria-controls="library">
-                        <i class="fa-solid fa-book pe-2"></i>
-                        Library
-                    </a>
-                    <ul id="library" class="sidebar-dropdown
-                             collapse" data-bs-parent="#sidebar">
-                        <li class="sidebar-item">
-                            <a href="#" class="sidebar-link"> Materials</a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">
-                                {{__('Processes')}}</a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="#" class="sidebar-link"> ... News</a>
-                        </li>
-
-                    </ul>
-                </li>
 
             </ul>
 
         </div>
-{{--        <div class="sidebar">--}}
-{{--            <!-- Sidebar user panel (optional) -->--}}
-{{--            <div class="user-panel mt-3 pb-3 mb-3 d-flex">--}}
-{{--                <div class="image">--}}
-{{--                    <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">--}}
-{{--                </div>--}}
-{{--                <div class="info">--}}
-{{--                    <a href="#" class="d-block">Alexander Pierce</a>--}}
-{{--                </div>--}}
-{{--            </div>--}}
 
-{{--            <!-- SidebarSearch Form -->--}}
-{{--            <div class="form-inline">--}}
-{{--                <div class="input-group" data-widget="sidebar-search">--}}
-{{--                    <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">--}}
-{{--                    <div class="input-group-append">--}}
-{{--                        <button class="btn btn-sidebar">--}}
-{{--                            <i class="fas fa-search fa-fw"></i>--}}
-{{--                        </button>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
+        <div class="sidebar">
+            <!-- Sidebar user panel (optional) -->
+            <div class="user-panel  pb-3 mb-3 d-flex">
+                <div class="image">
+                    <img src="/avatars/{{ Auth::user()->avatar }}"
+                         class="img-circle me-4 elevation-2" alt="User Image">
+                </div>
+                <div class="dropdown">
+                    <a href="#" class="d-block dropdown-toggle" id="userDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {{ Auth::user()->name }}
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                        <a class="dropdown-item" href="{{ route('user.profile') }}">
+                            <i class="fas fa-user-circle mr-2"></i> Profile
+                        </a>
+                        <a class="dropdown-item" href="{{ route('logout') }}"
+                           onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            <i class="fas fa-sign-out-alt mr-2"></i> Logout
+                        </a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
+                    </div>
+                </div>
+            </div>
 
-{{--            <!-- Sidebar Menu -->--}}
-{{--@include('includes.sidebar')--}}
-{{--            <!-- /.sidebar-menu -->--}}
-{{--        </div>--}}
-        <!-- /.sidebar -->
+
+
+
+
+
+
+
+            <!-- Sidebar Menu -->
+        @include('includes.sidebar')
+            <!-- /.sidebar-menu -->
+        </div>
     </aside>
 
-    <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
 {{--        <div class="content-header">--}}
@@ -303,59 +263,68 @@
         <section class="content">
             <div class="container-fluid " >
 @include('includes.work_header')
+                @yield('content')
 
             </div><!-- /.container-fluid -->
         </section>
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
-    <footer class="main-footer">
-        <strong>Copyright &copy; 2024 <a href="#">Aviatechnik</a>.</strong>
-        All rights reserved.
-        <div class="float-right d-none d-sm-inline-block">
-            <b>Version</b> 0.0.1
-        </div>
-    </footer>
 
-    <!-- Control Sidebar -->
-    <aside class="control-sidebar control-sidebar-dark">
-        <!-- Control sidebar content goes here -->
-    </aside>
-    <!-- /.control-sidebar -->
-</div>
+    @include('includes.footer')
+
+
+    </div>
 <!-- ./wrapper -->
 
 <!-- jQuery -->
-<script src="plugins/jquery/jquery.min.js"></script>
+<script src={{asset("plugins/jquery/jquery.min.js")}}></script>
 <!-- jQuery UI 1.11.4 -->
-<script src="plugins/jquery-ui/jquery-ui.min.js"></script>
+<script src={{asset("plugins/jquery-ui/jquery-ui.min.js")}}></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
     $.widget.bridge('uibutton', $.ui.button)
 </script>
 <!-- Bootstrap 4 -->
-<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src={{asset("plugins/bootstrap/js/bootstrap.bundle.min.js")}}></script>
 <!-- ChartJS -->
-<script src="plugins/chart.js/Chart.min.js"></script>
+<script src={{asset("plugins/chart.js/Chart.min.js")}}></script>
 <!-- Sparkline -->
-<script src="plugins/sparklines/sparkline.js"></script>
+<script src={{asset("plugins/sparklines/sparkline.js")}}></script>
 <!-- JQVMap -->
-<script src="plugins/jqvmap/jquery.vmap.min.js"></script>
-<script src="plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+<script src={{asset("plugins/jqvmap/jquery.vmap.min.js")}}></script>
+<script src={{asset("plugins/jqvmap/maps/jquery.vmap.usa.js")}}></script>
 <!-- jQuery Knob Chart -->
-<script src="plugins/jquery-knob/jquery.knob.min.js"></script>
+<script src={{asset("plugins/jquery-knob/jquery.knob.min.js")}}></script>
 <!-- daterangepicker -->
-<script src="plugins/moment/moment.min.js"></script>
-<script src="plugins/daterangepicker/daterangepicker.js"></script>
+<script src={{asset("plugins/moment/moment.min.js")}}></script>
+<script src={{asset("plugins/daterangepicker/daterangepicker.js")}}></script>
 <!-- Tempusdominus Bootstrap 4 -->
-<script src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+<script src={{asset("plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js")}}></script>
 <!-- Summernote -->
-<script src="plugins/summernote/summernote-bs4.min.js"></script>
+<script src={{asset("plugins/summernote/summernote-bs4.min.js")}}></script>
 <!-- overlayScrollbars -->
-<script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+<script src={{asset("plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js")}}></script>
 <!-- AdminLTE App -->
-<script src="dist/js/adminlte.js"></script>
+<script src={{asset("dist/js/adminlte.js")}}></script>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const logoSmall = document.getElementById('logo-small');
+        const logoFull = document.getElementById('logo-full');
+        const sidebarToggleBtn = document.querySelector('[data-widget="pushmenu"]');
+
+        sidebarToggleBtn.addEventListener('click', function () {
+            if (logoSmall.style.display === 'none') {
+                logoSmall.style.display = 'block';
+                logoFull.style.display = 'none';
+            } else {
+                logoSmall.style.display = 'none';
+                logoFull.style.display = 'block';
+            }
+        });
+    });
+</script>
 
 </body>
 </html>

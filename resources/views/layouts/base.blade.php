@@ -113,44 +113,181 @@
 
     <!-- Main Sidebar Container -->
 
-    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <aside class="main-sidebar bg-secondary-subtle elevation-4">
 
             <!-- Brand Logo -->
-                    <a href="{{url('/')}}" class="brand-link">
-                        <img src="{{asset('image/AT_logo-rb.svg')}}" alt="AT" class="colored-svg">
-{{--                        <span class="brand-text font-weight-light"></span>--}}
-                    </a>
+            <div class="d-flex">
+                <a href="{{url('/')}}" class="brand-link">
+                <img src="{{asset('image/AT.png')}}" class="ms-3 " alt="AT" style="width: 36px; height: 36px">
+{{--                <span> "   "</span>--}}
+
+                    <img src="{{asset('image/AT_logo-rb.svg')}}" alt="AT" class="ms-1 colored-svg">
+                    {{--                        <span class="brand-text font-weight-light"></span>--}}
+                </a>
+            </div>
+
+
+
 
 
 
         <!-- Sidebar -->
-        <div class="sidebar">
-            <!-- Sidebar user panel (optional) -->
-            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                <div class="image">
-                    <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
-                </div>
-                <div class="info">
-                    <a href="#" class="d-block">Alexander Pierce</a>
-                </div>
-            </div>
+        <div class=" " >
+            <ul class="">
+                <!-- Authentication Links -->
+                @guest
+                    @if (Route::has('login'))
+                        <li class="sidebar-nav">
+                            <a class="sidebar-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                        </li>
+                    @endif
+                    @if (Route::has('register'))
+                        <li class="sidebar-nav">
+                            <a class="sidebar-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                        </li>
+                    @endif
+                @else
+                    <div class="dropdown show">
+                        <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <img src="/avatars/{{Auth::user()->avatar }}" class="rounded-circle " alt=" "
+                                 width="40">{{ Auth::user()->name }}
+                            <a class="text-white-50">
 
-            <!-- SidebarSearch Form -->
-            <div class="form-inline">
-                <div class="input-group" data-widget="sidebar-search">
-                    <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
-                    <div class="input-group-append">
-                        <button class="btn btn-sidebar">
-                            <i class="fas fa-search fa-fw"></i>
-                        </button>
+                            </a>
+
+
+
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <a  class="sidebar-link" href="{{route('user.profile')}}">
+                                <i class="fa-solid fa-list pe-2"></i>
+                                Profile
+                            </a>
+                            <a  class="sidebar-link" href="{{ route('logout') }}"
+                                onclick="event.preventDefault();
+                                                         document.getElementById('logout-form').submit();" aria-labelledby="dropdownMenuLink">
+                                <i class="fa-solid fa-outdent pe-2"></i>
+                                {{ __('Logout') }}
+                            </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
+                        </div>
                     </div>
-                </div>
-            </div>
+                @endguest
+            </ul>
 
-            <!-- Sidebar Menu -->
-@include('includes.sidebar')
-            <!-- /.sidebar-menu -->
+            <!--Sidebar navigation -->
+            <ul class="sidebar-nav ">
+                {{--                <li class="sidebar-header">--}}
+                {{--                    Tool--}}
+                {{--                </li>--}}
+
+                {{--                        <li class="sidebar-item">--}}
+                {{--                            <a href="#" class="sidebar-link">--}}
+                {{--                                <i class="fa-solid fa-list pe-2"></i>--}}
+                {{--                                __--}}
+                {{--                            </a>--}}
+                {{--                        </li>--}}
+
+                {{--                        <li class="sidebar-item">--}}
+                {{--                            <a href="#" class="sidebar-link">--}}
+                {{--                                <i class="fa-solid fa-gear pe-2"></i>--}}
+                {{--                                ___--}}
+                {{--                            </a>--}}
+                {{--                        </li>--}}
+
+
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#pages"
+                       aria-expanded="false" aria-controls="pages">
+                        <i class="fa-solid fa-gear pe-2"></i>
+                        {{__('Additions')}}
+                    </a>
+                    <ul id="pages" class="sidebar-dropdown  collapse" data-bs-parent="#sidebar">
+
+                        @auth
+                            @if(Auth::user()->admin)
+
+                                <li class="sidebar-item">
+                                    <a href="{{route('admin.cmms.index')}}"
+                                       class="sidebar-link">
+                                        {{__('Manuals')}}</a>
+                                </li>
+
+
+
+                                <li class="sidebar-item">
+                                    <a href="{{route('admin.customers.index')}}"
+                                       class="sidebar-link">
+                                        {{__
+                                    ('Customers')}}</a>
+                                </li>
+                            @endif
+                        @endauth
+
+                        <li class="sidebar-item">
+                            <a href="#" class="sidebar-link"> {{__
+                                    ('Units')}}</a>
+                        </li>
+
+                    </ul>
+                </li>
+
+
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#library"
+                       aria-expanded="false" aria-controls="library">
+                        <i class="fa-solid fa-book pe-2"></i>
+                        Library
+                    </a>
+                    <ul id="library" class="sidebar-dropdown
+                             collapse" data-bs-parent="#sidebar">
+                        <li class="sidebar-item">
+                            <a href="#" class="sidebar-link"> Materials</a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="#" class="sidebar-link">
+                                {{__('Processes')}}</a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="#" class="sidebar-link"> ... News</a>
+                        </li>
+
+                    </ul>
+                </li>
+
+            </ul>
+
         </div>
+{{--        <div class="sidebar">--}}
+{{--            <!-- Sidebar user panel (optional) -->--}}
+{{--            <div class="user-panel mt-3 pb-3 mb-3 d-flex">--}}
+{{--                <div class="image">--}}
+{{--                    <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">--}}
+{{--                </div>--}}
+{{--                <div class="info">--}}
+{{--                    <a href="#" class="d-block">Alexander Pierce</a>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+
+{{--            <!-- SidebarSearch Form -->--}}
+{{--            <div class="form-inline">--}}
+{{--                <div class="input-group" data-widget="sidebar-search">--}}
+{{--                    <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">--}}
+{{--                    <div class="input-group-append">--}}
+{{--                        <button class="btn btn-sidebar">--}}
+{{--                            <i class="fas fa-search fa-fw"></i>--}}
+{{--                        </button>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+
+{{--            <!-- Sidebar Menu -->--}}
+{{--@include('includes.sidebar')--}}
+{{--            <!-- /.sidebar-menu -->--}}
+{{--        </div>--}}
         <!-- /.sidebar -->
     </aside>
 

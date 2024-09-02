@@ -24,11 +24,9 @@
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Tempusdominus Bootstrap 4 -->
-    <link rel="stylesheet" href={{asset("plugins/tempusdominus-bootstrap-4/css
-    /tempusdominus-bootstrap-4.min.css")}}>
+    <link rel="stylesheet" href={{asset("plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css")}}>
     <!-- iCheck -->
-    <link rel="stylesheet" href={{asset("plugins/icheck-bootstrap/icheck
-    -bootstrap.min.css")}}>
+    <link rel="stylesheet" href={{asset("plugins/icheck-bootstrap/icheck-bootstrap.min.css")}}>
     <!-- JQVMap -->
     <link rel="stylesheet" href={{asset("plugins/jqvmap/jqvmap.min.css")}}>
     <!-- Theme style -->
@@ -37,10 +35,12 @@
     <link rel="stylesheet"
           href={{asset("plugins/overlayScrollbars/css/OverlayScrollbars.min.css")}}>
     <!-- Daterange picker -->
-{{--    <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">--}}
+    <link rel="stylesheet"
+          href={{asset("plugins/daterangepicker/daterangepicker.css")}}>
     <!-- summernote -->
     <link rel="stylesheet" href={{asset("plugins/summernote/summernote-bs4.min.css")}}>
 
+{{--    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">--}}
     <style>
         .colored-svg {
             width: 180px; /* Установите желаемую ширину */
@@ -232,10 +232,12 @@
 <!-- ./wrapper -->
 
 <!-- jQuery -->
-<script src={{asset("plugins/jquery/jquery.min.js")}}></script>
+{{--<script src={{asset("plugins/jquery/jquery.min.js")}}></script>--}}
 <!-- jQuery UI 1.11.4 -->
-<script src={{asset("plugins/jquery-ui/jquery-ui.min.js")}}></script>
+{{--<script src={{asset("plugins/jquery-ui/jquery-ui.min.js")}}></script>--}}
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+        <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+        <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 <script>
     $.widget.bridge('uibutton', $.ui.button)
 </script>
@@ -261,6 +263,7 @@
 <script src={{asset("plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js")}}></script>
 <!-- AdminLTE App -->
 <script src={{asset("dist/js/adminlte.js")}}></script>
+
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {

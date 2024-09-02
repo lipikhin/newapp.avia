@@ -1,7 +1,7 @@
 @extends('layouts.base')
 
 @section('content')
-{{--    @include('includes.work_header')--}}
+
     <div class="container">
         <div class="row ">
 
@@ -10,50 +10,64 @@
                 <a href="{{ route('admin.cmms.create') }}" style="width: 150px"
                    class="btn btn-primary justify-content-end mb-3">{{__('Create New CMM')}}</a>
 
-                <table class="table table-bordered">
-                    <thead>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Number</th>
+                    <th>Title</th>
+                    <th>Image</th>
+                    <th>Revision Date</th>
+                    <th>Library</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach($cmms as $cmm)
                     <tr>
-                        <th>Number</th>
-                        <th>Title</th>
-                        <th>Image</th>
-                        <th>Revision Date</th>
-{{--                        <th>Active</th>--}}
-                        <th>Library</th>
-{{--                        <th>Aircraft</th>--}}
-{{--                        <th>MFR</th>--}}
-{{--                        <th>Scope</th>--}}
-                        <th>Actions</th>
+                        <td>{{ $cmm->number }}</td>
+                        <td>{{ $cmm->title }}</td>
+                        <td>
+                            <img src="{{ asset('storage/image/cmm/' . $cmm->img) }}" alt="{{ $cmm->title }}" height="50" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#imageModal" data-img-url="{{ asset('storage/image/cmm/' . $cmm->img) }}">
+                        </td>
+                        <td>{{ $cmm->revision_date }}</td>
+                        <td>{{ $cmm->lib }}</td>
+                        <td>
+                            <a href="{{ route('admin.cmms.edit', $cmm->id) }}" class="btn btn-sm btn-warning">Edit</a>
+                            <form action="{{ route('admin.cmms.destroy', $cmm->id) }}" method="POST" style="display:inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                            </form>
+                        </td>
                     </tr>
-                    </thead>
-                    <tbody>
-                    @foreach($cmms as $cmm)
-                        <tr>
-                            <td>{{ $cmm->number }}</td>
-                            <td>{{ $cmm->title }}</td>
-                            <td>
-                                <img src="{{ asset('storage/image/cmm/' . $cmm->img) }}" alt="{{ $cmm->title }}" height="50" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#imageModal" data-img-url="{{ asset('storage/image/cmm/' . $cmm->img) }}">
-                            </td>
+                @endforeach
 
-                            <td>{{ $cmm->revision_date }}</td>
-{{--                            <td>{{ $cmm->active ? 'Yes' : 'No' }}</td>--}}
-                            <td>{{ $cmm->lib }}</td>
-{{--                            <td>{{ $cmm->airCraft->name }}</td>--}}
-{{--                            <td>{{ $cmm->mfr->name }}</td>--}}
-{{--                            <td>{{ $cmm->scope->name }}</td>--}}
-                            <td>
-                                <a href="{{ route('admin.cmms.edit', $cmm->id) }}"
-                                   class="btn btn-sm btn-warning">Edit</a>
-                                <form action="{{ route('admin.cmms.destroy', $cmm->id) }}"
-                                      method="POST" style="display:inline;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
-                                </form>
-                            </td>
-                        </tr>
-                    @endforeach
-                    </tbody>
-                </table>
+                <script>
+                    $(document).ready(function() {
+                        $('.table').DataTable({
+                            "language": {
+                                "search": "Search:", // Изменение текста в поле поиска
+                                "lengthMenu": "Show _MENU_ entries",
+                                "zeroRecords": "No matching records found",
+                                "info": "Showing _START_ to _END_ of _TOTAL_ entries",
+                                "infoEmpty": "No entries available",
+                                "infoFiltered": "(filtered from _MAX_ total entries)",
+                                "paginate": {
+                                    "first": "First",
+                                    "last": "Last",
+                                    "next": "Next",
+                                    "previous": "Previous"
+                                }
+                            }
+                        });
+                    });
+                </script>
+
+
+                </tbody>
+            </table>
+
+
 
         </div>
     </div>
@@ -76,6 +90,8 @@
 
 @endsection
 <script>
+
+
     document.addEventListener('DOMContentLoaded', function () {
         var imageModal = document.getElementById('imageModal');
         var modalImage = document.getElementById('modalImage');
@@ -87,4 +103,7 @@
             modalImage.src = imageUrl; // Установка URL изображения в модальном окне
         });
     });
+
+
+
 </script>

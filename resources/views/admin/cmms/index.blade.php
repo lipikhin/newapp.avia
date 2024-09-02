@@ -4,13 +4,11 @@
 
     <div class="container">
         <div class="row ">
+            <h1>CMMs</h1>
+            <a href="{{ route('admin.cmms.create') }}" style="width: 150px"
+               class="btn btn-primary justify-content-end mb-3">{{__('Create New CMM')}}</a>
 
-                <h1>CMMs</h1>
-
-                <a href="{{ route('admin.cmms.create') }}" style="width: 150px"
-                   class="btn btn-primary justify-content-end mb-3">{{__('Create New CMM')}}</a>
-
-            <table class="table table-bordered">
+            <table id="cmmTable" class="table table-bordered">
                 <thead>
                 <tr>
                     <th>Number</th>
@@ -41,69 +39,63 @@
                         </td>
                     </tr>
                 @endforeach
-
-                <script>
-                    $(document).ready(function() {
-                        $('.table').DataTable({
-                            "language": {
-                                "search": "Search:", // Изменение текста в поле поиска
-                                "lengthMenu": "Show _MENU_ entries",
-                                "zeroRecords": "No matching records found",
-                                "info": "Showing _START_ to _END_ of _TOTAL_ entries",
-                                "infoEmpty": "No entries available",
-                                "infoFiltered": "(filtered from _MAX_ total entries)",
-                                "paginate": {
-                                    "first": "First",
-                                    "last": "Last",
-                                    "next": "Next",
-                                    "previous": "Previous"
-                                }
-                            }
-                        });
-                    });
-                </script>
-
-
                 </tbody>
             </table>
 
-
-
         </div>
     </div>
-<!-- Modal -->
-<div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="imageModalLabel">{{ $cmm->title }}</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body text-center">
-                <img id="modalImage" src="" alt="Image" class="img-fluid">
+
+    <!-- Modal -->
+    <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="imageModalLabel">{{ $cmm->title }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <img id="modalImage" src="" alt="Image" class="img-fluid">
+                </div>
             </div>
         </div>
     </div>
-</div>
-
-
 
 @endsection
-<script>
 
+@section('scripts')
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 
-    document.addEventListener('DOMContentLoaded', function () {
-        var imageModal = document.getElementById('imageModal');
-        var modalImage = document.getElementById('modalImage');
-
-        imageModal.addEventListener('show.bs.modal', function (event) {
-            var button = event.relatedTarget; // Кнопка, которая открыла модальное окно
-            var imageUrl = button.getAttribute('data-img-url'); // Извлечение URL изображения из data-атрибута
-
-            modalImage.src = imageUrl; // Установка URL изображения в модальном окне
+    <script>
+        $(document).ready(function() {
+            $('#cmmTable').DataTable({
+                "language": {
+                    "search": "Search:", // Изменение текста в поле поиска
+                    "lengthMenu": "Show _MENU_ entries",
+                    "zeroRecords": "No matching records found",
+                    "info": "Showing _START_ to _END_ of _TOTAL_ entries",
+                    "infoEmpty": "No entries available",
+                    "infoFiltered": "(filtered from _MAX_ total entries)",
+                    "paginate": {
+                        "first": "First",
+                        "last": "Last",
+                        "next": "Next",
+                        "previous": "Previous"
+                    }
+                }
+            });
         });
-    });
 
+        document.addEventListener('DOMContentLoaded', function () {
+            var imageModal = document.getElementById('imageModal');
+            var modalImage = document.getElementById('modalImage');
 
+            imageModal.addEventListener('show.bs.modal', function (event) {
+                var button = event.relatedTarget;
+                var imageUrl = button.getAttribute('data-img-url');
 
-</script>
+                modalImage.src = imageUrl;
+            });
+        });
+    </script>
+@endsection

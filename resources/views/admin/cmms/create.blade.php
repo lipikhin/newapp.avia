@@ -174,6 +174,7 @@
     </div>
 
     <script>
+        // AirCraft
         document.getElementById('addAirCraftForm').addEventListener('submit', function(event) {
             event.preventDefault();
             if (this.submitted) {
@@ -192,10 +193,10 @@
                 .then(response => response.json())
                 .then(data => {
                     let airCraftSelect = document.getElementById('air_crafts_id');
-                    let newOption = new Option(data.type, data.id);
-                    airCraftSelect.add(newOption);
+                    airCraftSelect.innerHTML += `<option value="${data.id}">${data.type}</option>`;
                     airCraftSelect.value = data.id;
-                    $('#addAirCraftModal').modal('hide');
+                    $('#addAirCraftModal').modal('hide'); // Закрытие модального окна
+                    this.submitted = false; // Сбрасываем флаг отправки формы
                 })
                 .catch(error => {
                     console.error('Error:', error);
@@ -203,7 +204,7 @@
                 });
         });
 
-
+        // MFR
         document.getElementById('addMFRForm').addEventListener('submit', function(event) {
             event.preventDefault();
             if (this.submitted) {
@@ -222,14 +223,18 @@
                 .then(response => response.json())
                 .then(data => {
                     let mfrSelect = document.getElementById('m_f_r_s_id');
-                    let newOption = new Option(data.name, data.id);
-                    mfrSelect.add(newOption, undefined);
+                    mfrSelect.innerHTML += `<option value="${data.id}">${data.name}</option>`;
                     mfrSelect.value = data.id;
-                    $('#addMFRModal').modal('hide');
+                    $('#addMFRModal').modal('hide'); // Закрытие модального окна
+                    this.submitted = false; // Сбрасываем флаг отправки формы
                 })
-                .catch(error => console.error('Error:', error));
+                .catch(error => {
+                    console.error('Error:', error);
+                    this.submitted = false; // Сбрасываем флаг отправки формы в случае ошибки
+                });
         });
 
+        // Scope
         document.getElementById('addScopeForm').addEventListener('submit', function(event) {
             event.preventDefault();
             if (this.submitted) {
@@ -248,13 +253,18 @@
                 .then(response => response.json())
                 .then(data => {
                     let scopeSelect = document.getElementById('scopes_id');
-                    let newOption = new Option(data.scope, data.id);
-                    scopeSelect.add(newOption, undefined);
+                    scopeSelect.innerHTML += `<option value="${data.id}">${data.scope}</option>`;
                     scopeSelect.value = data.id;
-                    $('#addScopeModal').modal('hide');
+                    $('#addScopeModal').modal('hide'); // Закрытие модального окна
+                    this.submitted = false; // Сбрасываем флаг отправки формы
                 })
-                .catch(error => console.error('Error:', error));
+                .catch(error => {
+                    console.error('Error:', error);
+                    this.submitted = false; // Сбрасываем флаг отправки формы в случае ошибки
+                });
         });
+
+
     </script>
 @endsection
 

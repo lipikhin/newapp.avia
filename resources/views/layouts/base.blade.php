@@ -64,28 +64,28 @@
     </style>
 
 </head>
-<body class="hold-transition sidebar-mini layout-fixed">
-<div class="wrapper">
+    <body class="hold-transition sidebar-mini layout-fixed">
+        <div class="wrapper">
 
     <!-- Preloader -->
-    <div class="preloader flex-column justify-content-center align-items-center">
-        <img class="animation__shake" src="{{asset('image/AT.png')}}" alt="AT_Logo" height="60" width="60">
-    </div>
+        <div class="preloader flex-column justify-content-center align-items-center">
+            <img class="animation__shake" src="{{asset('image/AT.png')}}" alt="AT_Logo" height="60" width="60">
+        </div>
 
     <!-- Navbar -->
     <nav class="main-header navbar navbar-expand navbar-white navbar-light">
         <!-- Left navbar links -->
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-            </li>
-            <li class="nav-item d-none d-sm-inline-block">
-                <a href="#" class="nav-link">Home</a>
-            </li>
-            <li class="nav-item d-none d-sm-inline-block">
-                <a href="#" class="nav-link">Contact</a>
-            </li>
-        </ul>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+                </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="#" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="#" class="nav-link">Contact</a>
+                </li>
+            </ul>
 
         <!-- Right navbar links -->
         <ul class="navbar-nav ml-auto">
@@ -124,6 +124,7 @@
             </li>
 
         </ul>
+
     </nav>
     <!-- /.navbar -->
 
@@ -145,7 +146,6 @@
 
         </div>
 
-
         <!-- Sidebar -->
         <div class="" >
             <ul class="justify-content d-flex">
@@ -163,43 +163,6 @@
                     @endif
                 @else
 
-{{--                    <div class="user-panel mt-3  mb-3 ">--}}
-{{--                        <a>--}}
-{{--                            <div class="image">--}}
-{{--                                <img src="/avatars/{{Auth::user()->avatar }}" class="img-circle elevation-2" alt="User Image">--}}
-
-{{--                            </div>--}}
-{{--                            <div class="info">--}}
-{{--                                <a href="#" class="d-block">{{ Auth::user()->name }}</a>--}}
-{{--                            </div>--}}
-{{--                        </a>--}}
-
-
-{{--                    </div>--}}
-
-{{--                    <div class="dropdown show ">--}}
-{{--                        <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink"--}}
-{{--                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">--}}
-{{--                            <img src="/avatars/{{Auth::user()->avatar }}" class="rounded-circle " alt=" "--}}
-{{--                                 width="40">{{ Auth::user()->name }}--}}
-
-{{--                        </a>--}}
-{{--                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">--}}
-{{--                            <a  class="sidebar-link" href="{{route('user.profile')}}">--}}
-{{--                                <i class="fa-solid fa-list pe-2"></i>--}}
-{{--                                Profile--}}
-{{--                            </a>--}}
-{{--                            <a  class="sidebar-link" href="{{ route('logout') }}"--}}
-{{--                                onclick="event.preventDefault();--}}
-{{--                                                         document.getElementById('logout-form').submit();" aria-labelledby="dropdownMenuLink">--}}
-{{--                                <i class="fa-solid fa-outdent pe-2"></i>--}}
-{{--                                {{ __('Logout') }}--}}
-{{--                            </a>--}}
-{{--                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">--}}
-{{--                                @csrf--}}
-{{--                            </form>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
                 @endguest
 
             </ul>
@@ -207,43 +170,35 @@
             <!--Sidebar navigation -->
             <ul class="">
 
-
-
             </ul>
 
         </div>
 
-        <div class="sidebar">
+            <div class="sidebar">
             <!-- Sidebar user panel (optional) -->
-            <div class="user-panel  pb-3 mb-3 d-flex">
-                <div class="image">
-                    <img src="/avatars/{{ Auth::user()->avatar }}"
-                         class="img-circle me-4 elevation-2" alt="User Image">
-                </div>
-                <div class="dropdown">
-                    <a href="#" class="d-block dropdown-toggle" id="userDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        {{ Auth::user()->name }}
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                        <a class="dropdown-item" href="{{ route('user.profile') }}">
-                            <i class="fas fa-user-circle mr-2"></i> Profile
-                        </a>
-                        <a class="dropdown-item" href="{{ route('logout') }}"
-                           onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                            <i class="fas fa-sign-out-alt mr-2"></i> Logout
-                        </a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                            @csrf
-                        </form>
+                <div class="user-panel  pb-3 mb-3 d-flex">
+                    <div class="image">
+                        <img src="/avatars/{{ Auth::user()->avatar }}"
+                             class="img-circle me-4 elevation-2" alt="User Image">
                     </div>
-                </div>
+                    <div class="dropdown">
+                        <a href="#" class="d-block dropdown-toggle" id="userDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {{ Auth::user()->name }}
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                            <a class="dropdown-item" href="{{ route('user.profile') }}">
+                                <i class="fas fa-user-circle mr-2"></i> Profile
+                            </a>
+                            <a class="dropdown-item" href="{{ route('logout') }}"
+                               onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                <i class="fas fa-sign-out-alt mr-2"></i> Logout
+                            </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
+                        </div>
+                    </div>
             </div>
-
-
-
-
-
-
 
 
             <!-- Sidebar Menu -->
@@ -252,24 +207,23 @@
         </div>
     </aside>
 
-    <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
-{{--        <div class="content-header">--}}
+        <div class="content-wrapper">
 
-{{--        </div>--}}
-        <!-- /.content-header -->
 
-        <!-- Main content -->
-        <section class="content">
-            <div class="container-fluid " >
-@include('includes.work_header')
-                @yield('content')
+            <!-- Main content -->
+            <section class="content">
 
-            </div><!-- /.container-fluid -->
-        </section>
-        <!-- /.content -->
-    </div>
-    <!-- /.content-wrapper -->
+                <div class="container-fluid " >
+
+                    @include('includes.work_header')
+                    @yield('content')
+
+                </div>
+
+            </section>
+
+        </div>
+
 
     @include('includes.footer')
 

@@ -30,7 +30,10 @@
                         <tr>
                             <td>{{ $cmm->number }}</td>
                             <td>{{ $cmm->title }}</td>
-                            <td><img src="{{ asset('storage/' . $cmm->img) }}" alt="{{ $cmm->title }}" height="50"></td>
+                            <td>
+                                <img src="{{ asset('storage/image/cmm/' . $cmm->img) }}" alt="{{ $cmm->title }}" height="50" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#imageModal" data-img-url="{{ asset('storage/image/cmm/' . $cmm->img) }}">
+                            </td>
+
                             <td>{{ $cmm->revision_date }}</td>
 {{--                            <td>{{ $cmm->active ? 'Yes' : 'No' }}</td>--}}
                             <td>{{ $cmm->lib }}</td>
@@ -54,5 +57,34 @@
 
         </div>
     </div>
+<!-- Modal -->
+<div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="imageModalLabel">{{ $cmm->title }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                <img id="modalImage" src="" alt="Image" class="img-fluid">
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
 @endsection
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var imageModal = document.getElementById('imageModal');
+        var modalImage = document.getElementById('modalImage');
+
+        imageModal.addEventListener('show.bs.modal', function (event) {
+            var button = event.relatedTarget; // Кнопка, которая открыла модальное окно
+            var imageUrl = button.getAttribute('data-img-url'); // Извлечение URL изображения из data-атрибута
+
+            modalImage.src = imageUrl; // Установка URL изображения в модальном окне
+        });
+    });
+</script>

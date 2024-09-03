@@ -11,7 +11,7 @@
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
-{{--    <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">--}}
+    <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
@@ -38,8 +38,10 @@
           href={{asset("plugins/daterangepicker/daterangepicker.css")}}>
 {{--    <!-- summernote -->--}}
     <link rel="stylesheet" href={{asset("plugins/summernote/summernote-bs4.min.css")}}>
+{{--    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2--}}
+{{--    .9/css/responsive.dataTables.min.css">--}}
 
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+
     <style>
         .colored-svg {
             width: 180px; /* Установите желаемую ширину */
@@ -262,6 +264,7 @@
 <script src={{asset("plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js")}}></script>
 <!-- AdminLTE App -->
 <script src={{asset("dist/js/adminlte.js")}}></script>
+{{--        <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>--}}
 
 
 <script>
@@ -281,6 +284,6 @@
         });
     });
 </script>
-
+        @stack('scripts')
 </body>
 </html>

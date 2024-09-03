@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\MFRController;
 use App\Http\Controllers\Admin\ScopeController;
 //use App\Http\Controllers\Admin\UnitController;
 //use App\Http\Controllers\Admin\WorkOrderController;
+use App\Http\Controllers\Admin\UsersController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->middleware(['auth'])->group(function (){
@@ -82,5 +83,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function (){
 //        'update'])->name('admin.units.update');
 //    Route::delete('units/{unit}',[UnitController::class,
 //        'destroy'])->name('admin.units.destroy');
+
+    Route::get('/users', [UsersController::class, 'index'])->name('admin.users.index');
 
 });

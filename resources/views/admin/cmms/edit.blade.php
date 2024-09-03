@@ -13,47 +13,50 @@
     <div class="container">
         <div class="card">
             <div class="card-header">
-                Создать новый CMM
+                Редактировать CMM: {{ $cmm->number }}
             </div>
 
             <div class="card-body">
-                <form method="POST" action="{{ route('admin.cmms.store') }}" enctype="multipart/form-data" id="createCMMForm">
+                <form method="POST" action="{{ route('admin.cmms.update', $cmm->id) }}" enctype="multipart/form-data" id="editCMMForm">
                     @csrf
+                    @method('PUT')
 
                     <div class="form-group">
                         <div>
                             <label for="wo">{{ __('Номер CMM') }}</label>
-                            <input id='wo' type="text" class="form-control" name="number" required>
+                            <input id='wo' type="text" class="form-control" name="number" value="{{ old('number', $cmm->number) }}" required>
                             @error('number')
                             <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="mt-2">
                             <label for="title">{{ __('Название') }}</label>
-                            <input id='title' type="text" class="form-control" name="title" required>
+                            <input id='title' type="text" class="form-control" name="title" value="{{ old('title', $cmm->title) }}" required>
                         </div>
 
                         <div class="col-xs-12 col-sm-12 col-md-12 mt-2">
                             <div class="form-group">
                                 <strong>Изображение:</strong>
                                 <input type="file" name="img" class="form-control" placeholder="изображение">
+                                <small>Оставьте пустым, если не хотите менять изображение.</small>
                             </div>
                         </div>
 
                         <div class="mt-2">
                             <label for="revision_date">{{ __('Дата ревизии') }}</label>
-                            <input id='revision_date' type="date" class="form-control" name="revision_date" required>
+                            <input id='revision_date' type="date" class="form-control" name="revision_date" value="{{ old('revision_date', $cmm->revision_date) }}" required>
                         </div>
 
                         <div class="form-group mt-2">
-                            <label for="air_crafts_id">{{ __('Самолет') }}</label>
+                            <label for="air_crafts_id">{{ __('Air Craft')
+                            }}</label>
                             <select id="air_crafts_id" name="air_crafts_id" class="form-control" required>
                                 <option value="">{{ __('Выберите самолет') }}</option>
                                 @foreach ($airCrafts as $airCraft)
-                                    <option value="{{ $airCraft->id }}">{{ $airCraft->type }}</option>
+                                    <option value="{{ $airCraft->id }}" {{ $airCraft->id == $cmm->air_crafts_id ? 'selected' : '' }}>{{ $airCraft->type }}</option>
                                 @endforeach
                             </select>
-                            <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#addAirCraftModal">{{ __('Добавить самолет') }}</button>
+{{--                            <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#addAirCraftModal">{{ __('Добавить самолет') }}</button>--}}
                         </div>
 
                         <div class="form-group mt-2">
@@ -61,10 +64,10 @@
                             <select id="m_f_r_s_id" name="m_f_r_s_id" class="form-control" required>
                                 <option value="">{{ __('Выберите MFR') }}</option>
                                 @foreach ($mfrs as $mfr)
-                                    <option value="{{ $mfr->id }}">{{ $mfr->name }}</option>
+                                    <option value="{{ $mfr->id }}" {{ $mfr->id == $cmm->m_f_r_s_id ? 'selected' : '' }}>{{ $mfr->name }}</option>
                                 @endforeach
                             </select>
-                            <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#addMFRModal">{{ __('Добавить MFR') }}</button>
+{{--                            <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#addMFRModal">{{ __('Добавить MFR') }}</button>--}}
                         </div>
 
                         <div class="form-group mt-2">
@@ -72,20 +75,20 @@
                             <select id="scopes_id" name="scopes_id" class="form-control" required>
                                 <option value="">{{ __('Выберите Scope') }}</option>
                                 @foreach ($scopes as $scope)
-                                    <option value="{{ $scope->id }}">{{ $scope->scope }}</option>
+                                    <option value="{{ $scope->id }}" {{ $scope->id == $cmm->scopes_id ? 'selected' : '' }}>{{ $scope->scope }}</option>
                                 @endforeach
                             </select>
-                            <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#addScopeModal">{{ __('Добавить Scope') }}</button>
+{{--                            <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#addScopeModal">{{ __('Добавить Scope') }}</button>--}}
                         </div>
 
                         <div class="mt-2">
                             <label for="lib">{{ __('Номер библиотеки') }}</label>
-                            <input id='lib' type="text" class="form-control" name="lib" required>
+                            <input id='lib' type="text" class="form-control" name="lib" value="{{ old('lib', $cmm->lib) }}" required>
                         </div>
                     </div>
 
                     <button type="submit" class="btn btn-primary mt-3">
-                        {{ __('Создать') }}
+                        {{ __('Сохранить изменения') }}
                     </button>
                 </form>
             </div>
@@ -172,11 +175,6 @@
         function handleFormSubmission(formId, route, selectId, dataKey, dataValue) {
             document.getElementById(formId).addEventListener('submit', function(event) {
                 event.preventDefault();
-                if (this.submitted) {
-                    return;
-                }
-                this.submitted = true;
-
                 let formData = new FormData(this);
                 fetch(route, {
                     method: 'POST',
@@ -187,13 +185,11 @@
                 })
                     .then(response => response.json())
                     .then(data => {
-                        // Добавить новый вариант в селект
                         let select = document.getElementById(selectId);
                         let option = document.createElement('option');
                         option.value = data[dataKey];
                         option.text = data[dataValue];
                         select.add(option);
-                        // Закрыть модальное окно
                         let modal = bootstrap.Modal.getInstance(document.getElementById(formId));
                         modal.hide();
                     })
@@ -201,7 +197,6 @@
             });
         }
 
-        // Вызов функции для каждой модальной формы
         handleFormSubmission('addAirCraftForm', '{{ route('admin.aircrafts.store') }}', 'air_crafts_id', 'id', 'type');
         handleFormSubmission('addMFRForm', '{{ route('admin.mfrs.store') }}', 'm_f_r_s_id', 'id', 'name');
         handleFormSubmission('addScopeForm', '{{ route('admin.scopes.store') }}', 'scopes_id', 'id', 'scope');

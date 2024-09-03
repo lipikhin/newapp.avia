@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\DataTables\CmmDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\AirCraft;
 use App\Models\CMM;
@@ -18,13 +19,14 @@ class CmmController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(CmmDataTable $dataTable)
     {
-
-        $cmms = Cmm::with(['airCraft', 'mfr', 'scope'])->get(); // Загружаем
-        // связанные модели
-        return view('admin.cmms.index', compact('cmms'));
+        return $dataTable->render('admin.cmms.index');
     }
+//        $cmms = Cmm::with(['airCraft', 'mfr', 'scope'])->get(); // Загружаем
+//        // связанные модели
+//        return view('admin.cmms.index', compact('cmms'));
+
 
 
     /**
@@ -90,24 +92,62 @@ class CmmController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+
+    // Edit method
+    public function edit($id)
     {
-        //
+        $cmm = Cmm::findOrFail($id);
+        $airCrafts = AirCraft::all(); // Получаем все записи из таблицы AirCraft
+        $mfrs = Mfr::all(); // Получаем все записи из таблицы MFR
+        $scopes = Scope::all(); // Получаем все записи из таблицы Scope
+
+        return view('admin.cmms.edit', compact('cmm', 'airCrafts', 'mfrs', 'scopes'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+
+// Update method
+    public function update(Request $request, $id)
     {
-        //
+        $cmm = Cmm::findOrFail($id);
+
+        // Пример валидации, добавьте свои правила
+        $request->validate([
+            'number' => 'required|string|max:255',
+            'title' => 'required|string|max:255',
+            // Добавьте другие поля по мере необходимости
+        ]);
+
+        $cmm->update($request->all());
+        return redirect()->route('admin.cmms.index')->with('success', 'CMM updated successfully');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+
+// Destroy method
+    public function destroy($id)
     {
-        //
+        $cmm = Cmm::findOrFail($id);
+        $cmm->delete();
+        return redirect()->route('admin.cmms.index')->with('success', 'CMM deleted successfully');
     }
+
+//    public function edit(string $id)
+//    {
+//        //
+//    }
+//
+//    /**
+//     * Update the specified resource in storage.
+//     */
+//    public function update(Request $request, string $id)
+//    {
+//        //
+//    }
+//
+//    /**
+//     * Remove the specified resource from storage.
+//     */
+//    public function destroy(string $id)
+//    {
+//        //
+//    }
 }

@@ -4,9 +4,11 @@ use App\Http\Controllers\Admin\AirCraftController;
 use App\Http\Controllers\Admin\CmmController;
 use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\MFRController;
+use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\ScopeController;
 //use App\Http\Controllers\Admin\UnitController;
 //use App\Http\Controllers\Admin\WorkOrderController;
+use App\Http\Controllers\Admin\TeamController;
 use App\Http\Controllers\Admin\UsersController;
 use Illuminate\Support\Facades\Route;
 
@@ -85,5 +87,11 @@ Route::prefix('admin')->middleware(['auth'])->group(function (){
 //        'destroy'])->name('admin.units.destroy');
 
     Route::get('/users', [UsersController::class, 'index'])->name('admin.users.index');
+
+// Маршруты для обновления ролей и команд
+    Route::post('/admin/users/{id}/update-role', [UsersController::class, 'updateRole'])->name('users.updateRole');
+    Route::post('/admin/users/{id}/update-team', [UsersController::class, 'updateTeam'])->name('users.updateTeam');
+
+// М
 
 });

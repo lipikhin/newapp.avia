@@ -22,14 +22,44 @@ class UsersDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('avatar', function($user) {
-                $imageUrl = asset('avatars/' . $user->avatar);
-                return '<img src="'.$imageUrl.'" alt="'.$user->name.'" height="50" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#imageModal" data-img-url="'.$imageUrl.'">';
+            ->addColumn('roles_id', function ($user) {
+                return $this->getRoleSelect($user->roles_id, $user->id);
+            })
+            ->addColumn('teams_id', function ($user) {
+                return $this->getTeamSelect($user->teams_id, $user->id);
             })
             ->addColumn('action', 'users.action')
             ->setRowId('id')
-            ->rawColumns(['avatar', 'action']);
+            ->rawColumns(['avatar', 'is_admin', 'roles_id', 'teams_id', 'action']);
     }
+
+    protected function getRoleSelect($currentRoleId, $userId)
+    {
+        $roles = \App\Models\Role::all();
+        $options = '<select class="form-select change-role" data-id="' . $userId . '">';
+        $options .= '<option value="">Select Role</option>';
+        foreach ($roles as $role) {
+            $selected = $role->id == $currentRoleId ? 'selected' : '';
+            $options .= '<option value="' . $role->id . '" ' . $selected . '>' . $role->name . '</option>';
+        }
+        $options .= '</select>';
+        return $options;
+    }
+
+    protected function getTeamSelect($currentTeamId, $userId)
+    {
+        $teams = \App\Models\Team::all();
+        $options = '<select class="form-select change-team" data-id="' . $userId . '">';
+        $options .= '<option value="">Select Team</option>';
+        foreach ($teams as $team) {
+            $selected = $team->id == $currentTeamId ? 'selected' : '';
+            $options .= '<option value="' . $team->id . '" ' . $selected . '>' . $team->name . '</option>';
+        }
+        $options .= '</select>';
+        return $options;
+    }
+
+
 
 
     /**
@@ -73,10 +103,13 @@ class UsersDataTable extends DataTable
             // Обозначение
             // столбца
             // с аватаром
-            Column::make('name'),
-            Column::make('email'),
-            Column::make('phone'),
-            Column::make('stamp'),
+            Column::make('name')->title('Name'),
+            Column::make('email')->title('Email'),
+            Column::make('is_admin')->title('Admin'),
+            Column::make('roles.id')->title('Role'),
+            Column::make('teams_id')->title('Team'),
+            Column::make('phone')->title('Phone'),
+            Column::make('stamp')->title('Stamp'),
 //            Column::make('created_at'),
 //            Column::make('updated_at'),
         ];

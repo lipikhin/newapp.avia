@@ -87,8 +87,11 @@ Route::prefix('admin')->middleware(['auth'])->group(function (){
 //        'destroy'])->name('admin.units.destroy');
 
     Route::get('/users', [UsersController::class, 'index'])->name('admin.users.index');
+    Route::get('/users/create', [UsersController::class, 'create'])->name('admin.users.create');
+
     Route::get('/users/{users}/edit', [UsersController::class, 'edit'])->name
     ('admin.users.edit');
+    Route::post('users',[UsersController::class,'store'])->name('admin.users.store');
     Route::delete('/users/{users}', [UsersController::class, 'destroy'])->name
     ('admin.users.destroy');
 

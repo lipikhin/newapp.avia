@@ -2,57 +2,66 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\DataTables\UsersDataTable;
+
 use App\Http\Controllers\Controller;
+use App\Models\Role;
+use App\Models\Team;
 use App\Models\User;
 use Illuminate\Http\Request;
 
 class UsersController extends Controller
 {
-    public function index(UsersDataTable $id)
+//    public function __construct()
+//    {
+//        $this->middleware('auth');
+//    }
+
+    public function index()
     {
-
-        $user = User::findOrFail($id);
-
-
-        return view('admin.users.index', compact('user'));
+        $users = User::all(); // или использовать пагинацию: User::paginate(10);
 
 
-//        return $dataTable->render('admin.users.index');
+        return view('admin.users.index', compact('users'));
     }
 
-//    public function updateRole(Request $request, $id)
-//    {
-//        $user = User::findOrFail($id);
-//        $user->roles()->sync([$request->input('role_id')]);
-//
-//        return response()->json(['success' => 'Role updated successfully']);
-//    }
-//
-//    public function updateTeam(Request $request, $id)
-//    {
-//        $user = User::findOrFail($id);
-//        $user->teams_id = $request->input('team_id');
-//        $user->save();
-//
-//        return response()->json(['success' => 'Team updated successfully']);
-//    }
-//    public function updateAvatar(Request $request)
-//    {
-//        $request->validate([
-//            'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-//        ]);
-//
-//        $user = User::findOrFail($request->user_id);
-//
-//        if ($request->hasFile('avatar')) {
-//            $avatarName = time().'.'.$request->avatar->extension();
-//            $request->avatar->move(public_path('avatars'), $avatarName);
-//            $user->avatar = $avatarName;
-//            $user->save();
-//        }
-//
-//        return redirect()->route('admin.users.index')->with('success', 'Аватар успешно обновлен');
-//    }
+    public function create()
+    {
+        $roles = Role::all();
+        $teams = Team::all();
+
+
+
+
+        return view('admin.users.create', compact('roles', 'teams'));
+    }
+
+    public function store(Request $request)
+    {
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+            'avatar' => 'image|nullable',
+            'roles_id' => 'nullable|exists:roles,id',
+            'teams_id' => 'nullable|exists:teams,id',
+            'phone' => 'nullable',
+            'stamp' => 'nullable',
+        ]);
+
+        // Проверка аватара
+        if ($request->hasFile('avatar')) {
+            $avatarName = time() . '.' . $request->avatar->getClientOriginalExtension();
+            $request->avatar->storeAs('avatars/', $avatarName, 'public');
+            $validatedData['avatar'] = $avatarName;
+        }
+
+        try {
+            User::create($validatedData);
+            return redirect()->route('admin.users.index')->with('success', 'Пользователь успешно создан.');
+        } catch (\Exception $e) {
+            return redirect()->back()->withInput()->withErrors(['error' => 'Не удалось создать пользователя: ' . $e->getMessage()]);
+        }
+    }
+
+
 
 }

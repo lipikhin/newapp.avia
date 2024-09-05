@@ -87,6 +87,11 @@ Route::prefix('admin')->middleware(['auth'])->group(function (){
 //        'destroy'])->name('admin.units.destroy');
 
     Route::get('/users', [UsersController::class, 'index'])->name('admin.users.index');
+    Route::get('/users/{users}/edit', [UsersController::class, 'edit'])->name
+    ('admin.users.edit');
+    Route::delete('/users/{users}', [UsersController::class, 'destroy'])->name
+    ('admin.users.destroy');
+
 
 // Маршруты для обновления ролей и команд
     Route::post('/admin/users/{id}/update-role', [UsersController::class, 'updateRole'])->name('users.updateRole');

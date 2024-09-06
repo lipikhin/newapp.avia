@@ -55,16 +55,20 @@ class UsersController extends Controller
         $validatedData['password'] = Hash::make($request->password);
 
         try {
-            // Создание пользователя
+            \Log::info('Создание пользователя с данными: ', $validatedData);
             User::create($validatedData);
-
             return redirect()->route('admin.users.index')->with('success', 'Пользователь успешно создан.');
         } catch (\Exception $e) {
+            \Log::error('Ошибка при создании пользователя: ', [
+                'message' => $e->getMessage(),
+                'data' => $validatedData,
+                'trace' => $e->getTrace(),
+            ]);
             return redirect()->back()->withInput()->withErrors(['error' => 'Не удалось создать пользователя: ' . $e->getMessage()]);
         }
+
+
     }
 
 
-
-
-}
+    }

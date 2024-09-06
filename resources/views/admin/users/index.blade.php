@@ -88,8 +88,8 @@
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
                             <td>{{ $user->is_admin ? 'Yes' : 'No' }}</td>
-                            <td>{{ $user->roles_id }}</td>
-                            <td>{{ $user->teams_id }}</td>
+                            <td>{{ $user->role->name ?? 'No Role' }}</td> <!-- Используйте роль -->
+                            <td>{{ $user->team->name ?? 'No Team' }}</td> <!-- Используйте команду -->
                             <td>{{ $user->phone }}</td>
                             <td>{{ $user->stamp }}</td>
                             <td>
@@ -103,6 +103,7 @@
                         </tr>
                     @endforeach
                     </tbody>
+
                 </table>
             </div>
         </div>

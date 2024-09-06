@@ -70,6 +70,7 @@ class CmmController extends Controller
             }
 
             try {
+
                 // Создание новой записи в базе данных
                 CMM::create($validatedData);
                 // Перенаправление пользователя на страницу со списком CMM с сообщением об успешном создании

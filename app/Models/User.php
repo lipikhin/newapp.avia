@@ -18,10 +18,22 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array<int, string>
      */
     protected $fillable = [
-        'name', 'email', 'password', 'avatar', 'roles_id', 'teams_id', 'phone', 'stamp',
+        'name', 'email',
+        'password', 'avatar',
+        'roles_id', 'teams_id',
+        'phone', 'stamp',
 
 
     ];
+    public function role()
+    {
+        return $this->belongsTo(Role::class, 'roles_id');
+    }
+
+    public function team()
+    {
+        return $this->belongsTo(Team::class, 'teams_id');
+    }
 
     /**
      * The attributes that should be hidden for serialization.

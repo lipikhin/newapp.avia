@@ -30,10 +30,20 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        $role = Role::create(['name' => $request->input('roleName')]);
+        // Валидация данных
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
 
-        return response()->json(['success' => 'Role added successfully']);
+        // Создание новой роли
+        Role::create([
+            'name' => $request->name,
+        ]);
+
+        // Перенаправление с сообщением об успехе
+        return redirect()->back()->with('success', 'Role added successfully.');
     }
+
     /**
      * Display the specified resource.
      */

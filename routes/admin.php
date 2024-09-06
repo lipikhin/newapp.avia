@@ -6,11 +6,12 @@ use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\MFRController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\ScopeController;
-//use App\Http\Controllers\Admin\UnitController;
-//use App\Http\Controllers\Admin\WorkOrderController;
 use App\Http\Controllers\Admin\TeamController;
 use App\Http\Controllers\Admin\UsersController;
 use Illuminate\Support\Facades\Route;
+
+//use App\Http\Controllers\Admin\UnitController;
+//use App\Http\Controllers\Admin\WorkOrderController;
 
 Route::prefix('admin')->middleware(['auth'])->group(function (){
 
@@ -88,17 +89,18 @@ Route::prefix('admin')->middleware(['auth'])->group(function (){
 
     Route::get('/users', [UsersController::class, 'index'])->name('admin.users.index');
     Route::get('/users/create', [UsersController::class, 'create'])->name('admin.users.create');
+    Route::post('/users',[UsersController::class,'store'])->name('admin.users.store');
 
     Route::get('/users/{users}/edit', [UsersController::class, 'edit'])->name
     ('admin.users.edit');
-    Route::post('users',[UsersController::class,'store'])->name('admin.users.store');
     Route::delete('/users/{users}', [UsersController::class, 'destroy'])->name
     ('admin.users.destroy');
 
 
-// Маршруты для обновления ролей и команд
-    Route::post('/admin/users/{id}/update-role', [UsersController::class, 'updateRole'])->name('users.updateRole');
-    Route::post('/admin/users/{id}/update-team', [UsersController::class, 'updateTeam'])->name('users.updateTeam');
+
+
+    Route::post('/roles/store', [RoleController::class, 'store'])->name('admin.roles.store');
+    Route::post('/teams/store', [TeamController::class, 'store'])->name('admin.teams.store');
 
 // М
 

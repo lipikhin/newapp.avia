@@ -49,10 +49,14 @@
 
     <div class="container">
         <div class="card">
-            <div class="d-flex card-header justify-content-between">
-                <div> {{__('Manage Users')}} </div>
-                <a href="{{ route('admin.users.create') }}" style="width: 150px"
-                   class="btn btn-primary mb-3">{{__('New User')}}</a>
+            <div class="card-header">
+                <div class="d-flex justify-content-between">
+                    <h3>{{__('Users')}}</h3>
+                                    <a href="{{ route('admin.users.create') }}" class="btn btn-primary mb-3">
+                        {{ __('Create User') }}
+                    </a>
+                </div>
+
             </div>
             <div class="card-body">
                 <table

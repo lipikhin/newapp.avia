@@ -30,18 +30,32 @@ class TeamController extends Controller
      */
     public function store(Request $request)
     {
-        // Валидация данных
-        $request->validate([
-            'name' => 'required|string|max:255',
-        ]);
+        try {
+            $request->validate([
+                'name' => 'required|string|max:255|unique:teams,name',
+            ]);
 
-        // Создание новой роли
-        Team::create([
-            'name' => $request->name,
-        ]);
+            $team = Team::create($request->only('name'));
 
-        // Перенаправление с сообщением об успехе
-        return redirect()->back()->with('success', 'Team added successfully.');
+            return response()->json([
+                'id' => $team->id,
+                'name' => $team->name
+            ]);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+//        // Валидация данных
+//        $request->validate([
+//            'name' => 'required|string|max:255',
+//        ]);
+//
+//        // Создание новой роли
+//        Team::create([
+//            'name' => $request->name,
+//        ]);
+//
+//        // Перенаправление с сообщением об успехе
+//        return redirect()->back()->with('success', 'Team added successfully.');
     }
 
     /**

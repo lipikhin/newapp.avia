@@ -28,21 +28,51 @@ class RoleController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+
+        public function store(Request $request)
     {
-        // Валидация данных
-        $request->validate([
-            'name' => 'required|string|max:255',
-        ]);
+        try {
+            $request->validate([
+                'name' => 'required|string|max:255',
+            ]);
 
-        // Создание новой роли
-        Role::create([
-            'name' => $request->name,
-        ]);
+            $role = Role::create($request->only('name'));
 
-        // Перенаправление с сообщением об успехе
-        return redirect()->back()->with('success', 'Role added successfully.');
+            return response()->json([
+                'id' => $role->id,
+                'name' => $role->name,
+            ]);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+
+//        $request->validate([
+//            'name' => 'required|string|max:255',
+//        ]);
+//
+//        $role = Role::create($request->only('name'));
+//
+//        return response()->json([
+//            'id' => $role->id,
+//            'name' => $role->name,
+//        ]);
     }
+
+
+
+//        // Валидация данных
+//        $request->validate([
+//            'name' => 'required|string|max:255',
+//        ]);
+//
+//        // Создание новой роли
+//        Role::create([
+//            'name' => $request->name,
+//        ]);
+//
+//        // Перенаправление с сообщением об успехе
+//        return redirect()->back()->with('success', 'Role added successfully.');
+
 
     /**
      * Display the specified resource.

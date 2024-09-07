@@ -102,6 +102,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function (){
 
 
     Route::post('/roles/store', [RoleController::class, 'store'])->name('admin.roles.store');
+
     Route::post('/teams/store', [TeamController::class, 'store'])->name('admin.teams.store');
 
 // М

@@ -179,7 +179,7 @@
             <!-- Sidebar user panel (optional) -->
                 <div class="user-panel  pb-3 mb-3 d-flex">
                     <div class="image">
-                        <img src="/avatars/{{ Auth::user()->avatar }}"
+                        <img src="/storage/avatars/{{ Auth::user()->avatar }}"
                              class="img-circle me-4 elevation-2" alt="User Image">
                     </div>
                     <div class="dropdown">
@@ -264,7 +264,6 @@
 <script src={{asset("plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js")}}></script>
 <!-- AdminLTE App -->
 <script src={{asset("dist/js/adminlte.js")}}></script>
-{{--        <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>--}}
 
 
 <script>

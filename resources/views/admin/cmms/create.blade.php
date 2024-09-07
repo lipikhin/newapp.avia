@@ -46,9 +46,11 @@
                         </div>
 
                         <div class="form-group mt-2">
-                            <label for="air_crafts_id">{{ __('Самолет') }}</label>
+                            <label for="air_crafts_id">{{ __('AirCraft')
+                            }}</label>
                             <select id="air_crafts_id" name="air_crafts_id" class="form-control" required>
-                                <option value="">{{ __('Выберите самолет') }}</option>
+                                <option value="">{{ __('Select AirCraft')
+                                }}</option>
                                 @foreach ($airCrafts as $airCraft)
                                     <option value="{{ $airCraft->id }}">{{ $airCraft->type }}</option>
                                 @endforeach

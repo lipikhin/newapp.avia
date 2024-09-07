@@ -9,6 +9,7 @@ use App\Models\Team;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class UsersController extends Controller
 {
@@ -40,42 +41,46 @@ class UsersController extends Controller
     }
     public function update(Request $request, $id)
     {
-        // Находим пользователя по ID
         $user = User::findOrFail($id);
 
-        // Валидация данных
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,' . $user->id,
             'password' => 'nullable|string|min:6',
-            'roles_id' => 'required',
-            'teams_id' => 'required',
+            'roles_id' => 'nullable',
+            'teams_id' => 'nullable',
             'phone' => 'nullable|string|max:20',
             'stamp' => 'nullable|string|max:255',
         ]);
 
-        // Обновление данных пользователя
         $user->name = $request->name;
         $user->email = $request->email;
+
         if ($request->filled('password')) {
             $user->password = bcrypt($request->password);
         }
+
         $user->roles_id = $request->roles_id;
         $user->teams_id = $request->teams_id;
         $user->phone = $request->phone;
         $user->stamp = $request->stamp;
 
+        // Обработка изображения, если оно загружено
         if ($request->hasFile('avatar')) {
-            $avatarPath = $request->file('avatar')->store('avatars', 'public');
-            $user->avatar = $avatarPath;
+            // Удаляем старый аватар, если он существует
+            if ($user->avatar) {
+                Storage::disk('public')->delete('avatars/' . $user->avatar);
+            }
+
+            $avatarName = time() . '.' . $request->avatar->getClientOriginalExtension();
+            $request->avatar->storeAs('avatars/', $avatarName, 'public');
+            $user->avatar = $avatarName;
         }
 
-        // Сохранение изменений
         $user->save();
-
-        // Перенаправление с сообщением об успешном обновлении
-        return redirect()->route('admin.users.index')->with('success', 'User updated successfully');
+        return redirect()->route('admin.users.index')->with('success', 'Пользователь успешно обновлен.');
     }
+
 
     public function store(Request $request)
     {
@@ -122,12 +127,24 @@ class UsersController extends Controller
         // Находим пользователя по ID
         $user = User::findOrFail($id);
 
+        // Получаем путь к аватару
+        $avatarPath = $user->avatar; // Убедитесь, что 'avatar' — это поле в вашей модели пользователя
+
+        // Проверяем путь к аватару
+        \Log::info('Avatar path: ' . $avatarPath);
+
+        // Удаляем аватар, если он существует
+        if ($avatarPath && Storage::disk('public')->exists('avatars/' . $avatarPath)) {
+            Storage::disk('public')->delete('avatars/' . $avatarPath);
+            \Log::info('Avatar deleted: ' . $avatarPath);
+        } else {
+            \Log::warning('Avatar not found or path is empty: ' . 'avatars/' . $avatarPath);
+        }
+
         // Удаляем пользователя
         $user->delete();
 
         // Перенаправляем с сообщением об успехе
         return redirect()->route('admin.users.index')->with('success', 'User deleted successfully');
     }
-
-
 }

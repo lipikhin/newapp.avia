@@ -4,25 +4,19 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
     /**
-
      * Create a new controller instance.
-
      *
-
      * @return void
-
      */
-
     public function __construct()
-
     {
-
         $this->middleware('auth');
-
     }
 
     /**
@@ -30,70 +24,53 @@ class ProfileController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-
     public function index()
-
     {
-
         return view('user.profile');
-
     }
 
-
-
     /**
-
-     * Write code on Method
-
+     * Update the user's profile.
      *
-
-     * @return response()
-
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\RedirectResponse
      */
-
     public function store(Request $request)
-
     {
-
         $request->validate([
-
-            'name' => 'required',
-            'email' => 'required',
-            'confirm_password' => 'required_with:password|same:password',
-            'avatar' => 'image',
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255|unique:users,email,' . auth()->id(),
+            'phone' => 'nullable|string|max:255',
+            'stamp' => 'nullable|string|max:255',
+            'password' => 'nullable|string|min:8|confirmed',
+            'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
+        $user = auth()->user();
 
+        $input = $request->only('name', 'email', 'phone', 'stamp');
 
-        $input = $request->all();
-
-
-
-        if ($request->hasFile('avatar')) {
-
-            $avatarName = time().'.'.$request->avatar->getClientOriginalExtension();
-            $request->avatar->move(public_path('avatars'), $avatarName);
-
-            $input['avatar'] = $avatarName;
-
-        } else {
-
-            unset($input['avatar']);
-
-        }
+        // Обновление пароля, если он указан
         if ($request->filled('password')) {
-
-           $input['password'] = Hash::make($input['password']);
-
-        } else {
-
-           unset($input['password']);
-
+            $input['password'] = Hash::make($request->password);
         }
-        auth()->user()->update($input);
 
-//        return back()->with('success', 'Profile updated successfully.');
+        // Обработка аватара
+        if ($request->hasFile('avatar')) {
+            // Удаляем старый аватар, если он есть
+            if ($user->avatar) {
+                Storage::delete('public/avatars/' . $user->avatar);
+            }
+
+            // Сохраняем новый аватар
+            $avatarName = time() . '.' . $request->avatar->getClientOriginalExtension();
+            $request->avatar->storeAs('public/avatars', $avatarName);
+            $input['avatar'] = $avatarName;
+        }
+
+        // Сохраняем изменения пользователя
+        $user->update($input);
+
         return redirect()->route('home.index')->with('success', 'Profile updated successfully.');
-
     }
 }

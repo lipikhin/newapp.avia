@@ -19,10 +19,7 @@
 
                             <div class="row">
                                 <div class="d-flex justify-content-center">
-                                    {{--                                    <label for="avatar" class="form-label d-block">Avatar:</label>--}}
-                                    <img id="avatar-preview" src="/avatars/{{
-                                     auth()->user()->avatar }}"
-                                         style="width:120px; margin-top: 10px; cursor: pointer;">
+                                    <img id="avatar-preview" src="/avatars/{{ auth()->user()->avatar }}" style="width:120px; margin-top: 10px; cursor: pointer;">
                                     <input id="avatar" type="file" class="d-none @error('avatar') is-invalid @enderror" name="avatar" accept="image/*">
                                     @error('avatar')
                                     <span role="alert" class="text-danger">
@@ -76,18 +73,29 @@
                                 </div>
                             </div>
 
+                            <!-- Новые поля для изменения пароля -->
+                            <div class="row">
+                                <div class="mb-3 col-md-6">
+                                    <label for="password" class="form-label">New Password: </label>
+                                    <input class="form-control" type="password" id="password" name="password">
+                                    @error('password')
+                                    <span role="alert" class="text-danger">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+
+                                <div class="mb-3 col-md-6">
+                                    <label for="password_confirmation" class="form-label">Confirm Password: </label>
+                                    <input class="form-control" type="password" id="password_confirmation" name="password_confirmation">
+                                </div>
+                            </div>
+
                             <div class="row mb-0">
                                 <div class="col-md-12 d-flex justify-content-center">
-                                    <button type="submit" class="btn btn-primary">
-
-                                        {{ __('Update Profile') }}
-
-                                    </button>
+                                    <button type="submit" class="btn btn-primary">{{ __('Update Profile') }}</button>
                                     <button type="button" id="cancel-button" class="btn btn-secondary ms-2">
-                                        <a href="/home" style="color: white">
-                                            {{ __('Cancel') }}
-                                        </a>
-
+                                        <a href="/home" style="color: white">{{ __('Cancel') }}</a>
                                     </button>
                                 </div>
                             </div>

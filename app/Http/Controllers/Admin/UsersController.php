@@ -30,6 +30,53 @@ class UsersController extends Controller
         return view('admin.users.create', compact('roles', 'teams'));
     }
 
+    public function edit($id)
+    {
+        $user = User::findOrFail($id); // Находим пользователя по его ID
+        $roles = Role::all();          // Получаем все роли
+        $teams = Team::all();          // Получаем все команды
+
+        return view('admin.users.edit', compact('user', 'roles', 'teams'));
+    }
+    public function update(Request $request, $id)
+    {
+        // Находим пользователя по ID
+        $user = User::findOrFail($id);
+
+        // Валидация данных
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,' . $user->id,
+            'password' => 'nullable|string|min:6',
+            'roles_id' => 'required',
+            'teams_id' => 'required',
+            'phone' => 'nullable|string|max:20',
+            'stamp' => 'nullable|string|max:255',
+        ]);
+
+        // Обновление данных пользователя
+        $user->name = $request->name;
+        $user->email = $request->email;
+        if ($request->filled('password')) {
+            $user->password = bcrypt($request->password);
+        }
+        $user->roles_id = $request->roles_id;
+        $user->teams_id = $request->teams_id;
+        $user->phone = $request->phone;
+        $user->stamp = $request->stamp;
+
+        if ($request->hasFile('avatar')) {
+            $avatarPath = $request->file('avatar')->store('avatars', 'public');
+            $user->avatar = $avatarPath;
+        }
+
+        // Сохранение изменений
+        $user->save();
+
+        // Перенаправление с сообщением об успешном обновлении
+        return redirect()->route('admin.users.index')->with('success', 'User updated successfully');
+    }
+
     public function store(Request $request)
     {
         // Валидация входных данных
@@ -70,5 +117,17 @@ class UsersController extends Controller
 
     }
 
+    public function destroy($id)
+    {
+        // Находим пользователя по ID
+        $user = User::findOrFail($id);
 
+        // Удаляем пользователя
+        $user->delete();
+
+        // Перенаправляем с сообщением об успехе
+        return redirect()->route('admin.users.index')->with('success', 'User deleted successfully');
     }
+
+
+}

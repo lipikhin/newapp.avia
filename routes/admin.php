@@ -90,9 +90,11 @@ Route::prefix('admin')->middleware(['auth'])->group(function (){
     Route::get('/users', [UsersController::class, 'index'])->name('admin.users.index');
     Route::get('/users/create', [UsersController::class, 'create'])->name('admin.users.create');
     Route::post('/users',[UsersController::class,'store'])->name('admin.users.store');
+    Route::put('/users/{id}', [UsersController::class, 'update'])->name('admin.users.update');
 
     Route::get('/users/{users}/edit', [UsersController::class, 'edit'])->name
     ('admin.users.edit');
+
     Route::delete('/users/{users}', [UsersController::class, 'destroy'])->name
     ('admin.users.destroy');
 

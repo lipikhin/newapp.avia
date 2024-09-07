@@ -47,14 +47,17 @@ class UsersController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,' . $user->id,
             'password' => 'nullable|string|min:6',
+            'is_admin' => 'nullable|boolean', // Убедитесь, что 'is_admin' не обязателен
             'roles_id' => 'nullable',
             'teams_id' => 'nullable',
             'phone' => 'nullable|string|max:20',
             'stamp' => 'nullable|string|max:255',
         ]);
 
+        // Обновление основных полей
         $user->name = $request->name;
         $user->email = $request->email;
+        $user->is_admin = $request->has('is_admin') ? 1 : 0; // Обновление is_admin
 
         if ($request->filled('password')) {
             $user->password = bcrypt($request->password);
@@ -77,9 +80,13 @@ class UsersController extends Controller
             $user->avatar = $avatarName;
         }
 
+        // Сохраняем изменения
         $user->save();
+
         return redirect()->route('admin.users.index')->with('success', 'Пользователь успешно обновлен.');
     }
+
+
 
 
     public function store(Request $request)

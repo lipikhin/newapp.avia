@@ -43,10 +43,10 @@
                     </div>
                     <div>
                         <label for="is_admin">{{ __('Admin') }}</label>
-                        <input class="form-check-input" type="checkbox"
-                               id="is_admin" name="is_admin" value="{{ old
-                               ('is_admin', $user->is_admin) }}">
+                        <input class="form-check-input ms-3" type="checkbox"
+                               id="is_admin" name="is_admin" value="1" {{ old('is_admin', $user->is_admin) ? 'checked' : '' }}>
                     </div>
+
                     <!-- Поле для роли -->
                     <div class="form-group mt-2">
                         <label for="roles_id">{{ __('Роль') }}</label>

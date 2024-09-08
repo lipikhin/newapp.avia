@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\DataTables\UsersDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\Role;
 use App\Models\Team;
@@ -13,7 +12,7 @@ use Illuminate\Support\Facades\Storage;
 
 class UsersController extends Controller
 {
-    public function index(UsersDataTable $id)
+    public function index()
     {
 
         $users = User::all(); // или использовать пагинацию: User::paginate(10);

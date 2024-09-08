@@ -56,7 +56,7 @@
                                     <option value="{{ $airCraft->id }}" {{ $airCraft->id == $cmm->air_crafts_id ? 'selected' : '' }}>{{ $airCraft->type }}</option>
                                 @endforeach
                             </select>
-{{--                            <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#addAirCraftModal">{{ __('Добавить самолет') }}</button>--}}
+                            <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#addAirCraftModal">{{ __('Добавить самолет') }}</button>
                         </div>
 
                         <div class="form-group mt-2">
@@ -67,7 +67,7 @@
                                     <option value="{{ $mfr->id }}" {{ $mfr->id == $cmm->m_f_r_s_id ? 'selected' : '' }}>{{ $mfr->name }}</option>
                                 @endforeach
                             </select>
-{{--                            <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#addMFRModal">{{ __('Добавить MFR') }}</button>--}}
+                            <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#addMFRModal">{{ __('Добавить MFR') }}</button>
                         </div>
 
                         <div class="form-group mt-2">
@@ -78,7 +78,7 @@
                                     <option value="{{ $scope->id }}" {{ $scope->id == $cmm->scopes_id ? 'selected' : '' }}>{{ $scope->scope }}</option>
                                 @endforeach
                             </select>
-{{--                            <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#addScopeModal">{{ __('Добавить Scope') }}</button>--}}
+                            <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#addScopeModal">{{ __('Добавить Scope') }}</button>
                         </div>
 
                         <div class="mt-2">
@@ -172,7 +172,7 @@
 
     <script>
         // Функция для обработки отправки форм для самолетов, MFR и Scope
-        function handleFormSubmission(formId, route, selectId, dataKey, dataValue) {
+        function handleFormSubmission(formId, modalId, route, selectId, dataKey, dataValue) {
             document.getElementById(formId).addEventListener('submit', function(event) {
                 event.preventDefault();
                 let formData = new FormData(this);
@@ -190,15 +190,30 @@
                         option.value = data[dataKey];
                         option.text = data[dataValue];
                         select.add(option);
-                        let modal = bootstrap.Modal.getInstance(document.getElementById(formId));
-                        modal.hide();
+
+                        // 2. Закрываем модальное окно вручную
+                        let modalElement = document.getElementById(modalId);
+
+                        if (modalElement) {
+                            let modal = bootstrap.Modal.getInstance(modalElement);
+                            if (modal) {
+                                modal.hide();
+                            } else {
+                                // Если нет экземпляра, создайте новый и закройте его
+                                let newModal = new bootstrap.Modal(modalElement);
+                                newModal.hide();
+                            }
+                        }
+                        // 3. Очистка формы
+                        // document.getElementById(formId).reset();
                     })
                     .catch(error => console.error('Ошибка:', error));
             });
         }
 
-        handleFormSubmission('addAirCraftForm', '{{ route('admin.aircrafts.store') }}', 'air_crafts_id', 'id', 'type');
-        handleFormSubmission('addMFRForm', '{{ route('admin.mfrs.store') }}', 'm_f_r_s_id', 'id', 'name');
-        handleFormSubmission('addScopeForm', '{{ route('admin.scopes.store') }}', 'scopes_id', 'id', 'scope');
+        handleFormSubmission('addAirCraftForm','addAirCraftModal', '{{ route('admin.aircrafts.store') }}',
+            'air_crafts_id', 'id', 'type');
+        handleFormSubmission('addMFRForm','addMFRModal', '{{ route('admin.mfrs.store') }}', 'm_f_r_s_id', 'id', 'name');
+        handleFormSubmission('addScopeForm','addScopeModal', '{{ route('admin.scopes.store') }}', 'scopes_id', 'id', 'scope');
     </script>
 @endsection

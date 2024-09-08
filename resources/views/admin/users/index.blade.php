@@ -52,7 +52,7 @@
             <div class="card-header">
                 <div class="d-flex justify-content-between">
                     <h3>{{__('Users')}}</h3>
-                                    <a href="{{ route('admin.users.create') }}" class="btn btn-primary mb-3">
+                    <a href="{{ route('admin.users.create') }}" class="btn btn-primary mb-3">
                         {{ __('Create User') }}
                     </a>
                 </div>

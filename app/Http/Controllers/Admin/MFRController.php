@@ -33,9 +33,16 @@ class MFRController extends Controller
             'name' => 'required|string|max:255',
         ]);
 
-        MFR::create($validatedData);
+        $mfr = new MFR();
+        $mfr->name = $request->name;
+        $mfr->save();
 
-        return redirect()->back()->with('success', 'MFR added successfully');
+        return response()->json($mfr);
+
+
+//        MFR::create($validatedData);
+//
+//        return redirect()->back()->with('success', 'MFR added successfully');
     }
 
     /**

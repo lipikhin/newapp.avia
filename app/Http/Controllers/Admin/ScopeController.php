@@ -33,9 +33,11 @@ class ScopeController extends Controller
             'scope' => 'required|string|max:255',
         ]);
 
-        Scope::create($validatedData);
+        $scope = new Scope();
+        $scope->scope = $request->scope;
+        $scope->save();
 
-        return redirect()->back()->with('success', 'Scope added successfully');
+        return response()->json($scope);
     }
 
     /**

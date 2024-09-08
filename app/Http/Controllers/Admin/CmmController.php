@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\DataTables\CmmDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\AirCraft;
 use App\Models\CMM;
@@ -19,15 +18,14 @@ class CmmController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(CmmDataTable $dataTable)
+    public function index()
     {
-        return $dataTable->render('admin.cmms.index');
+
+        $cmms = Cmm::with(['airCraft', 'mfr', 'scope'])->get(); // Загружаем
+        // связанные модели
+        return view('admin.cmms.index', compact('cmms'));
+
     }
-//        $cmms = Cmm::with(['airCraft', 'mfr', 'scope'])->get(); // Загружаем
-//        // связанные модели
-//        return view('admin.cmms.index', compact('cmms'));
-
-
 
     /**
      * Show the form for creating a new resource.

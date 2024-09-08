@@ -15,6 +15,30 @@
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+
+    <style>
+        body.light-theme {
+            background-color: white;
+            color: black;
+        }
+
+        body.dark-theme {
+            background-color: #121212; // темный фон
+        color: white; // светлый текст
+        }
+
+        /* Дополнительные стили для других элементов */
+        .navbar.light-theme {
+            background-color: white;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .navbar.dark-theme {
+            background-color: #1c1c1c;
+            border-bottom: 1px solid #444;
+        }
+
+    </style>
 </head>
 <body>
     <div id="app">
@@ -72,6 +96,10 @@
                                     </form>
                                 </div>
                             </li>
+                            <li class="nav-item">
+                                <button id="theme-toggle" class="nav-link">Toggle Theme</button>
+                            </li>
+
                         @endguest
                     </ul>
                 </div>
@@ -82,6 +110,26 @@
             @yield('content')
         </main>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const themeToggleButton = document.getElementById('theme-toggle');
+            const body = document.body;
+
+            themeToggleButton.addEventListener('click', function () {
+                body.classList.toggle('dark-theme');
+                body.classList.toggle('light-theme');
+
+                // Сохраните выбранную тему в локальном хранилище
+                const currentTheme = body.classList.contains('dark-theme') ? 'dark' : 'light';
+                localStorage.setItem('theme', currentTheme);
+            });
+
+            // Установите тему при загрузке страницы
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            body.classList.add(savedTheme === 'dark' ? 'dark-theme' : 'light-theme');
+        });
+    </script>
+
     @stack('scripts')
 </body>
 </html>

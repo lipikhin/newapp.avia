@@ -19,7 +19,7 @@
     </style>
 
     <div class="container">
-        <div class="card">
+        <div class="card shadow">
             <div class="card-header">
                 <div class="d-flex justify-content-between">
                     <h3>{{__('Manage CMMs')}}</h3>

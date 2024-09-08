@@ -3,8 +3,12 @@
         <div class="col-sm-6">
             <ol class="breadcrumb mt-2 float-sm-right">
 
-                <li class="breadcrumb-item"><a href="{{url('/home')
+                <li class="breadcrumb-item">
+                    <h3>
+                        <a href="{{url('/home')
                 }}">Home</a></li>
+                    </h3>
+
                 @auth
                     @if(Auth::user()->is_admin)
 
@@ -27,10 +31,16 @@
 {{--                        </li>--}}
 
                         <li class="nav-item ms-2 me-2">
-                            <a href="{{route('admin.cmms.index')}}">CMM</a>
+                            <h3>
+                                <a href="{{route('admin.cmms.index')}}">CMM</a>
+                            </h3>
+
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('admin.users.index')}}">Users</a>
+                            <h3>
+                                <a href="{{route('admin.users.index')}}">Users</a>
+                            </h3>
+
                         </li>
                     @endif
                 @endauth

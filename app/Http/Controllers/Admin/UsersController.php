@@ -89,7 +89,7 @@ class UsersController extends Controller
             'name' => 'required',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:3',
-            'avatar' => 'image|nullable',
+            'avatar' => 'image',
             'roles_id' => 'nullable|exists:roles,id',
             'teams_id' => 'nullable|exists:teams,id',
             'phone' => 'nullable',
@@ -98,8 +98,9 @@ class UsersController extends Controller
 
         // Обработка изображения, если оно загружено
         if ($request->hasFile('avatar')) {
+
             $avatarName = time() . '.' . $request->avatar->getClientOriginalExtension();
-            $request->avatar->storeAs('avatars/', $avatarName, 'public');
+            $request->avatar->storeAs('avatars/', $avatarName,'public');
             $validatedData['avatar'] = $avatarName;
         }
 
@@ -108,6 +109,7 @@ class UsersController extends Controller
 
         try {
             \Log::info('Создание пользователя с данными: ', $validatedData);
+
             User::create($validatedData);
             return redirect()->route('admin.users.index')->with('success', 'Пользователь успешно создан.');
         } catch (\Exception $e) {

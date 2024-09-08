@@ -42,7 +42,7 @@ class ProfileController extends Controller
             'email' => 'required|email|max:255|unique:users,email,' . auth()->id(),
             'phone' => 'nullable|string|max:255',
             'stamp' => 'nullable|string|max:255',
-            'password' => 'nullable|string|min:8|confirmed',
+            'password' => 'nullable|string|min:3|confirmed',
             'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
@@ -59,13 +59,13 @@ class ProfileController extends Controller
         if ($request->hasFile('avatar')) {
             // Удаляем старый аватар, если он есть
             if ($user->avatar) {
-                Storage::delete('public/avatars/' . $user->avatar);
+                Storage::disk('public')->delete('avatars/' . $user->avatar);
             }
 
             // Сохраняем новый аватар
             $avatarName = time() . '.' . $request->avatar->getClientOriginalExtension();
-            $request->avatar->storeAs('public/avatars', $avatarName);
-            $input['avatar'] = $avatarName;
+            $request->avatar->storeAs('avatars/', $avatarName, 'public');
+            $user->avatar = $avatarName;
         }
 
         // Сохраняем изменения пользователя

@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->boolean('is_admin')->default(false)->after('email_verified_at');
-            $table->string('avatar')->nullable()->after('is_admin');
-            $table->string('phone')->nullable()->after('avatar');
+            $table->string('avatars')->nullable()->after('is_admin');
+            $table->string('phone')->nullable()->after('avatars');
             $table->string('stamp')->nullable()->after('phone');
         });
     }
@@ -25,7 +25,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn(['is_admin','avatar', 'phone', 'stamp']);
+            $table->dropColumn(['is_admin','avatars', 'phone', 'stamp']);
         });
     }
 };

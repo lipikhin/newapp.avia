@@ -37,7 +37,7 @@ Route::post('/admin/users/{user}/update-team', [UsersController::class, 'updateT
 
 //    Route::post('/admin/roles', [RoleController::class, 'store'])->name('roles.store');
 //    Route::post('/admin/teams', [TeamController::class, 'store'])->name('teams.store');
-//Route::post('/users/avatar-update', [UsersController::class, 'updateAvatar'])
-//    ->name('users.avatar.update');
+//Route::post('/users/avatars-update', [UsersController::class, 'updateAvatar'])
+//    ->name('users.avatars.update');
 
 

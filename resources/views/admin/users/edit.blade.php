@@ -37,8 +37,8 @@
                         <label for="avatar">{{ __('Аватар') }}</label>
                         <input type="file" name="avatar" class="form-control" placeholder="Avatar">
                         @if ($user->avatar)
-                            <img src="{{ asset('storage/avatars/' .
-                            $user->avatar) }}" style="height: 50px;" alt="Текущий аватар">
+                            <img src="{{ asset('storage/avatars/' .$user->avatar) }}" style="height: 50px;"
+                                 alt="Текущий аватар">
                         @endif
                     </div>
                     <div>

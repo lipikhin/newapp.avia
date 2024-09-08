@@ -83,9 +83,11 @@
                     @foreach($users as $user)
                         <tr>
                             <td>
-                                <img src="{{ asset('storage/avatars/' .
-                                $user->avatar) }}" style="height: 50px; cursor: pointer;" onclick="openModal('{{ asset('avatars/' . $user->avatar) }}')" />
+                                <img src="{{ asset('storage/avatars/' . $user->avatar) }}" style="height: 50px; cursor: pointer;" onclick="openModal('{{ asset('storage/avatars/' . $user->avatar) }}')" />
+
                             </td>
+
+
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
                             <td>{{ $user->is_admin ? 'Yes' : 'No' }}</td>

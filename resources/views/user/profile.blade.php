@@ -19,7 +19,9 @@
 
                             <div class="row">
                                 <div class="d-flex justify-content-center">
-                                    <img id="avatar-preview" src="/avatars/{{ auth()->user()->avatar }}" style="width:120px; margin-top: 10px; cursor: pointer;">
+                                    <img id="avatar-preview"
+                                         src="{{ asset('storage/avatars/' . auth()->user()->avatar) }}"
+                                         style="width:120px; margin-top: 10px; cursor: pointer;">
                                     <input id="avatar" type="file" class="d-none @error('avatar') is-invalid @enderror" name="avatar" accept="image/*">
                                     @error('avatar')
                                     <span role="alert" class="text-danger">
@@ -28,6 +30,8 @@
                                     @enderror
                                 </div>
                             </div>
+
+
 
                             <div class="row">
                                 <div class="mb-3 col-md-6">
@@ -107,8 +111,8 @@
     </div>
 
     <script>
-        // Save initial form state
-        const initialAvatarSrc = document.getElementById('avatar-preview').src;
+        // Сохранить начальное состояние формы
+        const initialAvatarSrc = document.getElementById('avatar-preview').src; // Исправлено здесь
         const initialFormState = {
             name: document.getElementById('name').value,
             email: document.getElementById('email').value,
@@ -116,24 +120,26 @@
             stamp: document.getElementById('stamp').value,
         };
 
-        // Click avatar to trigger file input
+        // Нажатие на аватар для выбора файла
         document.getElementById('avatar-preview').addEventListener('click', function() {
-            document.getElementById('avatar').click();
+            document.getElementById('avatar').click(); // Открытие диалогового окна для выбора файла
         });
 
-        // Preview the selected avatar image
+        // Предпросмотр нового аватара после выбора файла
         document.getElementById('avatar').addEventListener('change', function() {
             const reader = new FileReader();
             reader.onload = function(e) {
-                document.getElementById('avatar-preview').src = e.target.result;
+                document.getElementById('avatar-preview').src = e.target.result; // Обновление изображения
             };
-            reader.readAsDataURL(this.files[0]);
+            if (this.files && this.files[0]) {
+                reader.readAsDataURL(this.files[0]); // Чтение выбранного файла
+            }
         });
 
-        // Reset form fields to initial state
+        // Сброс полей формы в начальное состояние
         document.getElementById('cancel-button').addEventListener('click', function() {
-            document.getElementById('avatar-preview').src = initialAvatarSrc;
-            document.getElementById('avatar').value = ''; // Clear the input value
+            document.getElementById('avatar-preview').src = initialAvatarSrc; // Исправлено здесь
+            document.getElementById('avatar').value = ''; // Очистка значения ввода
             document.getElementById('name').value = initialFormState.name;
             document.getElementById('email').value = initialFormState.email;
             document.getElementById('phone').value = initialFormState.phone;

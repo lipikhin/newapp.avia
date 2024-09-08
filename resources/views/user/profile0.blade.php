@@ -42,11 +42,11 @@
 
                                     <label for="name" class="form-label">Avatar: </label>
 
-                                    <input id="avatar" type="file" class="form-control @error('avatar') is-invalid @enderror" name="avatar" value="{{ old('avatar') }}"  autocomplete="avatar">
+                                    <input id="avatar" type="file" class="form-control @error('avatars') is-invalid @enderror" name="avatar" value="{{ old('avatars') }}"  autocomplete="avatar">
 
 
 
-                                    @error('avatar')
+                                    @error('avatars')
 
                                     <span role="alert" class="text-danger">
 

@@ -16,7 +16,7 @@ class UsersDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->setRowId('id')
-            ->addColumn('avatar', function($row) {
+            ->addColumn('avatars', function($row) {
                 $avatarUrl = asset('avatars/' . $row->avatar); // Путь к картинке
                 return '<img src="'.$avatarUrl.'" style="height:50px;cursor:pointer;" onclick="openModal(\''.$avatarUrl.'\')" />';
             })
@@ -33,7 +33,7 @@ class UsersDataTable extends DataTable
                 </form>
             ';
             })
-            ->rawColumns(['avatar', 'action']);
+            ->rawColumns(['avatars', 'action']);
     }
 
     public function query(User $model): QueryBuilder
@@ -60,7 +60,7 @@ class UsersDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::make('avatar')
+            Column::make('avatars')
                 ->title('Аватар')
                 ->responsivePriority(1),
 

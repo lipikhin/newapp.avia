@@ -41,7 +41,7 @@
                     <!-- Поле для аватара -->
                     <div class="form-group mt-2">
                         <label for="avatar">{{ __('Avatar') }}</label>
-                        <input type="file" name="avatar" class="form-control" placeholder="Avatar">
+                        <input type="file" name="avatar" class="form-control" placeholder=" Avatar">
                     </div>
 
                     <!-- Поле для роли -->
@@ -97,22 +97,22 @@
                 <div class="modal-header">
                     <h5 class="modal-title" id="addRoleModalLabel">{{ __('Add
                      Role') }}</h5>
-{{--                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>--}}
+                    {{--                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>--}}
                 </div>
                 <form  method="POST" id="addRoleForm">
                     @csrf
-                      <div class="modal-body">
-                            <div class="form-group">
-                                <label for="roleName">{{ __('Role Name')
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="roleName">{{ __('Role Name')
                                 }}</label>
-                                <input type="text" class="form-control"
-                                       id="roleName" name="name" required>
-                            </div>
+                            <input type="text" class="form-control"
+                                   id="roleName" name="name" required>
                         </div>
-                        <div class="modal-footer">
-{{--                            <button type="button" class="btn-close" data-bs-dismiss="modal">{{ __('Close') }}</button>--}}
-                            <button type="submit" class="btn btn-primary">{{ __('Save Role') }}</button>
-                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        {{--                            <button type="button" class="btn-close" data-bs-dismiss="modal">{{ __('Close') }}</button>--}}
+                        <button type="submit" class="btn btn-primary">{{ __('Save Role') }}</button>
+                    </div>
 
                 </form>
             </div>
@@ -126,11 +126,11 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="addTeamModalLabel">{{ __('Add Team') }}</h5>
-{{--                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>--}}
+                    {{--                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>--}}
 
                 </div>
-                    <form method="POST" id="addTeamForm">
-                @csrf
+                <form method="POST" id="addTeamForm">
+                    @csrf
 
                     <div class="modal-body">
                         <div class="form-group">
@@ -140,10 +140,10 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-{{--                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('Close') }}</button>--}}
+                        {{--                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('Close') }}</button>--}}
                         <button type="submit" class="btn btn-primary">{{ __('Save Team') }}</button>
                     </div>
-                </div>
+            </div>
             </form>
         </div>
     </div>
@@ -152,7 +152,7 @@
     <script>
         function handleFormSubmission(formId, modalId, route, selectId,
                                       dataKey,
-            dataValue) {
+                                      dataValue) {
             document.getElementById(formId).addEventListener('submit', function (event) {
                 event.preventDefault(); // Предотвращаем стандартную отправку формы
                 if (this.submitted) {

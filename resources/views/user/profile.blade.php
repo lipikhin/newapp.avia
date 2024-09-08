@@ -25,8 +25,8 @@
                                     <input id="avatar" type="file" class="d-none @error('avatar') is-invalid @enderror" name="avatar" accept="image/*">
                                     @error('avatar')
                                     <span role="alert" class="text-danger">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+            <strong>{{ $message }}</strong>
+        </span>
                                     @enderror
                                 </div>
                             </div>

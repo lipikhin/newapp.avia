@@ -29,24 +29,24 @@
                             @enderror
                         </div>
                         <div class="mt-2">
-                            <label for="title">{{ __('Название') }}</label>
+                            <label for="title">{{ __('Description') }}</label>
                             <input id='title' type="text" class="form-control" name="title" required>
                         </div>
 
                         <div class="col-xs-12 col-sm-12 col-md-12 mt-2">
                             <div class="form-group">
-                                <strong>Изображение:</strong>
+                                <strong>{{__('Image:')}}</strong>
                                 <input type="file" name="img" class="form-control" placeholder="изображение">
                             </div>
                         </div>
 
                         <div class="mt-2">
-                            <label for="revision_date">{{ __('Дата ревизии') }}</label>
+                            <label for="revision_date">{{ __('Revision Date') }}</label>
                             <input id='revision_date' type="date" class="form-control" name="revision_date" required>
                         </div>
 
                         <div class="form-group mt-2">
-                            <label for="air_crafts_id">{{ __('AirCraft')
+                            <label for="air_crafts_id">{{ __('AirCraft Type')
                             }}</label>
                             <select id="air_crafts_id" name="air_crafts_id" class="form-control" required>
                                 <option value="">{{ __('Select AirCraft')
@@ -55,39 +55,42 @@
                                     <option value="{{ $airCraft->id }}">{{ $airCraft->type }}</option>
                                 @endforeach
                             </select>
-                            <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#addAirCraftModal">{{ __('Добавить самолет') }}</button>
+                            <button type="button" class="btn btn-link" data-bs-toggle="modal"
+                                    data-bs-target="#addAirCraftModal">{{ __('Add AirCraft') }}</button>
                         </div>
 
                         <div class="form-group mt-2">
                             <label for="m_f_r_s_id">{{ __('MFR') }}</label>
                             <select id="m_f_r_s_id" name="m_f_r_s_id" class="form-control" required>
-                                <option value="">{{ __('Выберите MFR') }}</option>
+                                <option value="">{{ __('Select MFR') }}</option>
                                 @foreach ($mfrs as $mfr)
                                     <option value="{{ $mfr->id }}">{{ $mfr->name }}</option>
                                 @endforeach
                             </select>
-                            <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#addMFRModal">{{ __('Добавить MFR') }}</button>
+                            <button type="button" class="btn btn-link" data-bs-toggle="modal"
+                                    data-bs-target="#addMFRModal">{{ __('Add MFR') }}</button>
                         </div>
 
                         <div class="form-group mt-2">
                             <label for="scopes_id">{{ __('Scope') }}</label>
                             <select id="scopes_id" name="scopes_id" class="form-control" required>
-                                <option value="">{{ __('Выберите Scope') }}</option>
+                                <option value="">{{ __('Select Scope') }}</option>
                                 @foreach ($scopes as $scope)
                                     <option value="{{ $scope->id }}">{{ $scope->scope }}</option>
                                 @endforeach
                             </select>
-                            <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#addScopeModal">{{ __('Добавить Scope') }}</button>
+                            <button type="button" class="btn btn-link" data-bs-toggle="modal"
+                                    data-bs-target="#addScopeModal">{{ __('Add Scope') }}</button>
                         </div>
 
                         <div class="mt-2">
-                            <label for="lib">{{ __('Номер библиотеки') }}</label>
+                            <label for="lib">{{ __('Library Number') }}</label>
                             <input id='lib' type="text" class="form-control" name="lib" required>
                         </div>
                     </div>
 
                     <button type="submit" class="btn btn-primary mt-3">
-                        {{ __('Создать') }}
+                        {{ __('Create') }}
                     </button>
                 </form>
             </div>
@@ -112,7 +115,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
-                        <button type="submit" class="btn btn-primary">{{ __('Сохранить') }}</button>
+                        <button type="submit" class="btn btn-primary">{{ __('Save') }}</button>
                     </div>
                 </form>
             </div>
@@ -124,8 +127,8 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="addMFRModalLabel">{{ __('Добавить MFR') }}</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                    <h5 class="modal-title" id="addMFRModalLabel">{{ __('Add MFR') }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form method="POST" id="addMFRForm">
                     @csrf
@@ -136,8 +139,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
-                        <button type="submit" class="btn btn-primary">{{ __('Сохранить') }}</button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="submit" class="btn btn-primary">{{ __('Save') }}</button>
                     </div>
                 </form>
             </div>
@@ -149,20 +152,20 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="addScopeModalLabel">{{ __('Добавить Scope') }}</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                    <h5 class="modal-title" id="addScopeModalLabel">{{ __('Add Scope') }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form method="POST" id="addScopeForm">
                     @csrf
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="scopeName">{{ __('Название Scope') }}</label>
+                            <label for="scopeName">{{ __('Scope') }}</label>
                             <input type="text" class="form-control" id="scopeName" name="scope" required>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
-                        <button type="submit" class="btn btn-primary">{{ __('Сохранить') }}</button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="submit" class="btn btn-primary">{{ __('Save') }}</button>
                     </div>
                 </form>
             </div>

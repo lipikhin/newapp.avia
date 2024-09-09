@@ -3,7 +3,7 @@
 @section('content')
     <style>
         .container {
-            max-width: 450px;
+            max-width: 650px;
         }
         .push-top {
             margin-top: 50px;
@@ -13,7 +13,7 @@
     <div class="container">
         <div class="card">
             <div class="card-header">
-                Редактировать CMM: {{ $cmm->number }}
+                <h5><strong>{{__('Edit CMM:')}}</strong> {{ $cmm->number }}</h5>
             </div>
 
             <div class="card-body">
@@ -21,74 +21,82 @@
                     @csrf
                     @method('PUT')
 
-                    <div class="form-group">
-                        <div>
-                            <label for="wo">{{ __('Номер CMM') }}</label>
-                            <input id='wo' type="text" class="form-control" name="number" value="{{ old('number', $cmm->number) }}" required>
-                            @error('number')
-                            <div class="text-danger">{{ $message }}</div>
-                            @enderror
-                        </div>
-                        <div class="mt-2">
-                            <label for="title">{{ __('Название') }}</label>
-                            <input id='title' type="text" class="form-control" name="title" value="{{ old('title', $cmm->title) }}" required>
-                        </div>
+                    <div class="form-group d-flex ">
+                        <div class="mt-2 m-3 border p-2">
+                            <div>
+                                <label for="wo">{{ __('CMM Number') }}</label>
+                                <input id='wo' type="text" class="form-control" name="number" value="{{ old('number', $cmm->number) }}" required>
+                                @error('number')
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="mt-2">
+                                <label for="title">{{ __('Description') }}</label>
+                                <input id='title' type="text" class="form-control" name="title" value="{{ old('title', $cmm->title) }}" required>
+                            </div>
 
-                        <div class="col-xs-12 col-sm-12 col-md-12 mt-2">
-                            <div class="form-group">
-                                <strong>Изображение:</strong>
-                                <input type="file" name="img" class="form-control" placeholder="изображение">
-                                <small>Оставьте пустым, если не хотите менять изображение.</small>
+                            <div class="col-xs-12 col-sm-12 col-md-12 mt-2">
+                                <div class="form-group">
+                                    <strong>{{__('Image:')}}</strong>
+                                    <input type="file" name="img" class="form-control" placeholder="изображение">
+                                    <small>Оставьте пустым, если не хотите менять изображение.</small>
+                                </div>
+                            </div>
+
+                            <div class="mt-2">
+                                <label for="revision_date">{{ __('Revision Date') }}</label>
+                                <input id='revision_date' type="date" class="form-control" name="revision_date" value="{{ old('revision_date', $cmm->revision_date) }}" required>
+                            </div>
+                            <div class="mt-2">
+                                <label for="lib">{{ __('Library Number') }}</label>
+                                <input id='lib' type="text" class="form-control" name="lib" value="{{ old('lib', $cmm->lib) }}" required>
                             </div>
                         </div>
-
-                        <div class="mt-2">
-                            <label for="revision_date">{{ __('Дата ревизии') }}</label>
-                            <input id='revision_date' type="date" class="form-control" name="revision_date" value="{{ old('revision_date', $cmm->revision_date) }}" required>
-                        </div>
-
-                        <div class="form-group mt-2">
-                            <label for="air_crafts_id">{{ __('Air Craft')
+                        <div style="width: 300px" class="m-3 p-2 border">
+                            <div class="form-group mt-2">
+                                <label for="air_crafts_id">{{ __('AirCraft Type')
                             }}</label>
-                            <select id="air_crafts_id" name="air_crafts_id" class="form-control" required>
-                                <option value="">{{ __('Выберите самолет') }}</option>
-                                @foreach ($airCrafts as $airCraft)
-                                    <option value="{{ $airCraft->id }}" {{ $airCraft->id == $cmm->air_crafts_id ? 'selected' : '' }}>{{ $airCraft->type }}</option>
-                                @endforeach
-                            </select>
-                            <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#addAirCraftModal">{{ __('Добавить самолет') }}</button>
+                                <select id="air_crafts_id" name="air_crafts_id" class="form-control" required>
+                                    <option value="">{{ __('Select AirCraft') }}</option>
+                                    @foreach ($airCrafts as $airCraft)
+                                        <option value="{{ $airCraft->id }}" {{ $airCraft->id == $cmm->air_crafts_id ? 'selected' : '' }}>{{ $airCraft->type }}</option>
+                                    @endforeach
+                                </select>
+                                <button type="button" class="btn btn-link" data-bs-toggle="modal"
+                                        data-bs-target="#addAirCraftModal">{{ __('Add AirCraft') }}</button>
+                            </div>
+
+                            <div class="form-group mt-2 ">
+                                <label for="m_f_r_s_id">{{ __('MFR') }}</label>
+                                <select id="m_f_r_s_id" name="m_f_r_s_id" class="form-control" required>
+                                    <option value="">{{ __('Select MFR') }}</option>
+                                    @foreach ($mfrs as $mfr)
+                                        <option value="{{ $mfr->id }}" {{ $mfr->id == $cmm->m_f_r_s_id ? 'selected' : '' }}>{{ $mfr->name }}</option>
+                                    @endforeach
+                                </select>
+                                <button type="button" class="btn btn-link" data-bs-toggle="modal"
+                                        data-bs-target="#addMFRModal">{{ __('Add MFR') }}</button>
+                            </div>
+
+                            <div class="form-group mt-2">
+                                <label for="scopes_id">{{ __('Scope') }}</label>
+                                <select id="scopes_id" name="scopes_id" class="form-control" required>
+                                    <option value="">{{ __('Выберите Scope') }}</option>
+                                    @foreach ($scopes as $scope)
+                                        <option value="{{ $scope->id }}" {{ $scope->id == $cmm->scopes_id ? 'selected' : '' }}>{{ $scope->scope }}</option>
+                                    @endforeach
+                                </select>
+                                <button type="button" class="btn btn-link " data-bs-toggle="modal"
+                                        data-bs-target="#addScopeModal">{{ __('Add Scope') }}</button>
+                            </div>
+
+
                         </div>
 
-                        <div class="form-group mt-2">
-                            <label for="m_f_r_s_id">{{ __('MFR') }}</label>
-                            <select id="m_f_r_s_id" name="m_f_r_s_id" class="form-control" required>
-                                <option value="">{{ __('Выберите MFR') }}</option>
-                                @foreach ($mfrs as $mfr)
-                                    <option value="{{ $mfr->id }}" {{ $mfr->id == $cmm->m_f_r_s_id ? 'selected' : '' }}>{{ $mfr->name }}</option>
-                                @endforeach
-                            </select>
-                            <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#addMFRModal">{{ __('Добавить MFR') }}</button>
-                        </div>
-
-                        <div class="form-group mt-2">
-                            <label for="scopes_id">{{ __('Scope') }}</label>
-                            <select id="scopes_id" name="scopes_id" class="form-control" required>
-                                <option value="">{{ __('Выберите Scope') }}</option>
-                                @foreach ($scopes as $scope)
-                                    <option value="{{ $scope->id }}" {{ $scope->id == $cmm->scopes_id ? 'selected' : '' }}>{{ $scope->scope }}</option>
-                                @endforeach
-                            </select>
-                            <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#addScopeModal">{{ __('Добавить Scope') }}</button>
-                        </div>
-
-                        <div class="mt-2">
-                            <label for="lib">{{ __('Номер библиотеки') }}</label>
-                            <input id='lib' type="text" class="form-control" name="lib" value="{{ old('lib', $cmm->lib) }}" required>
-                        </div>
                     </div>
 
-                    <button type="submit" class="btn btn-primary mt-3">
-                        {{ __('Сохранить изменения') }}
+                    <button type="submit" class="btn btn-primary text-center ">
+                        {{ __('UpDate') }}
                     </button>
                 </form>
             </div>

@@ -45,13 +45,13 @@ Route::prefix('admin')->middleware(['auth'])->group(function (){
         'create'])->name('admin.customers.create');
     Route::post('customers',[CustomerController::class,
         'store'])->name('admin.customers.store');
-    Route::get('customers/{customer}',[CustomerController::class,
+    Route::get('customers/{customers}',[CustomerController::class,
         'show'])->name('admin.customers.show');
-    Route::get('customers/{customer}/edit',[CustomerController::class,
+    Route::get('customers/{customers}/edit',[CustomerController::class,
         'edit'])->name('admin.customers.edit');
-    Route::put('customers/{customer}',[CustomerController::class,
+    Route::put('customers/{customers}',[CustomerController::class,
         'update'])->name('admin.customers.update');
-    Route::delete('customers/{customer}',[CustomerController::class,
+    Route::delete('customers/{customers}',[CustomerController::class,
         'destroy'])->name('admin.customers.destroy');
 
     Route::get('cmms',[CmmController::class, 'index'])->name('admin.cmms.index');

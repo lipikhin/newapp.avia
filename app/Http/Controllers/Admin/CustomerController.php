@@ -26,7 +26,8 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.customers.create');
+
     }
 
     /**
@@ -34,8 +35,17 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+
+        $customer = new Customer();
+        $customer->name = $request->name;
+        $customer->save(); // <-- Это важно
+
+        return redirect()->route('admin.customers.index')->with('success', 'Customer added successfully');
     }
+
 
     /**
      * Display the specified resource.
@@ -50,22 +60,37 @@ class CustomerController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $customer = Customer::findOrFail($id);
+        return view('admin.customers.edit', compact('customer'));
     }
+
 
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+
+        $customer = Customer::findOrFail($id);
+        $customer->name = $request->name;
+        $customer->save();
+
+        return redirect()->route('admin.customers.index')->with('success', 'Customer updated successfully');
     }
+
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
     {
-        //
+        $customer = Customer::findOrFail($id);
+        $customer->delete();
+
+        return redirect()->route('admin.customers.index')->with('success', 'Customer deleted successfully');
     }
+
 }

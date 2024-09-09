@@ -33,18 +33,16 @@
                                     </ul>
                                 </div><br />
                             @endif
-                            <form method="post" action="{{ route('admin.customers.store') }}">
-                                <div class="form-group">
+                                <form method="POST" action="{{ route('admin.customers.store') }}">
                                     @csrf
-                                    <label for="name">Name</label>
-                                    <input type="text" class="form-control" name="name"/>
-                                </div>
+                                    <div class="form-group">
+                                        <label for="name">Name</label>
+                                        <input type="text" class="form-control" name="name" required/>
+                                    </div>
 
-                                <button type="submit" class="btn btn-block m-3">Create Customer</button>
-{{--                                <x-button>--}}
-{{--                                    {{__('Create Customer')}}--}}
-{{--                                </x-button>--}}
-                            </form>
+                                    <button type="submit" class="btn btn-primary mt-3">{{ __('Create Customer') }}</button>
+                                </form>
+
                         </div>
 
                     </div>

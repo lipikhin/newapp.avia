@@ -53,7 +53,7 @@
                             </div>
                         </div>
                         <div style="width: 300px" class="m-3 p-2 border">
-                            <div class="form-group mt-2">
+                            <div class="form-group ">
                                 <label for="air_crafts_id">{{ __('AirCraft Type')
                             }}</label>
                                 <select id="air_crafts_id" name="air_crafts_id" class="form-control" required>

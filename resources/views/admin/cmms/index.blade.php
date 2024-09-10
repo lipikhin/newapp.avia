@@ -2,6 +2,12 @@
 
 @section('content')
     <style>
+        @media (max-width: 1100px) {
+            .table th:nth-child(5),
+            .table td:nth-child(5) {
+                display: none;
+            }
+        }
         @media (max-width: 770px) {
             .table th:nth-child(3),
             .table td:nth-child(3),/* Revision Date */
@@ -36,7 +42,8 @@
             <div class="card-header">
                 <div class="d-flex justify-content-between">
                     <h3>{{__('Manage CMMs')}}</h3>
-                    <a href="{{ route('admin.cmms.create') }}" class="btn btn-primary mb-3">{{ __('Create CMM') }}</a>
+                    <a href="{{ route('admin.cmms.create') }}" class="btn
+                    btn-primary mb-3">{{ __('Add CMM') }}</a>
                 </div>
             </div>
             <div class="card-body">
@@ -48,7 +55,9 @@
                     class="table table-bordered">
                     <thead>
                     <tr>
-                        <th data-field="number" data-visible="true" data-priority="1" class="text-center">{{__('Number')}}</th>
+                        <th data-field="number" data-visible="true"
+                            data-priority="1" class="text-center">{{__
+                            ('Number')}} </th>
                         <th data-field="title" data-visible="true" data-priority="2" class="text-center">{{__
                         ('Title')}}</th>
                         <th data-field="units_pn" data-visible="true" data-priority="3" class="text-center">{{__
@@ -68,7 +77,7 @@
                     <tbody>
                     @foreach($cmms as $cmm)
                         <tr>
-                            <td class="text-center">{{$cmm->number}}</td>
+                            <td class="text-center">{{$cmm->number}} </td>
                             <td class="text-center">{{$cmm->title}}</td>
                             <td class="text-center">{{$cmm->units_pn}}</td>
 

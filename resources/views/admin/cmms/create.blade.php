@@ -29,25 +29,33 @@
                                 <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
-                            <div class="mt-4">
+                            <div class="">
                                 <label for="title">{{ __('Description') }}</label>
                                 <input id='title' type="text" class="form-control" name="title" required>
                             </div>
 
-                            <div class="col-xs-12 col-sm-12 col-md-12 mt-4">
+                            <div class="col-xs-12 col-sm-12 col-md-12 mt-2">
                                 <div class="form-group">
                                     <strong>{{__('Image:')}}</strong>
                                     <input type="file" name="img" class="form-control" placeholder="изображение">
                                 </div>
                             </div>
 
-                            <div class="mt-4">
+                            <div class="mt-1">
                                 <label for="revision_date">{{ __('Revision Date') }}</label>
                                 <input id='revision_date' type="date" class="form-control" name="revision_date" required>
                             </div>
-                            <div class="mt-4">
+                            <div class="mt-2">
                                 <label for="units_pn">{{ __('Units PN') }}</label>
                                 <input id='units_pn' type="text" class="form-control" name="units_pn" required>
+                            </div>
+                            <div class=mt-2">
+                                <label for="units_tr">{{ __('Unit First
+                                Training')
+                                }}</label>
+                                <input id='units_tr' type="text"
+                                       class="form-control" name="units_tr"
+                                       required>
                             </div>
                         </div>
                        <div style="width: 320px" class="m-3 p-2 border">
@@ -98,7 +106,7 @@
                     </div>
 
                     <button type="submit" class="btn btn-primary mt-3">
-                        {{ __('Create') }}
+                        {{ __('Add CMM') }}
                     </button>
                 </form>
             </div>

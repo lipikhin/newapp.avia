@@ -51,7 +51,7 @@ class CmmController extends Controller
                 'title' => 'required',
                 'img' => 'image|nullable',
                 'revision_date' => 'required',
-                'unit_pn'=>'nullable',
+                'units_pn'=>'nullable',
                 'air_crafts_id' => 'required|exists:air_crafts,id',
                 'm_f_r_s_id' => 'required|exists:m_f_r_s,id',
                 'scopes_id' => 'required|exists:scopes,id',

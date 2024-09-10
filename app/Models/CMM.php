@@ -15,6 +15,7 @@ class CMM extends Model
         'revision_date',
         'active',
         'units_pn',
+        'units_tr',
         'lib',
         'air_crafts_id',
         'm_f_r_s_id',

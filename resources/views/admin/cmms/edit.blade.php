@@ -24,8 +24,10 @@
                     <div class="form-group d-flex ">
                         <div class="mt-2 m-3 border p-2">
                             <div>
-                                <label for="wo">{{ __('CMM Number') }}</label>
-                                <input id='wo' type="text" class="form-control" name="number" value="{{ old('number', $cmm->number) }}" required>
+                                <label for="cmm_num">{{ __('CMM Number')
+                                }}</label>
+                                <input id='cmm_num' type="text"
+                                       class="form-control" name="number" value="{{ old('number', $cmm->number) }}" required>
                                 @error('number')
                                 <div class="text-danger">{{ $message }}</div>
                                 @enderror
@@ -43,15 +45,23 @@
                                 </div>
                             </div>
 
-                            <div class="mt-2">
+                            <div class="">
                                 <label for="revision_date">{{ __('Revision Date') }}</label>
                                 <input id='revision_date' type="date" class="form-control" name="revision_date" value="{{ old('revision_date', $cmm->revision_date) }}" required>
                             </div>
-                            <div class="mt-4">
+                            <div class="mt-2">
                                 <label for="units_pn">{{ __('Units PN') }}</label>
                                 <input id='units_pn' type="text" class="form-control" name="units_pn" value="{{ old
                                 ('units_pn',
                                 $cmm->units_pn) }}" required>
+                            </div>
+                            <div class="mt-2">
+                                <label for="units_tr">{{ __('Unit First
+                                Training')
+                                }}</label>
+                                <input id='units_tr' type="text"
+                                       class="form-control" name="units_tr"
+                                       value="{{ old('units_tr', $cmm->units_tr) }}" required>
                             </div>
                         </div>
                         <div style="width: 300px" class="m-3 p-2 border">

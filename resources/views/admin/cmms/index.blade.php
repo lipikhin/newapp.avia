@@ -3,20 +3,33 @@
 @section('content')
     <style>
         @media (max-width: 770px) {
-            .table th:nth-child(4),
-            .table td:nth-child(4) /* Revision Date */ {
+            .table th:nth-child(3),
+            .table td:nth-child(3),/* Revision Date */
+            .table th:nth-child(5),
+            .table td:nth-child(5),/* Revision Date */
+            .table th:nth-child(6),
+            .table td:nth-child(6)  {
                 display: none;
             }
         }
         @media (max-width: 490px) {
             .table th:nth-child(3), /* Image */
             .table td:nth-child(3),
+
             .table th:nth-child(4), /* Revision Date */
-            .table td:nth-child(4) {
+            .table td:nth-child(4),
+            .table th:nth-child(5), /* Revision Date */
+            .table td:nth-child(5),
+            .table th:nth-child(6),
+            .table td:nth-child(6) {
                 display: none;
             }
         }
     </style>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.css">
+
 
     <div class="container">
         <div class="card shadow">
@@ -27,14 +40,29 @@
                 </div>
             </div>
             <div class="card-body">
-                <table data-toggle="table" data-search="true" data-pagination="true" data-page-size="10" class="table table-bordered">
+                <table id="cmmTable"
+                    data-toggle="table"
+                    data-search="true"
+                    data-pagination="false"
+                    data-page-size="5"
+                    class="table table-bordered">
                     <thead>
                     <tr>
                         <th data-field="number" data-visible="true" data-priority="1" class="text-center">{{__('Number')}}</th>
-                        <th data-field="title" data-visible="true" data-priority="3" class="text-center">{{__('Title')}}</th>
-                        <th data-field="img" data-visible="false" data-priority="5" class="text-center">{{__('Image')}}</th>
-                        <th data-field="revision_date" data-visible="false" data-priority="4" class="text-center">{{__('Revision Date')}}</th>
-                        <th data-field="action" data-visible="true" data-priority="2" class="text-center">{{__('Action')}}</th>
+                        <th data-field="title" data-visible="true" data-priority="2" class="text-center">{{__
+                        ('Title')}}</th>
+                        <th data-field="units_pn" data-visible="true" data-priority="3" class="text-center">{{__
+                        ('Units PN')}}</th>
+                        <th data-field="img" data-visible="true" data-priority="4" class="text-center">{{__
+                        ('Unit Image')}}</th>
+
+                        <th data-field="revision_date" data-visible="true" data-priority="5"
+                            class="text-center">{{__('Revision Date')}}</th>
+                        <th data-field="lib" data-visible="true" data-priority="6"
+                            class="text-center">{{__('Library')}}</th>
+
+                        <th data-field="action" data-visible="true" data-priority="7" class="text-center">{{__
+                        ('Action')}}</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -42,6 +70,8 @@
                         <tr>
                             <td class="text-center">{{$cmm->number}}</td>
                             <td class="text-center">{{$cmm->title}}</td>
+                            <td class="text-center">{{$cmm->units_pn}}</td>
+
                             <td class="text-center">
                                 <img src="{{ asset('storage/image/cmm/' . $cmm->img) }}" style="width: 36px"
                                      alt="Image" data-bs-toggle="modal" data-bs-target="#imageModal"
@@ -49,6 +79,7 @@
                                      data-title="{{ $cmm->title }}">
                             </td>
                             <td class="text-center">{{$cmm->revision_date}}</td>
+                            <td class="text-center">{{$cmm->lib}}</td>
                             <td class="text-center">
                                 <a href="{{ route('admin.cmms.edit', $cmm->id) }}" class="btn btn-primary btn-sm">{{__('Edit')}}</a>
                                 <form action="{{ route('admin.cmms.destroy', $cmm->id) }}" method="POST" style="display:inline;">
@@ -82,6 +113,11 @@
                 </div>
             </div>
         </div>
+
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+        <script src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
+
 
         <script>
             document.addEventListener('DOMContentLoaded', function () {

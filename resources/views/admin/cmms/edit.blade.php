@@ -39,7 +39,7 @@
                                 <div class="form-group">
                                     <strong>{{__('Image:')}}</strong>
                                     <input type="file" name="img" class="form-control" placeholder="изображение">
-                                    <small>Оставьте пустым, если не хотите менять изображение.</small>
+                                    <small>{{__('Leave blank if you do not want to change the image.')}}</small>
                                 </div>
                             </div>
 
@@ -47,9 +47,11 @@
                                 <label for="revision_date">{{ __('Revision Date') }}</label>
                                 <input id='revision_date' type="date" class="form-control" name="revision_date" value="{{ old('revision_date', $cmm->revision_date) }}" required>
                             </div>
-                            <div class="mt-2">
-                                <label for="lib">{{ __('Library Number') }}</label>
-                                <input id='lib' type="text" class="form-control" name="lib" value="{{ old('lib', $cmm->lib) }}" required>
+                            <div class="mt-4">
+                                <label for="units_pn">{{ __('Units PN') }}</label>
+                                <input id='units_pn' type="text" class="form-control" name="units_pn" value="{{ old
+                                ('units_pn',
+                                $cmm->units_pn) }}" required>
                             </div>
                         </div>
                         <div style="width: 300px" class="m-3 p-2 border">
@@ -89,7 +91,10 @@
                                 <button type="button" class="btn btn-link " data-bs-toggle="modal"
                                         data-bs-target="#addScopeModal">{{ __('Add Scope') }}</button>
                             </div>
-
+                            <div class="">
+                                <label for="lib">{{ __('Library Number') }}</label>
+                                <input id='lib' type="text" class="form-control" name="lib" value="{{ old('lib', $cmm->lib) }}" required>
+                            </div>
 
                         </div>
 

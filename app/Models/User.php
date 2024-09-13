@@ -35,6 +35,12 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsTo(Team::class, 'teams_id');
     }
 
+    public function userCMMs()
+    {
+        return $this->hasMany(UserCMM::class);
+    }
+
+
     /**
      * The attributes that should be hidden for serialization.
      *

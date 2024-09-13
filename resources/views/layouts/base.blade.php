@@ -188,9 +188,11 @@
                             {{ Auth::user()->name }}
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                            <a class="dropdown-item" href="{{ route('user.profile') }}">
+                            <a class="dropdown-item" href="{{ route('user.profile.profile') }}">
                                 <i class="fas fa-user-circle mr-2"></i> Profile
                             </a>
+
+
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                 <i class="fas fa-sign-out-alt mr-2"></i> Logout

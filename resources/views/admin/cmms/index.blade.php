@@ -124,46 +124,49 @@
         </div>
 
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+{{--        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>--}}
         <script src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
 
 
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                const imageModal = document.getElementById('imageModal');
-                const modalImage = document.getElementById('modalImage');
-                const modalTitle = document.getElementById('imageModalLabel');
 
-                imageModal.addEventListener('show.bs.modal', function (event) {
-                    const button = event.relatedTarget; // Button that triggered the modal
-                    const imageUrl = button.getAttribute('data-image-url'); // Extract image URL from data-* attributes
-                    const title = button.getAttribute('data-title'); // Extract title from data-* attributes
-
-                    modalImage.src = imageUrl; // Update the modal's image
-                    modalTitle.textContent = title; // Update the modal's title
-                });
-
-                imageModal.addEventListener('hidden.bs.modal', function () {
-                    modalImage.src = ''; // Clear the image when the modal is closed
-                });
-            });
-
-            // Проверка ширины экрана и управление отображением таблицы и сообщения
-            function checkScreenWidth() {
-                const screenWidth = window.innerWidth;
-                const table = document.querySelector('.table');
-                const mobileMessage = document.getElementById('mobile-message'); // Если хотите использовать это сообщение, добавьте его в HTML.
-
-                if (screenWidth < 312) {
-                    table.style.display = 'none';
-                    if (mobileMessage) mobileMessage.style.display = 'block';
-                } else {
-                    table.style.display = 'table';
-                    if (mobileMessage) mobileMessage.style.display = 'none';
-                }
-            }
-
-            window.onload = checkScreenWidth;
-            window.onresize = checkScreenWidth;
-        </script>
 @endsection
+        @push('scripts')
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    const imageModal = document.getElementById('imageModal');
+                    const modalImage = document.getElementById('modalImage');
+                    const modalTitle = document.getElementById('imageModalLabel');
+
+                    imageModal.addEventListener('show.bs.modal', function (event) {
+                        const button = event.relatedTarget; // Button that triggered the modal
+                        const imageUrl = button.getAttribute('data-image-url'); // Extract image URL from data-* attributes
+                        const title = button.getAttribute('data-title'); // Extract title from data-* attributes
+
+                        modalImage.src = imageUrl; // Update the modal's image
+                        modalTitle.textContent = title; // Update the modal's title
+                    });
+
+                    imageModal.addEventListener('hidden.bs.modal', function () {
+                        modalImage.src = ''; // Clear the image when the modal is closed
+                    });
+                });
+
+                // Проверка ширины экрана и управление отображением таблицы и сообщения
+                function checkScreenWidth() {
+                    const screenWidth = window.innerWidth;
+                    const table = document.querySelector('.table');
+                    const mobileMessage = document.getElementById('mobile-message'); // Если хотите использовать это сообщение, добавьте его в HTML.
+
+                    if (screenWidth < 312) {
+                        table.style.display = 'none';
+                        if (mobileMessage) mobileMessage.style.display = 'block';
+                    } else {
+                        table.style.display = 'table';
+                        if (mobileMessage) mobileMessage.style.display = 'none';
+                    }
+                }
+
+                window.onload = checkScreenWidth;
+                window.onresize = checkScreenWidth;
+            </script>
+        @endpush

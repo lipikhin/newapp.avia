@@ -38,4 +38,9 @@ class CMM extends Model
     {
         return $this->belongsTo(Scope::class);
     }
+    public function userCMMs()
+    {
+        return $this->hasMany(UserCMM::class);
+    }
+
 }

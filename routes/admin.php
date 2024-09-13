@@ -105,6 +105,14 @@ Route::prefix('admin')->middleware(['auth'])->group(function (){
 
     Route::post('/teams/store', [TeamController::class, 'store'])->name('admin.teams.store');
 
-// М
+    Route::prefix('trainings')->group(function() {
+        Route::get('/', [TrainingController::class, 'index'])->name('admin.trainings.index'); // Список всех тренингов
+        Route::get('/createForm132/{id}', [TrainingController::class, 'createForm132'])->name('admin.trainings.createForm132'); // Создание формы 132
+        Route::post('/storeForm132/{id}', [TrainingController::class, 'storeForm132'])->name('admin.trainings.storeForm132'); // Сохранение формы 132
+        Route::get('/createForm112/{id}', [TrainingController::class, 'createForm112'])->name('admin.trainings.createForm112'); // Создание формы 112
+        Route::post('/storeForm112/{id}', [TrainingController::class, 'storeForm112'])->name('admin.trainings.storeForm112'); // Сохранение формы 112
+        Route::get('/{id}', [TrainingController::class, 'show'])->name('admin.trainings.show'); // Просмотр деталей тренинга
+        Route::delete('/{id}', [TrainingController::class, 'destroy'])->name('admin.trainings.destroy'); // Удаление тренинга
+    });
 
 });

@@ -2,6 +2,16 @@
 
 @section('content')
 
+    <style>
+        .card {
+            max-width: 450px;
+        }
+
+        .push-top {
+            margin-top: 50px;
+        }
+    </style>
+
     <div class="container">
         <div class="card">
             <div class="card-header">
@@ -9,16 +19,19 @@
 
             </div>
             <div class="card-body">
-                <form method="POST" action="{{ route('user.trainings.store') }}">
+                <form method="POST" action="{{ route('user.trainings.store')}}">
                     @csrf
                     <div class="form-group mt-2">
                         <label for="cmm_id">{{ __('Unit PN') }}</label>
                         <select id="cmm_id" name="cmm_id" class="form-control" required>
                             <option value="">{{ __('Select Unit PN') }}</option>
                             @foreach ($cmms as $cmm)
+
                                 <option value="{{ $cmm->id }}">{{ $cmm->title }} ({{ $cmm->units_pn }})</option>
+
                             @endforeach
                         </select>
+
                     </div>
                     <button type="submit" class="btn btn-primary mt-3">{{ __('Add Unit') }}</button>
                 </form>

@@ -11,13 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('user_c_m_m_s', function (Blueprint $table) {
+        Schema::create('cmms', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
 
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');  // Ссылка на пользователя
-            $table->foreignId('c_m_m_s_id')->constrained('c_m_m_s')->onDelete
-            ('cascade');  // Ссылка на юнит (CMM)
+            $table->string('number')->unique();
+            $table->string('title')->nullable();
+            $table->string('img')->nullable();
+            $table->date('revision_date')->nullable();
+            $table->string('lib')->nullable();
+            $table->boolean('active')->default(true);
 
         });
     }
@@ -27,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('user_c_m_m_s');
+        Schema::dropIfExists('cmms');
     }
 };

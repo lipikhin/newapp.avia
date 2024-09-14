@@ -4,11 +4,11 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\CMM;
+use App\Models\Training;
 use App\Models\User;
-use App\Models\UserCMM;
 use Illuminate\Http\Request;
 
-class UserCmmController extends Controller
+class TrainingController extends Controller
 {
     public function __construct()
     {
@@ -19,10 +19,10 @@ class UserCmmController extends Controller
      */
     public function index()
     {
-        $userCmmLists = UserCmm::with(['c_m_m_s','user'])
+        $trainingLists = Training::with(['cmms','user'])
             ->where('user_id', auth()->id())
             ->get();
-        return view('user.trainings.index', compact('userCmmLists'));
+        return view('user.trainings.index', compact('trainingLists'));
     }
 
     /**
@@ -30,10 +30,16 @@ class UserCmmController extends Controller
      */
     public function create()
     {
-        $user = User::all();
-        $cmms = CMM::all();
+        $userId = auth()->id();
 
-        return view('user.trainings.create', compact('user','cmms'));
+        // Получаем ID юнитов, которые уже добавлены для текущего пользователя
+        $addedCmmIds = Training::where('user_id', $userId)->pluck('cmms_id');
+
+        // Получаем юниты, которые не добавлены для текущего пользователя
+        $cmms = CMM::whereNotIn('id', $addedCmmIds)->get();
+
+        return view('user.trainings.create', compact('cmms'));
+
     }
 
     /**
@@ -42,7 +48,7 @@ class UserCmmController extends Controller
     public function store(Request $request)
     {
 
-       // dd($request);
+        // dd($request);
 
         // Валидация входных данных
         $validatedData = $request->validate([
@@ -51,13 +57,14 @@ class UserCmmController extends Controller
         ]);
 
         // Добавляем текущего пользователя и выбранную единицу (CMM)
-        UserCMM::create([
+        Training::create([
             'user_id' => auth()->id(), // Добавляем текущего пользователя
-            'c_m_m_s_id' => $validatedData['cmm_id'], // Добавляем выбранную
+            'cmms_id' => $validatedData['cmm_id'], // Добавляем выбранную
             // единицу
         ]);
 
-        return redirect()->route('user.trainings.index')->with('success', 'Unit added for training.');
+        return redirect()->route('user.trainings.index')->with('success',
+            'Unit added for training.');
     }
 
     /**

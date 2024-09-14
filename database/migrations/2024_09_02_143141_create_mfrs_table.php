@@ -11,17 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('c_m_m_s', function (Blueprint $table) {
+        Schema::create('mfrs', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
 
-            $table->string('number')->unique();
-            $table->string('title')->nullable();
-            $table->string('img')->nullable();
-            $table->date('revision_date')->nullable();
-            $table->string('lib')->nullable();
-            $table->boolean('active')->default(true);
-
+            $table->string('name');
         });
     }
 
@@ -30,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('c_m_m_s');
+        Schema::dropIfExists('mfrs');
     }
 };

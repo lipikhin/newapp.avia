@@ -35,9 +35,9 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsTo(Team::class, 'teams_id');
     }
 
-    public function userCMMs()
+    public function training()
     {
-        return $this->hasMany(UserCMM::class);
+        return $this->hasMany(Training::class);
     }
 
 

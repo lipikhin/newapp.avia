@@ -11,10 +11,13 @@
                 <li class="nav-item ms-2">
                     <h3>
                         <a href="{{route('user.trainings.index')
-                        }}" class="btn btn-primary">Units Training</a>
+                        }}" class="btn btn-primary"> Training </a>
                     </h3>
 
                 </li>
+
+
+
                 @auth
                     @if(Auth::user()->is_admin)
 

@@ -4,7 +4,6 @@
 use App\Http\Controllers\User\ProfileController;
 use App\Http\Controllers\User\TrainingController;
 use App\Http\Controllers\User\UserCmmController;
-use App\Http\Controllers\User\WorkOrderController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -45,9 +44,12 @@ Route::prefix('user')->middleware(['auth'])->group(function (){
     Route::put('profile/{profile}', [ProfileController::class, 'update'])->name('user.profile.update');
     Route::delete('profile/{profile}', [ProfileController::class, 'destroy'])->name('user.profile.destroy');
 
-    Route::get('trainings', [UserCmmController::class, 'index'])->name('user.trainings.index');
-    Route::get('trainings/create', [UserCmmController::class, 'create'])->name('user.trainings.create');
-    Route::post('trainings', [UserCmmController::class, 'store'])->name('user.trainings.store');
+    Route::get('trainings', [TrainingController::class, 'index'])->name('user.trainings.index');
+    Route::get('trainings/create', [TrainingController::class, 'create'])
+        ->name('user.trainings.create');
+    Route::post('trainings', [TrainingController::class, 'store'])->name
+    ('user.trainings.store');
+
 
 
 
@@ -60,7 +62,7 @@ Route::prefix('user')->middleware(['auth'])->group(function (){
 //        Route::get('/createForm112/{id}', [UserCmmController::class, 'createForm112'])->name('user.trainings.createForm112'); // Создание формы 112
 //        Route::post('/storeForm112/{id}', [UserCmmController::class, 'storeForm112'])->name('user.trainings.storeForm112'); // Сохранение формы 112
 //        Route::get('/{id}', [UserCmmController::class, 'show'])->name('user.trainings.show'); // Просмотр конкретного тренинга
-//    });
+//
 
 
 });

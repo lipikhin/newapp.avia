@@ -5,19 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class UserCMM extends Model
+class Training extends Model
 {
     use HasFactory;
-    protected $table = 'user_c_m_m_s'; // Если название таблицы отличается от стандартного
-
-    protected $fillable = ['user_id', 'c_m_m_s_id'];
+    protected $fillable = [
+        'user_id', 'cmms_id',
+        'date_training', 'form_type',
+    ];
 
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    public function c_m_m_s()
+    public function cmms()
     {
         return $this->belongsTo(CMM::class);
     }

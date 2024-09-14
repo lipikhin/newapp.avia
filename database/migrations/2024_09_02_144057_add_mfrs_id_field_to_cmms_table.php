@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('c_m_m_s', function (Blueprint $table) {
-            $table->foreignId('air_crafts_id')->constrained()->onDelete('cascade');
+        Schema::table('cmms', function (Blueprint $table) {
+            $table->foreignId('mfrs_id')->constrained()->onDelete('cascade');
         });
     }
 
@@ -21,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('c_m_m_s', function (Blueprint $table) {
-            $table->dropColumn(['air_crafts_id']);
+        Schema::table('cmms', function (Blueprint $table) {
+            $table->dropColumn(['mfrs_id']);
         });
     }
 };

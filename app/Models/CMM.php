@@ -17,8 +17,8 @@ class CMM extends Model
         'units_pn',
         'units_tr',
         'lib',
-        'air_crafts_id',
-        'm_f_r_s_id',
+        'aircrafts_id',
+        'mfrs_id',
         'scopes_id',
     ];
     // Отношение с моделью AirCraft
@@ -38,9 +38,9 @@ class CMM extends Model
     {
         return $this->belongsTo(Scope::class);
     }
-    public function userCMMs()
+    public function training()
     {
-        return $this->hasMany(UserCMM::class);
+        return $this->hasMany(Training::class);
     }
 
 }

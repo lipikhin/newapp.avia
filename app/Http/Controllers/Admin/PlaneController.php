@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\AirCraft;
+use App\Models\Plane;
 use Illuminate\Http\Request;
 
-class AirCraftController extends Controller
+class PlaneController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -33,7 +33,7 @@ class AirCraftController extends Controller
             'type' => 'required|string|max:255',
         ]);
 
-        $airCraft = new AirCraft();
+        $airCraft = new Plane();
         $airCraft->type = $request->type;
         $airCraft->save();
 

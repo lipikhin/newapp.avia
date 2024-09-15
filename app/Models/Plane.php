@@ -5,13 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class MFR extends Model
+class Plane extends Model
 {
     use HasFactory;
-    protected $fillable = ['name'];
+    protected $fillable = ['type'];
 
-    public function cmms()
+    public function manual()
     {
-        return $this->hasMany(CMM::class);
+        return $this->hasMany(Manual::class);
     }
 }

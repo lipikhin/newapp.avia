@@ -5,13 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class AirCraft extends Model
+class Builder extends Model
 {
     use HasFactory;
-    protected $fillable = ['type'];
+    protected $fillable = ['name'];
 
-    public function cmms()
+    public function manual()
     {
-        return $this->hasMany(CMM::class);
+        return $this->hasMany(Manual::class);
     }
 }

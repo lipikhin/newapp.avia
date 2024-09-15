@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\MFR;
+use App\Models\Builder;
 use Illuminate\Http\Request;
 
-class MFRController extends Controller
+class BuilderController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -33,16 +33,11 @@ class MFRController extends Controller
             'name' => 'required|string|max:255',
         ]);
 
-        $mfr = new MFR();
+        $mfr = new Builder();
         $mfr->name = $request->name;
         $mfr->save();
 
         return response()->json($mfr);
-
-
-//        MFR::create($validatedData);
-//
-//        return redirect()->back()->with('success', 'MFR added successfully');
     }
 
     /**

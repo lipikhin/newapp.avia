@@ -4,8 +4,8 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\CMM;
+use App\Models\Manual;
 use App\Models\Training;
-use App\Models\User;
 use Illuminate\Http\Request;
 
 class TrainingController extends Controller
@@ -19,9 +19,11 @@ class TrainingController extends Controller
      */
     public function index()
     {
-        $trainingLists = Training::with(['cmms','user'])
+        ;
+        $trainingLists = Training::with(['manual','user'])
             ->where('user_id', auth()->id())
             ->get();
+
         return view('user.trainings.index', compact('trainingLists'));
     }
 
@@ -30,13 +32,17 @@ class TrainingController extends Controller
      */
     public function create()
     {
+
         $userId = auth()->id();
 
         // Получаем ID юнитов, которые уже добавлены для текущего пользователя
-        $addedCmmIds = Training::where('user_id', $userId)->pluck('cmms_id');
+        $addedCmmIds = Training::where('user_id', $userId)->pluck('manuals_id');
 
         // Получаем юниты, которые не добавлены для текущего пользователя
-        $cmms = CMM::whereNotIn('id', $addedCmmIds)->get();
+        $cmms = Manual::whereNotIn('id', $addedCmmIds)->get();
+
+
+
 
         return view('user.trainings.create', compact('cmms'));
 

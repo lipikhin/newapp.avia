@@ -10,8 +10,8 @@ class Scope extends Model
     use HasFactory;
     protected $fillable = ['scope'];
 
-    public function cmms()
+    public function manual()
     {
-        return $this->hasMany(CMM::class);
+        return $this->hasMany(Manual::class);
     }
 }

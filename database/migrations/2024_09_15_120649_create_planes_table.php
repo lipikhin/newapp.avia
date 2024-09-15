@@ -11,17 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('cmms', function (Blueprint $table) {
+        Schema::create('planes', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-
-            $table->string('number')->unique();
-            $table->string('title')->nullable();
-            $table->string('img')->nullable();
-            $table->date('revision_date')->nullable();
-            $table->string('lib')->nullable();
-            $table->boolean('active')->default(true);
-
+            $table->string('type');
         });
     }
 
@@ -30,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('cmms');
+        Schema::dropIfExists('planes');
     }
 };

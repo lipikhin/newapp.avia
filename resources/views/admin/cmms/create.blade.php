@@ -223,8 +223,8 @@
         }
 
         // Вызов функции для каждой модальной формы
-        handleFormSubmission('addAirCraftForm', '{{ route('admin.aircrafts.store') }}', 'air_crafts_id', 'id', 'type');
-        handleFormSubmission('addMFRForm', '{{ route('admin.mfrs.store') }}', 'm_f_r_s_id', 'id', 'name');
+        handleFormSubmission('addAirCraftForm', '{{ route('admin.air_crafts.store') }}', 'air_crafts_id', 'id', 'type');
+        handleFormSubmission('addMFRForm', '{{ route('admin.mfrs.store') }}', 'mfrs_id', 'id', 'name');
         handleFormSubmission('addScopeForm', '{{ route('admin.scopes.store') }}', 'scopes_id', 'id', 'scope');
     </script>
 @endsection

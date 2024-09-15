@@ -234,9 +234,9 @@
             });
         }
 
-        handleFormSubmission('addAirCraftForm','addAirCraftModal', '{{ route('admin.aircrafts.store') }}',
+        handleFormSubmission('addAirCraftForm','addAirCraftModal', '{{ route('admin.air_crafts.store') }}',
             'air_crafts_id', 'id', 'type');
-        handleFormSubmission('addMFRForm','addMFRModal', '{{ route('admin.mfrs.store') }}', 'm_f_r_s_id', 'id', 'name');
+        handleFormSubmission('addMFRForm','addMFRModal', '{{ route('admin.mfrs.store') }}', 'mfrs_id', 'id', 'name');
         handleFormSubmission('addScopeForm','addScopeModal', '{{ route('admin.scopes.store') }}', 'scopes_id', 'id', 'scope');
     </script>
 @endsection

@@ -11,8 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('cmms', function (Blueprint $table) {
-            $table->foreignId('aircrafts_id')->constrained()->onDelete('cascade');
+        Schema::create('aircrafts', function (Blueprint $table) {
+            $table->id();
+            $table->timestamps();
+
+            $table->string('type');
         });
     }
 
@@ -21,8 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('cmms', function (Blueprint $table) {
-            $table->dropColumn(['aircrafts_id']);
-        });
+        Schema::dropIfExists('air_crafts');
     }
 };

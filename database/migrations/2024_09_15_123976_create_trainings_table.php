@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');  // Ссылка на пользователя
-            $table->foreignId('cmms_id')->constrained('cmms')->onDelete
+            $table->foreignId('manuals_id')->constrained('manuals')->onDelete
             ('cascade');  // Ссылка на юнит (CMM)
             $table->date('date_training')->nullable();
             $table->string('form_type')->nullable();
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('trainings');
+        Schema::dropIfExists('_trainings');
     }
 };

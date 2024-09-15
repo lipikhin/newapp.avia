@@ -9,7 +9,7 @@ class Training extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'user_id', 'cmms_id',
+        'user_id', 'manuals_id',
         'date_training', 'form_type',
     ];
 
@@ -18,8 +18,8 @@ class Training extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function cmms()
+    public function manual()
     {
-        return $this->belongsTo(CMM::class);
+        return $this->belongsTo(Manual::class);
     }
 }

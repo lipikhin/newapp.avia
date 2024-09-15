@@ -1,13 +1,17 @@
 <?php
 
 use App\Http\Controllers\Admin\AirCraftController;
+use App\Http\Controllers\Admin\BuilderController;
 use App\Http\Controllers\Admin\CmmController;
 use App\Http\Controllers\Admin\CustomerController;
+use App\Http\Controllers\Admin\ManualController;
 use App\Http\Controllers\Admin\MFRController;
+use App\Http\Controllers\Admin\PlaneController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\ScopeController;
 use App\Http\Controllers\Admin\TeamController;
 use App\Http\Controllers\Admin\UsersController;
+use App\Http\Controllers\User\TrainingController;
 use Illuminate\Support\Facades\Route;
 
 //use App\Http\Controllers\Admin\UnitController;
@@ -54,23 +58,23 @@ Route::prefix('admin')->middleware(['auth'])->group(function (){
     Route::delete('customers/{customers}',[CustomerController::class,
         'destroy'])->name('admin.customers.destroy');
 
-    Route::get('cmms',[CmmController::class, 'index'])->name('admin.cmms.index');
-    Route::get('cmms/create',[CmmController::class, 'create'])->name('admin.cmms.create');
-    Route::post('cmms',[CmmController::class,
+    Route::get('cmms',[ManualController::class, 'index'])->name('admin.cmms.index');
+    Route::get('cmms/create',[ManualController::class, 'create'])->name('admin.cmms.create');
+    Route::post('cmms',[ManualController::class,
         'store'])->name('admin.cmms.store');
-    Route::get('cmms/{cmms}',[CmmController::class,
+    Route::get('cmms/{cmms}',[ManualController::class,
         'show'])->name('admin.cmms.show');
-    Route::get('cmms/{cmms}/edit',[CmmController::class,
+    Route::get('cmms/{cmms}/edit',[ManualController::class,
         'edit'])->name('admin.cmms.edit');
-    Route::put('cmms/{cmms}',[CmmController::class,
+    Route::put('cmms/{cmms}',[ManualController::class,
         'update'])->name('admin.cmms.update');
-    Route::delete('cmms/{cmms}',[CmmController::class,
+    Route::delete('cmms/{cmms}',[ManualController::class,
         'destroy'])->name('admin.cmms.destroy');
 
-    Route::post('/aircrafts/store',[AirCraftController::class,
-        'store'])->name('admin.aircrafts.store');
+    Route::post('/air_crafts/store',[PlaneController::class,
+        'store'])->name('admin.air_crafts.store');
     Route::post('/mfrs/store',
-        [MFRController::class,'store'])->name('admin.mfrs.store');
+        [BuilderController::class,'store'])->name('admin.mfrs.store');
     Route::post('/scopes/store',
         [ScopeController::class,'store'])->name('admin.scopes.store');
 

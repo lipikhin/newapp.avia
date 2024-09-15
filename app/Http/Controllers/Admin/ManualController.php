@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\AirCraft;
-use App\Models\CMM;
-use App\Models\MFR;
+use App\Models\Builder;
+use App\Models\Manual;
+use App\Models\Plane;
 use App\Models\Scope;
 use Illuminate\Http\Request;
 
-class CmmController extends Controller
+class ManualController extends Controller
 {
     public function __construct()
     {
@@ -21,7 +21,7 @@ class CmmController extends Controller
     public function index()
     {
 
-        $cmms = Cmm::with(['airCraft', 'mfr', 'scope'])->get(); // Загружаем
+        $cmms = Manual::with(['airCraft', 'mfr', 'scope'])->get(); // Загружаем
         // связанные модели
         return view('admin.cmms.index', compact('cmms'));
 
@@ -32,8 +32,8 @@ class CmmController extends Controller
      */
     public function create()
     {
-        $airCrafts = AirCraft::all();
-        $mfrs = Mfr::all();
+        $airCrafts = Plane::all();
+        $mfrs = Builder::all();
         $scopes = Scope::all();
 
         return view('admin.cmms.create', compact('airCrafts', 'mfrs', 'scopes'));
@@ -52,7 +52,7 @@ class CmmController extends Controller
                 'img' => 'image|nullable',
                 'revision_date' => 'required',
                 'units_pn'=>'nullable',
-                'aircrafts_id' => 'required|exists:aircrafts,id',
+                'air_crafts_id' => 'required|exists:air_crafts,id',
                 'mfrs_id' => 'required|exists:mfrs,id',
                 'scopes_id' => 'required|exists:scopes,id',
                 'lib' => 'required'
@@ -71,7 +71,7 @@ class CmmController extends Controller
             try {
 
                 // Создание новой записи в базе данных
-                CMM::create($validatedData);
+                Manual::create($validatedData);
                 // Перенаправление пользователя на страницу со списком CMM с сообщением об успешном создании
                 return redirect()->route('admin.cmms.index')->with('success', 'Инструкция успешно создана.');
             } catch (\Exception $e) {
@@ -96,9 +96,9 @@ class CmmController extends Controller
     // Edit method
     public function edit($id)
     {
-        $cmm = Cmm::findOrFail($id);
-        $airCrafts = AirCraft::all(); // Получаем все записи из таблицы AirCraft
-        $mfrs = Mfr::all(); // Получаем все записи из таблицы MFR
+        $cmm = Manual::findOrFail($id);
+        $airCrafts = Plane::all(); // Получаем все записи из таблицы AirCraft
+        $mfrs = Builder::all(); // Получаем все записи из таблицы MFR
         $scopes = Scope::all(); // Получаем все записи из таблицы Scope
 
         return view('admin.cmms.edit', compact('cmm', 'airCrafts', 'mfrs', 'scopes'));
@@ -108,7 +108,7 @@ class CmmController extends Controller
 // Update method
     public function update(Request $request, $id)
     {
-        $cmm = Cmm::findOrFail($id);
+        $cmm = Manual::findOrFail($id);
 
         // Пример валидации, добавьте свои правила
         $request->validate([
@@ -118,16 +118,16 @@ class CmmController extends Controller
         ]);
 
         $cmm->update($request->all());
-        return redirect()->route('admin.cmms.index')->with('success', 'CMM updated successfully');
+        return redirect()->route('admin.cmms.index')->with('success', 'Manual updated successfully');
     }
 
 
 // Destroy method
     public function destroy($id)
     {
-        $cmm = Cmm::findOrFail($id);
+        $cmm = Manual::findOrFail($id);
         $cmm->delete();
-        return redirect()->route('admin.cmms.index')->with('success', 'CMM deleted successfully');
+        return redirect()->route('admin.cmms.index')->with('success', 'Manual deleted successfully');
     }
 
 //    public function edit(string $id)

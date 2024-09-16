@@ -49,8 +49,9 @@
                                            ->diffInDays(\Carbon\Carbon::now()) < 340)
                                                disabled
                                            @endif
-                                           onchange="handleCheckboxChange(this, '{{ $trainingList['first_training']->manuals_id }}', '{{ $trainingList['first_training']->date_training }}')">
+                                           onchange="handleCheckboxChange(this, '{{ $trainingList['first_training']->manuals_id }}', '{{ $trainingList['first_training']->date_training }}', '{{ $trainingList['first_training']->manual->title ?? 'N/A' }}')">
                                     <label class="form-check-label" for="flexSwitchCheckChecked"></label>
+
                                 </div>
                             </td>
                             <td class="text-center">
@@ -132,7 +133,7 @@
                 let trainingData = [];
 
                 // Генерируем данные для создания тренингов за следующие годы
-                for (let year = lastTrainingYear + 1; year <= currentYear + 1; year++) {
+                for (let year = lastTrainingYear + 1; year <= currentYear; year++) {
                     const trainingDate = getDateFromWeekAndYear(lastTrainingWeek, year);
                     trainingData.push({
                         manuals_id: manualsId,
@@ -141,26 +142,40 @@
                     });
                 }
 
-                // Отправка AJAX-запроса для сохранения тренингов
-                fetch('/trainings/createTraining', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}' // Включаем CSRF токен
-                    },
-                    body: JSON.stringify(trainingData)
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            alert('Тренинги успешно созданы!');
-                        } else {
-                            alert('Ошибка при создании тренингов.');
-                        }
+                // Подготовка сообщения для подтверждения
+                let confirmationMessage = "Данные предоставлены:\n";
+                trainingData.forEach((data, index) => {
+                    confirmationMessage += `\nТренинг ${index + 1}: \n`;
+                    confirmationMessage += `Manual: ${manualsId} \n`;  // Тут можно вывести полное название (manual->title), если оно у вас есть.
+                    confirmationMessage += `Дата тренировки: ${data.date_training} \n`;
+                    confirmationMessage += `Форма: ${data.form_type} \n`;
+                });
+
+                // Показываем сообщение для подтверждения
+                if (confirm(confirmationMessage + "\nПродолжить создание тренингов?")) {
+                    // Если пользователь подтвердил, выполняем запрос
+
+                    fetch('/trainings/createTraining', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}' // Включаем CSRF токен
+                        },
+                        body: JSON.stringify(trainingData)
                     })
-                    .catch(error => console.error('Ошибка:', error));
-            } else {
-                checkbox.checked = false; // Убедитесь, что чекбокс снят
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                alert('Тренинги успешно созданы!');
+                            } else {
+                                alert('Ошибка при создании тренингов.');
+                            }
+                        })
+                        .catch(error => console.error('Ошибка:', error));
+                } else {
+                    // Если пользователь отказался, снимаем галочку
+                    checkbox.checked = false;
+                }
             }
         }
 

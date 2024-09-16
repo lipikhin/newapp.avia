@@ -115,10 +115,37 @@ class TrainingController extends Controller
 
         return redirect()->route('user.trainings.index')->with('success', 'Unit added for training.');
     }
-    public function createTrainings(Request $request, $id)
+    public function createTraining(Request $request)
     {
-       dd($request,$id);
+        // Валидация входных данных
+        $validatedData = $request->validate([
+            'manual' => 'required',
+            'last_training_date' => 'nullable|date'
+        ]);
+
+        // Получение ID текущего пользователя
+        $userId = auth()->id();
+        $manualId = $validatedData['manual'];
+        $lastTrainingDate = $validatedData['last_training_date'];
+
+        // Определяем номер недели последнего тренинга
+        $lastTrainingWeek = \Carbon\Carbon::parse($lastTrainingDate)->weekOfYear;
+
+        // Генерируем тренинги за следующие годы
+        for ($year = \Carbon\Carbon::now()->year; $year <= \Carbon\Carbon::now()->year + 1; $year++) {
+            $trainingDate = \Carbon\Carbon::now()->setISODate($year, $lastTrainingWeek, 5); // Устанавливаем на пятницу
+
+            Training::create([
+                'user_id' => $userId,
+                'manuals_id' => $manualId,
+                'date_training' => $trainingDate,
+                'form_type' => 112,
+            ]);
+        }
+
+        return redirect()->route('user.trainings.index')->with('success', 'Новые тренировки добавлены.');
     }
+
 
     /**
      * Display the specified resource.

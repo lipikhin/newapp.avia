@@ -50,7 +50,7 @@ Route::prefix('user')->middleware(['auth'])->group(function (){
     Route::post('trainings', [TrainingController::class, 'store'])->name
     ('user.trainings.store');
     Route::post('/update-training/{id}', [TrainingController::class, 'updateTraining'])->name('updateTraining');
-
+    Route::post('/trainings/createTraining', [TrainingController::class, 'createTraining'])->name('trainings.createTraining');
 
 
 

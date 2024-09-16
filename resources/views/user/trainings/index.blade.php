@@ -132,7 +132,7 @@
                 let trainingData = [];
 
                 // Генерируем данные для создания тренингов за следующие годы
-                for (let year = lastTrainingYear + 1; year <= currentYear; year++) {
+                for (let year = lastTrainingYear + 1; year <= currentYear + 1; year++) {
                     const trainingDate = getDateFromWeekAndYear(lastTrainingWeek, year);
                     trainingData.push({
                         manuals_id: manualsId,
@@ -163,6 +163,7 @@
                 checkbox.checked = false; // Убедитесь, что чекбокс снят
             }
         }
+
 
     </script>
 

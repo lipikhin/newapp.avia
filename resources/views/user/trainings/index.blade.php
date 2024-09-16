@@ -127,32 +127,43 @@
 
                 // Получаем текущую дату
                 const currentYear = new Date().getFullYear();
-                let messages = [];
 
-                // Генерируем сообщения для создания тренингов за следующие годы
+                // Создаем массив для данных, которые будем отправлять
+                let trainingData = [];
+
+                // Генерируем данные для создания тренингов за следующие годы
                 for (let year = lastTrainingYear + 1; year <= currentYear; year++) {
                     const trainingDate = getDateFromWeekAndYear(lastTrainingWeek, year);
-                    messages.push(`Создание тренинга для формы 112:\nManuals ID: ${manualsId}\nДата тренировки: ${trainingDate.toLocaleDateString()}`);
+                    trainingData.push({
+                        manuals_id: manualsId,
+                        date_training: trainingDate.toISOString().split('T')[0], // Преобразуем в YYYY-MM-DD
+                        form_type: '112'
+                    });
                 }
 
-                // Показываем все сообщения
-                alert(messages.join('\n\n'));
-                // Сбрасываем состояние чекбокса
-                checkbox.checked = false;
+                // Отправка AJAX-запроса для сохранения тренингов
+                fetch('/trainings/createTraining', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}' // Включаем CSRF токен
+                    },
+                    body: JSON.stringify(trainingData)
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert('Тренинги успешно созданы!');
+                        } else {
+                            alert('Ошибка при создании тренингов.');
+                        }
+                    })
+                    .catch(error => console.error('Ошибка:', error));
+            } else {
+                checkbox.checked = false; // Убедитесь, что чекбокс снят
             }
         }
 
-        function getWeekNumber(d) {
-            const oneJan = new Date(d.getFullYear(), 0, 1);
-            const numberOfDays = Math.floor((d - oneJan) / (24 * 60 * 60 * 1000));
-            return Math.ceil((numberOfDays + oneJan.getDay() + 1) / 7);
-        }
-
-        function getDateFromWeekAndYear(week, year) {
-            const firstJan = new Date(year, 0, 1);
-            const days = (week - 1) * 7 - firstJan.getDay() + 1;
-            return new Date(year, 0, 1 + days);
-        }
     </script>
 
 

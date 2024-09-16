@@ -61,13 +61,13 @@
                         </div>
                        <div style="width: 320px" class="m-3 p-2 border">
                            <div class="form-group ">
-                               <label for="planes_id">{{ __('AirCraft Type')
+                               <label for="air_crafts_id">{{ __('AirCraft Type')
                             }}</label>
-                               <select id="planes_id" name="planes_id" class="form-control" required>
+                               <select id="air_crafts_id" name="air_crafts_id" class="form-control" required>
                                    <option value="">{{ __('Select AirCraft')
                                 }}</option>
-                                   @foreach ($planes as $plane)
-                                       <option value="{{ $plane->id }}">{{ $plane->type }}</option>
+                                   @foreach ($airCrafts as $airCraft)
+                                       <option value="{{ $airCraft->id }}">{{ $airCraft->type }}</option>
                                    @endforeach
                                </select>
                                <button type="button" class="btn btn-link" data-bs-toggle="modal"
@@ -75,11 +75,11 @@
                            </div>
 
                            <div class="form-group ">
-                               <label for="builders_id">{{ __('MFR') }}</label>
-                               <select id="builders_id" name="builders_id" class="form-control" required>
+                               <label for="m_f_r_s_id">{{ __('MFR') }}</label>
+                               <select id="m_f_r_s_id" name="m_f_r_s_id" class="form-control" required>
                                    <option value="">{{ __('Select MFR') }}</option>
-                                   @foreach ($builders as $builder)
-                                       <option value="{{ $builder->id }}">{{ $builder->name }}</option>
+                                   @foreach ($mfrs as $mfr)
+                                       <option value="{{ $mfr->id }}">{{ $mfr->name }}</option>
                                    @endforeach
                                </select>
                                <button type="button" class="btn btn-link" data-bs-toggle="modal"
@@ -126,8 +126,8 @@
                     @csrf
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="planeName">{{ __('AirCraft Type') }}</label>
-                            <input type="text" class="form-control" id="planeName" name="type" required>
+                            <label for="airCraftName">{{ __('AirCraft Type') }}</label>
+                            <input type="text" class="form-control" id="airCraftName" name="type" required>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -151,8 +151,8 @@
                     @csrf
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="builderName">{{ __('Название MFR') }}</label>
-                            <input type="text" class="form-control" id="builderName" name="name" required>
+                            <label for="mfrName">{{ __('Название MFR') }}</label>
+                            <input type="text" class="form-control" id="mfrName" name="name" required>
                         </div>
                     </div>
                     <div class="modal-footer">

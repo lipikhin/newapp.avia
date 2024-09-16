@@ -47,15 +47,13 @@
                 </thead>
                     <tbody>
                     @foreach($trainingLists as $trainingList)
-                       <tr>
-                           <td
-                               class="text-center">{{$trainingList->c_m_m_s->units_pn}}</td>
-                           <td
-                               class="text-center">{{$trainingList->c_m_m_s->title}}</td>
-                           <td class="text-center"> </td>
-
-                       </tr>
+                        <tr>
+                            <td class="text-center">{{ $trainingList->manual->units_pn }}</td>
+                            <td class="text-center">{{ $trainingList->manual->title }}</td>
+                            <td class="text-center"></td>
+                        </tr>
                     @endforeach
+
                     </tbody>
 
                 </table>

@@ -22,12 +22,12 @@
                 <form method="POST" action="{{ route('user.trainings.store')}}">
                     @csrf
                     <div class="form-group mt-2">
-                        <label for="cmm_id">{{ __('Unit PN') }}</label>
-                        <select id="cmm_id" name="cmm_id" class="form-control" required>
+                        <label for="manuals_id">{{ __('Unit PN') }}</label>
+                        <select id="manuals_id" name="manuals_id" class="form-control" required>
                             <option value="">{{ __('Select Unit PN') }}</option>
-                            @foreach ($cmms as $cmm)
+                            @foreach ($manuals as $manual)
 
-                                <option value="{{ $cmm->id }}">{{ $cmm->title }} ({{ $cmm->units_pn }})</option>
+                                <option value="{{ $manual->id }}">{{ $manual->title }} ({{ $manual->units_pn }})</option>
 
                             @endforeach
                         </select>

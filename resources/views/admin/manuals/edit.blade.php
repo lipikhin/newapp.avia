@@ -5,7 +5,9 @@
         .container {
             max-width: 650px;
         }
-
+        .push-top {
+            margin-top: 50px;
+        }
     </style>
 
     <div class="container">
@@ -64,13 +66,12 @@
                         </div>
                         <div style="width: 300px" class="m-3 p-2 border">
                             <div class="form-group ">
-                                <label for="planes_id">{{ __('AirCraft Type')
+                                <label for="air_crafts_id">{{ __('AirCraft Type')
                             }}</label>
-                                <select id="planes_id" name="planes_id" class="form-control" required>
+                                <select id="air_crafts_id" name="air_crafts_id" class="form-control" required>
                                     <option value="">{{ __('Select AirCraft') }}</option>
-                                    @foreach ($planes as $plane)
-                                        <option value="{{ $plane->id }}" {{ $plane->id == $cmm->planes_id ?
-                                        'selected' : '' }}>{{ $plane->type }}</option>
+                                    @foreach ($airCrafts as $airCraft)
+                                        <option value="{{ $airCraft->id }}" {{ $airCraft->id == $cmm->air_crafts_id ? 'selected' : '' }}>{{ $airCraft->type }}</option>
                                     @endforeach
                                 </select>
                                 <button type="button" class="btn btn-link" data-bs-toggle="modal"
@@ -78,12 +79,11 @@
                             </div>
 
                             <div class="form-group mt-2 ">
-                                <label for="builders_id">{{ __('MFR') }}</label>
-                                <select id="builders_id" name="builders_id" class="form-control" required>
+                                <label for="m_f_r_s_id">{{ __('MFR') }}</label>
+                                <select id="m_f_r_s_id" name="m_f_r_s_id" class="form-control" required>
                                     <option value="">{{ __('Select MFR') }}</option>
-                                    @foreach ($builders as $builder)
-                                        <option value="{{ $builder->id }}" {{ $builder->id == $cmm->builders_id ?
-                                        'selected' : '' }}>{{ $builder->name }}</option>
+                                    @foreach ($mfrs as $mfr)
+                                        <option value="{{ $mfr->id }}" {{ $mfr->id == $cmm->m_f_r_s_id ? 'selected' : '' }}>{{ $mfr->name }}</option>
                                     @endforeach
                                 </select>
                                 <button type="button" class="btn btn-link" data-bs-toggle="modal"
@@ -234,10 +234,9 @@
             });
         }
 
-        handleFormSubmission('addAirCraftForm','addAirCraftModal', '{{ route('admin.planes.store') }}',
-            'planes_id', 'id', 'type');
-        handleFormSubmission('addMFRForm','addMFRModal', '{{ route('admin.builders.store') }}', 'builders_id', 'id',
-            'name');
+        handleFormSubmission('addAirCraftForm','addAirCraftModal', '{{ route('admin.air_crafts.store') }}',
+            'air_crafts_id', 'id', 'type');
+        handleFormSubmission('addMFRForm','addMFRModal', '{{ route('admin.mfrs.store') }}', 'mfrs_id', 'id', 'name');
         handleFormSubmission('addScopeForm','addScopeModal', '{{ route('admin.scopes.store') }}', 'scopes_id', 'id', 'scope');
     </script>
 @endsection

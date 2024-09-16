@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use App\Models\CMM;
 use App\Models\Manual;
 use App\Models\Training;
 use Illuminate\Http\Request;
@@ -19,13 +18,15 @@ class TrainingController extends Controller
      */
     public function index()
     {
-        ;
-        $trainingLists = Training::with(['manual','user'])
-            ->where('user_id', auth()->id())
-            ->get();
+
+        // Получаем все тренировки текущего пользователя вместе с данными о мануалах
+        $trainingLists = auth()->user()->trainings()->with('manual')->get();
+//dd($trainingLists);
 
         return view('user.trainings.index', compact('trainingLists'));
     }
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -39,12 +40,12 @@ class TrainingController extends Controller
         $addedCmmIds = Training::where('user_id', $userId)->pluck('manuals_id');
 
         // Получаем юниты, которые не добавлены для текущего пользователя
-        $cmms = Manual::whereNotIn('id', $addedCmmIds)->get();
+        $manuals = Manual::whereNotIn('id', $addedCmmIds)->get();
 
 
 
 
-        return view('user.trainings.create', compact('cmms'));
+        return view('user.trainings.create', compact('manuals'));
 
     }
 
@@ -54,18 +55,18 @@ class TrainingController extends Controller
     public function store(Request $request)
     {
 
-        // dd($request);
+
 
         // Валидация входных данных
         $validatedData = $request->validate([
-            'cmm_id' => 'required', // Убедитесь, что
+            'manuals_id' => 'required', // Убедитесь, что
 
         ]);
 
         // Добавляем текущего пользователя и выбранную единицу (CMM)
         Training::create([
             'user_id' => auth()->id(), // Добавляем текущего пользователя
-            'cmms_id' => $validatedData['cmm_id'], // Добавляем выбранную
+            'manuals_id' => $validatedData['manuals_id'], // Добавляем выбранную
             // единицу
         ]);
 

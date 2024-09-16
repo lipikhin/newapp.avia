@@ -13,13 +13,15 @@ class Training extends Model
         'date_training', 'form_type',
     ];
 
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
-
     public function manual()
     {
-        return $this->belongsTo(Manual::class);
+        return $this->belongsTo(Manual::class, 'manuals_id'); // Связь через поле manuals_id
     }
+
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'users_id');
+    }
+
 }

@@ -71,10 +71,10 @@ Route::prefix('admin')->middleware(['auth'])->group(function (){
     Route::delete('cmms/{cmms}',[ManualController::class,
         'destroy'])->name('admin.cmms.destroy');
 
-    Route::post('/air_crafts/store',[PlaneController::class,
-        'store'])->name('admin.air_crafts.store');
-    Route::post('/mfrs/store',
-        [BuilderController::class,'store'])->name('admin.mfrs.store');
+    Route::post('/planes/store',[PlaneController::class,
+        'store'])->name('admin.planes.store');
+    Route::post('/builders/store',
+        [BuilderController::class,'store'])->name('admin.builders.store');
     Route::post('/scopes/store',
         [ScopeController::class,'store'])->name('admin.scopes.store');
 

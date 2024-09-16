@@ -49,6 +49,7 @@ Route::prefix('user')->middleware(['auth'])->group(function (){
         ->name('user.trainings.create');
     Route::post('trainings', [TrainingController::class, 'store'])->name
     ('user.trainings.store');
+    Route::post('/update-training/{id}', [TrainingController::class, 'updateTraining'])->name('updateTraining');
 
 
 

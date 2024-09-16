@@ -54,25 +54,30 @@ class TrainingController extends Controller
      */
     public function store(Request $request)
     {
-
-
-
-        // Валидация входных данных
+        // Validate input data
         $validatedData = $request->validate([
-            'manuals_id' => 'required', // Убедитесь, что
-
+            'manuals_id' => 'required',
+            'date_training' => 'nullable|date', // Validate the date field correctly
         ]);
 
-        // Добавляем текущего пользователя и выбранную единицу (CMM)
-        Training::create([
-            'user_id' => auth()->id(), // Добавляем текущего пользователя
-            'manuals_id' => $validatedData['manuals_id'], // Добавляем выбранную
-            // единицу
+        // Attempt to save the data
+        $training = Training::create([
+            'user_id' => auth()->id(), // Add the current user
+            'manuals_id' => $validatedData['manuals_id'], // Add the selected unit
+            'date_training' => $validatedData['date_training'], // Ensure this is set correctly
         ]);
 
-        return redirect()->route('user.trainings.index')->with('success',
-            'Unit added for training.');
+        // Debugging to check the saved training record
+        //dd($training); // Check if the record was created correctly
+
+        return redirect()->route('user.trainings.index')->with('success', 'Unit added for training.');
     }
+
+
+
+
+
+
 
     /**
      * Display the specified resource.

@@ -2,14 +2,12 @@
 
 <style>
     .card {
-        max-width: 450px;
+        max-width: 650px;
     }
     .card-body {
-        max-width: 450px;
+        max-width: 650px;
     }
-    .push-top {
-        margin-top: 50px;
-    }
+
 </style>
 
 @section('content')
@@ -42,6 +40,14 @@
                         data-priority="2" class="text-center">
                         {{__('Description')}}
                     </th>
+                    <th data-field="date_training" data-visible="true"
+                        data-priority="2" class="text-center">
+                        {{__('First Training Date')}}
+                    </th>
+                    <th data-field="date_training" data-visible="true"
+                        data-priority="2" class="text-center">
+                        {{__('Last Training Date')}}
+                    </th>
 
                 </tr>
                 </thead>
@@ -50,7 +56,8 @@
                         <tr>
                             <td class="text-center">{{ $trainingList->manual->units_pn }}</td>
                             <td class="text-center">{{ $trainingList->manual->title }}</td>
-                            <td class="text-center"></td>
+                            <td class="text-center">{{$trainingList->date_training}}</td>
+                            <td class="text-center">{{$trainingList->date_training}}</td>
                         </tr>
                     @endforeach
 

@@ -5,7 +5,6 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Models\Manual;
 use App\Models\Training;
-use App\Models\User;
 use Illuminate\Http\Request;
 
 class TrainingController extends Controller
@@ -117,6 +116,8 @@ class TrainingController extends Controller
     }
     public function createTraining(Request $request)
     {
+        \Log::info('Received request:', $request->all());
+//        dd($request);
         // Валидация входных данных
         $validatedData = $request->validate([
             'manuals_id.*' => 'required',
@@ -126,20 +127,20 @@ class TrainingController extends Controller
 
         // Получение ID текущего пользователя
         $userId = auth()->id();
-        $trainings = $request->all(); // Получаем все данные из запроса
 
         // Генерация тренингов
-        foreach ($trainings['manuals_id'] as $key => $manualId) {
+        foreach ($validatedData['manuals_id'] as $key => $manualId) {
             Training::create([
                 'user_id' => $userId,
                 'manuals_id' => $manualId,
-                'date_training' => $trainings['date_training'][$key],
-                'form_type' => $trainings['form_type'][$key],
+                'date_training' => $validatedData['date_training'][$key],
+                'form_type' => $validatedData['form_type'][$key],
             ]);
         }
 
-        return response()->json(['success' => true]);
+        return response()->json(['success' => true, 'message' => 'Тренинги успешно созданы.']);
     }
+
 
 
 

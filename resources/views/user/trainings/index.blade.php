@@ -84,8 +84,8 @@
         </div>
     </div>
 
-    <<script>
-        function handleCheckboxChange(checkbox, manualsId, dateTraining) {
+    <script>
+        function handleCheckboxChange(checkbox, manualsId, dateTraining, manualsTitle) {
             if (checkbox.checked) {
                 // Определяем номер недели и год последней тренировки
                 const lastTrainingDate = new Date(dateTraining);
@@ -94,18 +94,66 @@
 
                 // Получаем текущую дату
                 const currentYear = new Date().getFullYear();
-                let messages = [];
 
-                // Генерируем сообщения для создания тренингов за следующие годы
+                // Создаем массив для данных, которые будем отправлять
+                let trainingData = {
+                    manuals_id: [],
+                    date_training: [],
+                    form_type: []
+                };
+
+                // Генерируем данные для создания тренингов за следующие годы
                 for (let year = lastTrainingYear + 1; year <= currentYear; year++) {
                     const trainingDate = getDateFromWeekAndYear(lastTrainingWeek, year);
-                    messages.push(`Создание тренинга для формы 112:\nManuals ID: ${manualsId}\nДата тренировки: ${trainingDate.toLocaleDateString()}`);
+                    trainingData.manuals_id.push(manualsId);
+                    trainingData.date_training.push(trainingDate.toISOString().split('T')[0]); // Преобразуем в формат YYYY-MM-DD
+                    trainingData.form_type.push('112');
                 }
 
-                // Показываем все сообщения
-                alert(messages.join('\n\n'));
+                // Подготовка сообщения для подтверждения
+                let confirmationMessage = "Предоставленные данные для создания тренингов:\n";
+                trainingData.manuals_id.forEach((id, index) => {
+                    confirmationMessage += `\nTraining for ${lastTrainingYear + index + 1} years:\n`;
+                    confirmationMessage += `Manuals ID: ${id} ${manualsTitle}\n`;
+                    confirmationMessage += `Дата тренировки: ${trainingData.date_training[index]} \n`;
+                    confirmationMessage += `Форма: ${trainingData.form_type[index]} \n`;
+                });
+
+                // Показываем сообщение для подтверждения
+                if (confirm(confirmationMessage + "\nВы уверены, что хотите продолжить создание тренингов?")) {
+                    // Если пользователь подтвердил, выполняем запрос
+                    fetch('{{ route('user.trainings.createTraining') }}', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        },
+                        body: JSON.stringify(trainingData) // Отправляем ассоциативный массив
+                    })
+                        .then(response => response.json())
+
+                        .then(data => {
+                            if (data.success) {
+                                alert('Тренинги успешно созданы!');
+                                location.reload();
+                                checkbox.checked = false;
+                            } else {
+                                alert('Ошибка при создании тренингов.');
+                            }
+                        })
+
+                        .catch(error => {
+                            console.error('Ошибка:', error);
+                            alert('Произошла ошибка: ' + error.message);
+                        });
+                } else {
+                    // Если пользователь отказался, снимаем галочку
+                    checkbox.checked = false;
+                }
             }
         }
+
+
 
         function getWeekNumber(d) {
             const oneJan = new Date(d.getFullYear(), 0, 1);
@@ -118,69 +166,8 @@
             const days = (week - 1) * 7 - firstJan.getDay() + 1;
             return new Date(year, 0, 1 + days);
         }
-    </script><script>
-        function handleCheckboxChange(checkbox, manualsId, dateTraining) {
-            if (checkbox.checked) {
-                // Определяем номер недели и год последней тренировки
-                const lastTrainingDate = new Date(dateTraining);
-                const lastTrainingYear = lastTrainingDate.getFullYear();
-                const lastTrainingWeek = getWeekNumber(lastTrainingDate);
-
-                // Получаем текущую дату
-                const currentYear = new Date().getFullYear();
-
-                // Создаем массив для данных, которые будем отправлять
-                let trainingData = [];
-
-                // Генерируем данные для создания тренингов за следующие годы
-                for (let year = lastTrainingYear + 1; year <= currentYear; year++) {
-                    const trainingDate = getDateFromWeekAndYear(lastTrainingWeek, year);
-                    trainingData.push({
-                        manuals_id: manualsId,
-                        date_training: trainingDate.toISOString().split('T')[0], // Преобразуем в YYYY-MM-DD
-                        form_type: '112'
-                    });
-                }
-
-                // Подготовка сообщения для подтверждения
-                let confirmationMessage = "Данные предоставлены:\n";
-                trainingData.forEach((data, index) => {
-                    confirmationMessage += `\nТренинг ${index + 1}: \n`;
-                    confirmationMessage += `Manual: ${manualsId} \n`;  // Тут можно вывести полное название (manual->title), если оно у вас есть.
-                    confirmationMessage += `Дата тренировки: ${data.date_training} \n`;
-                    confirmationMessage += `Форма: ${data.form_type} \n`;
-                });
-
-                // Показываем сообщение для подтверждения
-                if (confirm(confirmationMessage + "\nПродолжить создание тренингов?")) {
-                    // Если пользователь подтвердил, выполняем запрос
-
-                    fetch('/trainings/createTraining', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': '{{ csrf_token() }}' // Включаем CSRF токен
-                        },
-                        body: JSON.stringify(trainingData)
-                    })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.success) {
-                                alert('Тренинги успешно созданы!');
-                            } else {
-                                alert('Ошибка при создании тренингов.');
-                            }
-                        })
-                        .catch(error => console.error('Ошибка:', error));
-                } else {
-                    // Если пользователь отказался, снимаем галочку
-                    checkbox.checked = false;
-                }
-            }
-        }
-
-
     </script>
+
 
 
 @endsection

@@ -52,6 +52,8 @@ Route::prefix('user')->middleware(['auth'])->group(function (){
     Route::post('/update-training/{id}', [TrainingController::class, 'updateTraining'])->name('updateTraining');
     Route::post('/trainings/createTraining', [TrainingController::class, 'createTraining'])->name('user.trainings.createTraining');
 
+    Route::get('trainings/form112/{id}', [TrainingController::class, 'showForm112'])->name('user.trainings.form112');
+    Route::get('trainings/form132/{id}', [TrainingController::class, 'showForm132'])->name('user.trainings.form132');
 
 
 

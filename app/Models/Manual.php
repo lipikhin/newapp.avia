@@ -40,8 +40,8 @@ class Manual extends Model
         return $this->belongsTo(Scope::class, 'scopes_id');
     }
 
-    public function training()
+    public function trainings()
     {
-        return $this->hasMany(Training::class);
+        return $this->hasMany(Training::class, 'manuals_id');
     }
 }

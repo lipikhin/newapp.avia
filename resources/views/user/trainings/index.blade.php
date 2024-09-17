@@ -2,11 +2,11 @@
 
 <style>
     .card {
-        max-width: 750px;
+        max-width: 850px;
     }
 
     .card-body {
-        max-width: 750px;
+        max-width: 850px;
     }
 </style>
 
@@ -37,6 +37,7 @@
                         <th class="text-center align-middle">{{ __('Description') }}</th>
                         <th class="text-center align-middle">{{ __('First Training Date') }}</th>
                         <th class="text-center align-middle">{{ __('Last Training Date') }}</th>
+                        <th class="text-center align-middle">{{ __('Actions') }}</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -75,6 +76,45 @@
                                 @endif>
                                 {{ isset($trainingList['last_training']) ? \Carbon\Carbon::parse($trainingList['last_training']->date_training)->format('m-d-Y') : 'N/A' }}
                             </td>
+
+                            <td class="text-center">
+                                <!-- Кнопка для вызова модального окна или страницы -->
+                                <button class="btn btn-primary" data-toggle="modal" data-target="#trainingModal{{ $trainingList['first_training']->manuals_id }}">
+                                    View Training
+                                </button>
+
+                                <!-- Модальное окно -->
+                                <div class="modal fade" id="trainingModal{{ $trainingList['first_training']->manuals_id }}" tabindex="-1" aria-labelledby="trainingModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="trainingModalLabel">Select Training for {{ $trainingList['first_training']->manual->title }}</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                @foreach($trainingList['trainings'] as $training)
+                                                    <div class="form-group">
+                                                        <label>{{ $training->date_training }} (Form Type: {{ $training->form_type }})</label>
+                                                        @if($training->form_type == '112')
+                                                            <a href="{{ route
+                                                            ('user.trainings.form112', $training->id) }}" class="btn btn-success" target="_blank">View/Print Form 112</a>
+                                                        @elseif($training->form_type == '132')
+                                                            <a href="{{ route('user.trainings.form132', $training->id) }}"
+                                                             class="btn btn-info" target="_blank">View/Print Form 132</a>
+                                                        @endif
+                                                    </div>
+                                                @endforeach
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+
                         </tr>
                     @endforeach
 
@@ -106,7 +146,14 @@
                 for (let year = lastTrainingYear + 1; year <= currentYear; year++) {
                     const trainingDate = getDateFromWeekAndYear(lastTrainingWeek, year);
                     trainingData.manuals_id.push(manualsId);
-                    trainingData.date_training.push(trainingDate.toISOString().split('T')[0]); // Преобразуем в формат YYYY-MM-DD
+                    trainingData.date_training.push(
+                        trainingDate.toISOString().split('T')[0].split('-')
+                            .slice(1, 2).concat(trainingDate.toISOString()
+                            .split('T')[0].split('-').slice(2)).concat
+                        (trainingDate.toISOString().split('T')[0].split('-')
+                            .slice(0, 1)).join('-')
+                    );
+
                     trainingData.form_type.push('112');
                 }
 
@@ -115,7 +162,8 @@
                 trainingData.manuals_id.forEach((id, index) => {
                     confirmationMessage += `\nTraining for ${lastTrainingYear + index + 1} years:\n`;
                     confirmationMessage += `Manuals ID: ${id} ${manualsTitle}\n`;
-                    confirmationMessage += `Дата тренировки: ${trainingData.date_training[index]} \n`;
+                    confirmationMessage += `Дата тренировки: ${trainingData
+                        .date_training[index]} \n`;
                     confirmationMessage += `Форма: ${trainingData.form_type[index]} \n`;
                 });
 
@@ -167,7 +215,6 @@
             return new Date(year, 0, 1 + days);
         }
     </script>
-
 
 
 @endsection

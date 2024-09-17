@@ -37,11 +37,13 @@ class TrainingController extends Controller
                 'manuals_id' => $manualId,
                 'first_training' => $firstTraining,
                 'last_training' => $lastTraining,
+                'trainings' => $sortedTrainings, // Добавляем все тренировки в группу
             ];
         }
 
         return view('user.trainings.index', compact('formattedTrainingLists'));
     }
+
 
 
 
@@ -139,6 +141,18 @@ class TrainingController extends Controller
         }
 
         return response()->json(['success' => true, 'message' => 'Тренинги успешно созданы.']);
+    }
+
+    public function showForm112($id)
+    {
+        $training = Training::findOrFail($id);
+        return view('user.trainings.form112', compact('training'));
+    }
+
+    public function showForm132($id)
+    {
+        $training = Training::findOrFail($id);
+        return view('user.trainings.form132', compact('training'));
     }
 
 

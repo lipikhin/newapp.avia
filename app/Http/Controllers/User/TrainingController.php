@@ -118,6 +118,7 @@ class TrainingController extends Controller
     }
     public function createTraining(Request $request)
     {
+       // dd($request);
         \Log::info('Received request:', $request->all());
 //        dd($request);
         // Валидация входных данных
@@ -128,6 +129,9 @@ class TrainingController extends Controller
         ]);
 
         // Получение ID текущего пользователя
+        $userId = auth()->id();
+
+        // Генерация тренингов
         $userId = auth()->id();
 
         // Генерация тренингов
@@ -142,6 +146,7 @@ class TrainingController extends Controller
 
         return response()->json(['success' => true, 'message' => 'Тренинги успешно созданы.']);
     }
+
 
     public function showForm112($id)
     {

@@ -1,16 +1,18 @@
 @extends('layouts.base')
 
-<style>
-    .card {
-        max-width: 850px;
-    }
-
-    .card-body {
-        max-width: 850px;
-    }
-</style>
 
 @section('content')
+
+    {{--    <style>--}}
+    {{--    .card {--}}
+    {{--        max-width: 850px;--}}
+    {{--    }--}}
+    {{--    .card-body {--}}
+    {{--        max-width: 850px;--}}
+    {{--    }--}}
+    {{--</style>--}}
+
+
     <div class="container ">
         <div class="card shadow">
             <div class="card-header">
@@ -27,8 +29,9 @@
             </div>
 
             <div class="card-body">
-{{--                <pre>{{ print_r($formattedTrainingLists, true) }}</pre> <!-- Здесь вывод данных -->--}}
-                <table id="trainingsTable" data-toggle="table" data-search="true" data-pagination="false" data-page-size="5" class="table table-bordered">
+                {{--                <pre>{{ print_r($formattedTrainingLists, true) }}</pre> <!-- Здесь вывод данных -->--}}
+                <table id="trainingsTable" data-toggle="table" data-search="true" data-pagination="false"
+                       data-page-size="5" class="table table-bordered">
                     <thead>
                     <tr>
                         <th class="text-center align-middle">{{ __('Training (Yes/No)') }}</th>
@@ -79,36 +82,47 @@
 
                             <td class="text-center">
                                 <!-- Кнопка для вызова модального окна или страницы -->
-                                <button class="btn btn-primary" data-toggle="modal" data-target="#trainingModal{{ $trainingList['first_training']->manuals_id }}">
+                                <button class="btn btn-primary" data-toggle="modal"
+                                        data-target="#trainingModal{{ $trainingList['first_training']->manuals_id }}">
                                     View Training
                                 </button>
 
                                 <!-- Модальное окно -->
-                                <div class="modal fade" id="trainingModal{{ $trainingList['first_training']->manuals_id }}" tabindex="-1" aria-labelledby="trainingModalLabel" aria-hidden="true">
+                                <div class="modal fade"
+                                     id="trainingModal{{ $trainingList['first_training']->manuals_id }}" tabindex="-1"
+                                     aria-labelledby="trainingModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="trainingModalLabel">Select Training for {{ $trainingList['first_training']->manual->title }}</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <h5 class="modal-title" id="trainingModalLabel">Select Training
+                                                    for {{ $trainingList['first_training']->manual->title }}</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
                                             <div class="modal-body">
                                                 @foreach($trainingList['trainings'] as $training)
                                                     <div class="form-group">
-                                                        <label>{{ $training->date_training }} (Form Type: {{ $training->form_type }})</label>
+                                                        <label>{{ $training->date_training }} (Form
+                                                            Type: {{ $training->form_type }})</label>
                                                         @if($training->form_type == '112')
                                                             <a href="{{ route
-                                                            ('user.trainings.form112', $training->id) }}" class="btn btn-success" target="_blank">View/Print Form 112</a>
+                                                            ('user.trainings.form112', $training->id) }}"
+                                                               class="btn btn-success" target="_blank">View/Print Form
+                                                                112</a>
                                                         @elseif($training->form_type == '132')
                                                             <a href="{{ route('user.trainings.form132', $training->id) }}"
-                                                             class="btn btn-info" target="_blank">View/Print Form 132</a>
+                                                               class="btn btn-info" target="_blank">View/Print Form
+                                                                132</a>
                                                         @endif
                                                     </div>
                                                 @endforeach
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                                    Close
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
@@ -127,49 +141,41 @@
     <script>
         function handleCheckboxChange(checkbox, manualsId, dateTraining, manualsTitle) {
             if (checkbox.checked) {
-                // Определяем номер недели и год последней тренировки
+// Определяем номер недели и год последней тренировки
                 const lastTrainingDate = new Date(dateTraining);
                 const lastTrainingYear = lastTrainingDate.getFullYear();
                 const lastTrainingWeek = getWeekNumber(lastTrainingDate);
 
-                // Получаем текущую дату
+// Получаем текущую дату
                 const currentYear = new Date().getFullYear();
 
-                // Создаем массив для данных, которые будем отправлять
+// Создаем массив для данных, которые будем отправлять
                 let trainingData = {
                     manuals_id: [],
                     date_training: [],
                     form_type: []
                 };
 
-                // Генерируем данные для создания тренингов за следующие годы
+// Генерируем данные для создания тренингов за следующие годы
                 for (let year = lastTrainingYear + 1; year <= currentYear; year++) {
                     const trainingDate = getDateFromWeekAndYear(lastTrainingWeek, year);
                     trainingData.manuals_id.push(manualsId);
-                    trainingData.date_training.push(
-                        trainingDate.toISOString().split('T')[0].split('-')
-                            .slice(1, 2).concat(trainingDate.toISOString()
-                            .split('T')[0].split('-').slice(2)).concat
-                        (trainingDate.toISOString().split('T')[0].split('-')
-                            .slice(0, 1)).join('-')
-                    );
-
+                    trainingData.date_training.push(trainingDate.toISOString().split('T')[0]); // Преобразуем в формат YYYY-MM-DD
                     trainingData.form_type.push('112');
                 }
 
-                // Подготовка сообщения для подтверждения
+// Подготовка сообщения для подтверждения
                 let confirmationMessage = "Предоставленные данные для создания тренингов:\n";
                 trainingData.manuals_id.forEach((id, index) => {
                     confirmationMessage += `\nTraining for ${lastTrainingYear + index + 1} years:\n`;
                     confirmationMessage += `Manuals ID: ${id} ${manualsTitle}\n`;
-                    confirmationMessage += `Дата тренировки: ${trainingData
-                        .date_training[index]} \n`;
+                    confirmationMessage += `Дата тренировки: ${trainingData.date_training[index]} \n`;
                     confirmationMessage += `Форма: ${trainingData.form_type[index]} \n`;
                 });
 
-                // Показываем сообщение для подтверждения
+// Показываем сообщение для подтверждения
                 if (confirm(confirmationMessage + "\nВы уверены, что хотите продолжить создание тренингов?")) {
-                    // Если пользователь подтвердил, выполняем запрос
+// Если пользователь подтвердил, выполняем запрос
                     fetch('{{ route('user.trainings.createTraining') }}', {
                         method: 'POST',
                         headers: {
@@ -195,12 +201,11 @@
                             alert('Произошла ошибка: ' + error.message);
                         });
                 } else {
-                    // Если пользователь отказался, снимаем галочку
+// Если пользователь отказался, снимаем галочку
                     checkbox.checked = false;
                 }
             }
         }
-
 
 
         function getWeekNumber(d) {
@@ -215,6 +220,5 @@
             return new Date(year, 0, 1 + days);
         }
     </script>
-
 
 @endsection

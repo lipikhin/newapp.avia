@@ -95,12 +95,12 @@
             color: #000;
         }
 
-        .p-1, .p-2, .p-3, .p-4 {
-            padding: 0.25rem;
-            padding: 0.5rem;
-            padding: 0.75rem;
-            padding: 1rem;
-        }
+        /*.p-1, .p-2, .p-3, .p-4 {*/
+        /*    padding: 0.25rem;*/
+        /*    padding: 0.5rem;*/
+        /*    padding: 0.75rem;*/
+        /*    padding: 1rem;*/
+        /*}*/
 
         .topic-header {
             width: 100px;
@@ -133,6 +133,7 @@
     <button class="btn btn-primary no-print" onclick="window.print()">Печать
         формы
     </button>
+
 </div>
 
 <div class="container-fluid">
@@ -154,15 +155,13 @@
         </div>
         <div class="col-3 text-black text-center border-bottom border-dark">
             <h5>
-                <strong>{{ \Carbon\Carbon::parse($training->date_training)
-                ->subDay(4)->format('M-d-Y') }}</strong>
+                <strong>{{ \Carbon\Carbon::parse($training->date_training)->subDay(4)->format('M-d-Y') }}</strong>
             </h5>
         </div>
         <div class="col-1 border-bottom border-dark">-</div>
         <div class="col-3 text-black text-left border-bottom border-dark">
             <h5>
-                <strong>{{ \Carbon\Carbon::parse($training->date_training)
-                ->format('M-d-Y') }}</strong>
+                <strong>{{ \Carbon\Carbon::parse($training->date_training)->format('M-d-Y') }}</strong>
             </h5>
         </div>
         <div class="col-2 border-bottom border-dark"></div>
@@ -349,8 +348,15 @@
     </div>
 
     <div class="row ps-2 pe-2 mt-4" style="width: 910px">
-        <div class="col-8 text-black text-center border-bottom border-dark
-    pt-3"></div>
+        <div class="col-8 text-black text-center border-bottom border-dark pt-3">
+            <p>Параметр showImage: {{ $showImage }}</p>
+
+            @if($showImage === 'true')
+                <img src="{{ asset('images/form112-image.png') }}" alt="Изображение в форме 112">
+            @else
+                <p>Изображение скрыто.</p>
+            @endif
+        </div>
         <div class="col-4  text-center border-bottom border-dark">
             <strong>{{ \Carbon\Carbon::parse($training->date_training)
     ->format('M-d-Y') }}</strong>

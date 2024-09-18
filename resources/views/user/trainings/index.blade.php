@@ -19,10 +19,12 @@
                 <div class="d-flex justify-content-between">
                     <div class="d-flex" style="width: 450px">
                         <h3>{{ __('Trainings') }}</h3>
-                        <a href="#" class="btn btn-primary ms-3">{{ __('Complete Training') }}</a>
+                        <a href="#"
+                           class="btn btn-primary ms-3">{{ __('Complete Training') }}</a>
                     </div>
                     <div class="align-middle">
-                        <a href="{{ route('user.trainings.create') }}" class="btn btn-primary align-middle">
+                        <a href="{{ route('user.trainings.create') }}"
+                           class="btn btn-primary align-middle">
                             {{ __('Add Unit') }}</a>
                     </div>
                 </div>
@@ -30,7 +32,8 @@
 
             <div class="card-body">
                 {{--                <pre>{{ print_r($formattedTrainingLists, true) }}</pre> <!-- Здесь вывод данных -->--}}
-                <table id="trainingsTable" data-toggle="table" data-search="true" data-pagination="false"
+                <table id="trainingsTable" data-toggle="table"
+                       data-search="true" data-pagination="false"
                        data-page-size="5" class="table table-bordered">
                     <thead>
                     <tr>
@@ -48,13 +51,15 @@
                         <tr>
                             <td class="text-center">
                                 <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox"
+                                    <input class="form-check-input"
+                                           type="checkbox"
                                            @if(isset($trainingList['last_training']) && \Carbon\Carbon::parse($trainingList['last_training']->date_training)
                                            ->diffInDays(\Carbon\Carbon::now()) < 340)
                                                disabled
                                            @endif
                                            onchange="handleCheckboxChange(this, '{{ $trainingList['first_training']->manuals_id }}', '{{ $trainingList['first_training']->date_training }}', '{{ $trainingList['first_training']->manual->title ?? 'N/A' }}')">
-                                    <label class="form-check-label" for="flexSwitchCheckChecked"></label>
+                                    <label class="form-check-label"
+                                           for="flexSwitchCheckChecked"></label>
 
                                 </div>
                             </td>
@@ -81,23 +86,25 @@
                             </td>
 
                             <td class="text-center">
-                                <!-- Кнопка для вызова модального окна или страницы -->
-                                <button class="btn btn-primary" data-toggle="modal"
+                                <!-- Кнопка для вызова модального окна -->
+                                <button class="btn btn-primary"
+                                        data-toggle="modal"
                                         data-target="#trainingModal{{ $trainingList['first_training']->manuals_id }}">
                                     View Training
                                 </button>
 
                                 <!-- Модальное окно -->
                                 <div class="modal fade"
-                                     id="trainingModal{{ $trainingList['first_training']->manuals_id }}" tabindex="-1"
-                                     aria-labelledby="trainingModalLabel" aria-hidden="true">
+                                     id="trainingModal{{ $trainingList['first_training']->manuals_id }}"
+                                     tabindex="-1"
+                                     aria-labelledby="trainingModalLabel"
+                                     aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="trainingModalLabel">Select Training
-                                                    for {{ $trainingList['first_training']->manual->title }}</h5>
-                                                <button type="button" class="close" data-dismiss="modal"
-                                                        aria-label="Close">
+                                                <h5 class="modal-title" id="trainingModalLabel">
+                                                    Training for {{ $trainingList['first_training']->manual->title }}</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
@@ -105,32 +112,37 @@
                                                 @foreach($trainingList['trainings'] as $training)
                                                     <div class="form-group">
                                                         <label>
-                                                            {{
-                                                            \Carbon\Carbon::parse($training->date_training)->format('M.d.Y') }}
+                                                            {{ \Carbon\Carbon::parse($training->date_training)->format('M.d.Y') }}
                                                             (Form: {{ $training->form_type }})
                                                         </label>
                                                         @if($training->form_type == '112')
-                                                            <a href="{{ route
-                                                            ('user.trainings.form112', $training->id) }}"
-                                                               class="btn btn-success" target="_blank">View/Print Form
-                                                                112</a>
+                                                            <a href="{{ route('user.trainings.form112', ['id'=> $training->id, 'showImage' => 'true']) }}"
+                                                               class="btn btn-success form112Link"
+                                                               data-manuals-id="{{ $trainingList['first_training']->manuals_id }}"
+                                                               target="_blank">
+                                                                View/Print Form 112
+                                                            </a>
                                                         @elseif($training->form_type == '132')
                                                             <a href="{{ route('user.trainings.form132', $training->id) }}"
-                                                               class="btn btn-info" target="_blank">View/Print Form
-                                                                132</a>
+                                                               class="btn btn-info" target="_blank">View/Print Form 132</a>
                                                         @endif
                                                     </div>
                                                 @endforeach
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                                                    Close
-                                                </button>
+                                                <div class="form-check">
+                                                    <input type="checkbox" class="form-check-input" id="showImage{{ $trainingList['first_training']->manuals_id }}">
+                                                    <label class="form-check-label" for="showImage{{ $trainingList['first_training']->manuals_id }}">
+                                                        Показать изображение в Форме 112
+                                                    </label>
+                                                </div>
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </td>
+
 
                         </tr>
                     @endforeach
@@ -142,6 +154,7 @@
     </div>
 
     <script>
+
         function handleCheckboxChange(checkbox, manualsId, dateTraining, manualsTitle) {
             if (checkbox.checked) {
 // Определяем номер недели и год последней тренировки
@@ -222,6 +235,31 @@
             const days = (week - 1) * 7 - firstJan.getDay() + 1;
             return new Date(year, 0, 1 + days);
         }
+
+
+        console.log('{{ $trainingList['last_training']->manuals_id }}')
+        console.log('showImage{{ $trainingList['first_training']->manuals_id }}')
+
+        document.querySelectorAll('.form-check-input').forEach(checkbox => {
+            checkbox.addEventListener('change', function () {
+                const showImage = this.checked ? 'true' : 'false'; // Получаем значение параметра showImage
+                const manualsId = this.id.replace('showImage', ''); // Получаем manuals_id из id чекбокса
+                const form112Link = document.querySelector(`.form112Link[data-manuals-id="${manualsId}"]`);
+
+                if (form112Link) {
+                    const url = new URL(form112Link.href);
+                    url.searchParams.set('showImage', showImage); // Устанавливаем значение showImage в URL
+                    form112Link.href = url.toString(); // Обновляем href ссылки
+                    console.log('Обновленный URL: ', form112Link.href); // Выводим в консоль обновленный URL
+                }
+            });
+        });
+
+
+
+
+
+
     </script>
 
 @endsection

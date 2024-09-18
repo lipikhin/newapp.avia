@@ -104,8 +104,11 @@
                                             <div class="modal-body">
                                                 @foreach($trainingList['trainings'] as $training)
                                                     <div class="form-group">
-                                                        <label>{{ $training->date_training }} (Form
-                                                            Type: {{ $training->form_type }})</label>
+                                                        <label>
+                                                            {{
+                                                            \Carbon\Carbon::parse($training->date_training)->format('M.d.Y') }}
+                                                            (Form: {{ $training->form_type }})
+                                                        </label>
                                                         @if($training->form_type == '112')
                                                             <a href="{{ route
                                                             ('user.trainings.form112', $training->id) }}"

@@ -13,6 +13,7 @@
         body {
             margin: 0;
             padding: 0;
+            font-family: "Times New Roman", serif;
         }
 
         .container-fluid {
@@ -54,7 +55,7 @@
                 bottom: 0;
                 width: 920px;
                 text-align: center;
-                font-size: 12px;
+                font-size: 10px;
                 background-color: #fff;
                 padding: 10px 20px;
             }
@@ -69,7 +70,23 @@
         .border-all {
             border: 1px solid black;
         }
+        .border-all-b {
+            border: 3px solid black;
+        }
 
+        .border-l-t-r {
+            border-left: 1px solid black;
+            border-top: 1px solid black;
+            border-right: 1px solid black;
+        }
+        .border-t-r {
+            border-top: 1px solid black;
+            border-right: 1px solid black;
+        }
+        .border-t-b {
+            border-top: 1px solid black;
+            border-bottom: 1px solid black;
+        }
         .text-center {
             text-align: center;
         }
@@ -94,13 +111,18 @@
         }
 
         .topic-content-2 {
-            width: 700px;
+            width: 701px;
         }
 
         .hrs-topic, .trainer-init {
             width: 100px;
         }
-
+        .hrs-topic-1,.trainer-init-1 {
+            width: 98px;
+        }
+        .trainer-init-1 {
+            width: 99px;
+        }
 
     </style>
 </head>
@@ -116,17 +138,17 @@
 <div class="container-fluid">
     <div class="row">
         <img src="{{ asset('image/AT_logo-rb.svg') }}" alt="Logo"
-             style="width: 150px; margin: 6px 10px 0;">
+             style="width: 210px; margin: 6px 10px 0;">
     </div>
 
     <div class="row justify-content-center">
-        <div class="col-6 border border-dark text-center">
+        <div class="col-6 border-all-b border-dark text-center">
             <h2 class="pt-2 pb-2 text-black"><strong>The Job Training
                     Record</strong></h2>
         </div>
     </div>
 
-    <div class="row mt-3">
+    <div class="row mt-3" style="width: 900px">
         <div class="col-3 text-black border-bottom border-dark">
             <h4><strong>For the Week of:</strong></h4>
         </div>
@@ -143,36 +165,38 @@
                 ->format('M-d-Y') }}</strong>
             </h5>
         </div>
-        <div class="col-1 border-bottom border-dark"></div>
+        <div class="col-2 border-bottom border-dark"></div>
     </div>
 
-    <div class="row mt-3">
+    <div class="row mt-3" style="width: 900px">
         <div class="col-4 text-black">
             <h5><strong>Trainee (Please print name):</strong></h5>
         </div>
         <div class="col-4 text-black text-center border-bottom border-dark">
             <h5><strong>{{ $training->user->name }}</strong></h5>
         </div>
-        <div class="col-3 border-bottom border-dark"></div>
+        <div class="col-4 border-bottom border-dark"></div>
     </div>
 
     @php
         $earliestTrainingDate = $training->manual->trainings()->where('form_type', 112)->min('date_training');
     @endphp
 
+
     <div class="row mt-2">
-        <div class="col-1 border-all pt-4 topic-header">
+        <div class="col-1 border-l-t-r pt-4 topic-header">
             <h6><strong>Topic</strong></h6>
         </div>
-        <div class="col-8 border-bottom pt-4 topic-content text-center">
+        <div class="col-10 border-bottom pt-4 topic-content text-center">
             <h5>
-                <strong>{{ $training->manual->title }} {{ $training->manual->units_pn }}</strong>
+                <strong>{{ $training->manual->title }}: {{
+                $training->manual->units_pn }}</strong>
             </h5>
         </div>
-        <div class="col-2 border-all pt-1 text-center hrs-topic">
+        <div class="col-2 border-l-t-r pt-1 text-center hrs-topic">
             <h6><strong>Hrs on Topic</strong></h6>
         </div>
-        <div class="col-1 border-all pt-1 text-center trainer-init">
+        <div class="col-1 border-t-r pt-1 text-center trainer-init-1">
             <h6><strong>Trainers Initials</strong></h6>
         </div>
     </div>
@@ -182,7 +206,7 @@
             <h6>1. Introduction, Description and Operation;</h6>
             <h6>2. Testing and Fault Isolation;</h6>
         </div>
-        <div class="col-2 border-all pt-3 text-center hrs-topic">
+        <div class="col-2 border-t-b pt-3 text-center hrs-topic-1">
             <h5>{{ $training->form_type == 112 && $training->date_training == $earliestTrainingDate ? $training->manual->units_tr : 2 }}</h5>
         </div>
         <div class="col-1 border-all pt-3 text-center trainer-init">
@@ -191,19 +215,20 @@
     </div>
 
     <div class="row mt-2">
-        <div class="col-1 border-all pt-4 topic-header">
+        <div class="col-1 border-l-t-r pt-4 topic-header">
             <h6><strong>Topic</strong></h6>
         </div>
-        <div class="col-8 border-bottom pt-4 topic-content text-center">
+        <div class="col-10 border-bottom pt-4 topic-content text-center">
             <h5>
-                <strong>{{ $training->manual->title }} {{ $training->manual->units_pn }}</strong>
+                <strong>{{ $training->manual->title }}: {{
+                $training->manual->units_pn }}</strong>
             </h5>
         </div>
-        <div class="col-2 border-all pt-1 text-center hrs-topic">
-            <h6><strong>Hrs on Topic</strong></h6>
+        <div class="col-2  pt-1 text-center hrs-topic">
+            <h6><strong> </strong></h6>
         </div>
-        <div class="col-1 border-all pt-1 text-center trainer-init">
-            <h6><strong>Trainers Initials</strong></h6>
+        <div class="col-1  pt-1 text-center trainer-init-1">
+            <h6><strong></strong></h6>
         </div>
     </div>
 
@@ -213,7 +238,7 @@
             <h6>4. Cleaning;</h6>
             <h6>5. Check;</h6>
         </div>
-        <div class="col-2 border-all pt-4 text-center hrs-topic">
+        <div class="col-2 border-t-b pt-4 text-center hrs-topic-1">
             <h5>{{ $training->form_type == 112 && $training->date_training == $earliestTrainingDate ? $training->manual->units_tr : 2 }}</h5>
         </div>
         <div class="col-1 border-all pt-4 text-center trainer-init">
@@ -222,19 +247,20 @@
     </div>
 
     <div class="row mt-2">
-        <div class="col-1 border-all pt-4 topic-header">
+        <div class="col-1 border-l-t-r pt-4 topic-header">
             <h6><strong>Topic</strong></h6>
         </div>
-        <div class="col-8 border-bottom pt-4 topic-content text-center">
+        <div class="col-10 border-bottom pt-4 topic-content text-center">
             <h5>
-                <strong>{{ $training->manual->title }} {{ $training->manual->units_pn }}</strong>
+                <strong>{{ $training->manual->title }}: {{
+                $training->manual->units_pn }}</strong>
             </h5>
         </div>
-        <div class="col-2 border-all pt-1 text-center hrs-topic">
-            <h6><strong>Hrs on Topic</strong></h6>
+        <div class="col-2  pt-1 text-center hrs-topic">
+            <h6><strong></strong></h6>
         </div>
-        <div class="col-1 border-all pt-1 text-center trainer-init">
-            <h6><strong>Trainers Initials</strong></h6>
+        <div class="col-1  pt-1 text-center trainer-init-1">
+            <h6><strong></strong></h6>
         </div>
     </div>
 
@@ -243,7 +269,7 @@
             <h6>6. Fits and Clearance;</h6>
             <h6>7. Repair;</h6>
         </div>
-        <div class="col-2 border-all pt-3 text-center hrs-topic">
+        <div class="col-2 border-t-b pt-3 text-center hrs-topic">
             <h5>{{ $training->form_type == 112 && $training->date_training == $earliestTrainingDate ? $training->manual->units_tr : 2 }}</h5>
         </div>
         <div class="col-1 border-all pt-3 text-center trainer-init">
@@ -252,20 +278,16 @@
     </div>
 
     <div class="row mt-2">
-        <div class="col-1 border-all pt-4 topic-header">
+        <div class="col-1 border-l-t-r pt-4 topic-header">
             <h6><strong>Topic</strong></h6>
         </div>
-        <div class="col-8 border-bottom pt-4 topic-content text-center">
+        <div class="col-10 border-bottom pt-4 topic-content text-center">
             <h5>
-                <strong>{{ $training->manual->title }} {{ $training->manual->units_pn }}</strong>
+                <strong>{{ $training->manual->title }}: {{
+                $training->manual->units_pn }}</strong>
             </h5>
         </div>
-        <div class="col-2 border-all pt-1 text-center hrs-topic">
-            <h6><strong>Hrs on Topic</strong></h6>
-        </div>
-        <div class="col-1 border-all pt-1 text-center trainer-init">
-            <h6><strong>Trainers Initials</strong></h6>
-        </div>
+
     </div>
 
     <div class="row ">
@@ -273,7 +295,7 @@
             <h6>8. Service Bulletins;</h6>
             <h6>9. Assembly;</h6>
         </div>
-        <div class="col-2 border-all pt-3 text-center hrs-topic">
+        <div class="col-2 border-t-b pt-3 text-center hrs-topic">
             <h5>{{ $training->form_type == 112 && $training->date_training == $earliestTrainingDate ? $training->manual->units_tr : 2 }}</h5>
         </div>
         <div class="col-1 border-all pt-3 text-center trainer-init">
@@ -282,20 +304,16 @@
     </div>
 
     <div class="row mt-2">
-        <div class="col-1 border-all pt-4 topic-header">
+        <div class="col-1 border-l-t-r pt-4 topic-header">
             <h6><strong>Topic</strong></h6>
         </div>
-        <div class="col-8 border-bottom pt-4 topic-content text-center">
+        <div class="col-10 border-bottom pt-4 topic-content text-center">
             <h5>
-                <strong>{{ $training->manual->title }} {{ $training->manual->units_pn }}</strong>
+                <strong>{{ $training->manual->title }}: {{
+                $training->manual->units_pn }}</strong>
             </h5>
         </div>
-        <div class="col-2 border-all pt-1 text-center hrs-topic">
-            <h6><strong>Hrs on Topic</strong></h6>
-        </div>
-        <div class="col-1 border-all pt-1 text-center trainer-init">
-            <h6><strong>Trainers Initials</strong></h6>
-        </div>
+
     </div>
 
     <div class="row ">
@@ -303,7 +321,7 @@
             <h6>10. Special Tools, Fixtures and Equipment;</h6>
             <h6>11. Final Check.</h6>
         </div>
-        <div class="col-2 border-all pt-3 text-center hrs-topic">
+        <div class="col-2 border-t-b pt-3 text-center hrs-topic">
             <h5>{{ $training->form_type == 112 && $training->date_training == $earliestTrainingDate ? $training->manual->units_tr : 2 }}</h5>
         </div>
         <div class="col-1 border-all pt-3 text-center trainer-init">
@@ -313,12 +331,12 @@
     <!-- Повторяем для других блоков... -->
     *Please use another sheet if necessary.
 
-    <div class="row ps-2 pe-2 mt-4">
+    <div class="row ps-2 pe-2 mt-4" style="width: 910px">
         <div class="col-8 text-black text-center border-bottom border-dark
     pt-3"></div>
-        <div class="col-3  text-center border-bottom border-dark">
+        <div class="col-4  text-center border-bottom border-dark">
             <strong>{{ \Carbon\Carbon::parse($training->date_training)
-    ->format('m-d-Y') }}</strong>
+    ->format('M-d-Y') }}</strong>
         </div>
         <div class="d-flex row justify-contend-between">
             <div class="col-9">
@@ -330,12 +348,12 @@
 
     </div>
 
-    <div class="row ps-2 pe-2 mt-4">
+    <div class="row ps-2 pe-2 mt-4" style="width: 910px">
         <div class="col-8 text-black text-center border-bottom border-dark
     pt-3"></div>
-        <div class="col-3  text-center border-bottom border-dark">
+        <div class="col-4  text-center border-bottom border-dark">
             <strong>{{ \Carbon\Carbon::parse($training->date_training)
-    ->format('m-d-Y') }}</strong>
+    ->format('M-d-Y') }}</strong>
         </div>
         <div class="d-flex row justify-contend-between">
             <div class="col-9">
@@ -356,7 +374,7 @@
                 <div class="col-6 text-start">
                     {{__("Form #112")}}
                 </div>
-                <div class="col-6 text-end ">
+                <div class="col-6 text-end pe-4 ">
                    {{__('Rev#0, 15/Dec/2012   ')}}
                 </div>
             </div>

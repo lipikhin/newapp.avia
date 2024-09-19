@@ -156,10 +156,12 @@ class TrainingController extends Controller
         return view('user.trainings.form112', compact('training', 'showImage'));
     }
 
-    public function showForm132($id)
+    public function showForm132($id, Request $request)
     {
-        $training = Training::findOrFail($id);
-        return view('user.trainings.form132', compact('training'));
+        $showImage = $request->query('showImage', 'false'); // Получаем параметр из запроса
+        $training = Training::find($id);
+
+        return view('user.trainings.form132', compact('training', 'showImage'));
     }
 
 

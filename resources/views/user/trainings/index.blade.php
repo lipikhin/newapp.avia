@@ -117,15 +117,20 @@
                                                         </label>
                                                         @if($training->form_type == '112')
                                                             <a href="{{ route('user.trainings.form112', ['id'=> $training->id, 'showImage' => 'false']) }}"
-                                                               class="btn btn-success form112Link"
+                                                               class="btn btn-success formLink"
                                                                target="_blank"
-                                                               id="form112Link{{ $trainingList['first_training']->manuals_id }}">
+                                                               id="formLink{{ $trainingList['first_training']->manuals_id }}">
                                                                 View/Print Form 112
                                                             </a>
                                                         @elseif($training->form_type == '132')
-                                                            <a href="{{ route('user.trainings.form132', $training->id) }}"
-                                                               class="btn btn-info" target="_blank">View/Print Form 132</a>
+                                                            <a href="{{ route('user.trainings.form132', ['id' => $training->id, 'showImage' => 'false']) }}"
+                                                               class="btn btn-info formLink"
+                                                               target="_blank"
+                                                               id="formLink{{ $trainingList['first_training']->manuals_id }}">
+                                                                View/Print Form 132
+                                                            </a>
                                                         @endif
+
                                                     </div>
                                                 @endforeach
                                             </div>
@@ -240,16 +245,14 @@
         }
 
 
-        console.log('{{ $trainingList['last_training']->manuals_id }}')
-        console.log('showImage{{ $trainingList['first_training']->manuals_id }}')
 
         document.querySelectorAll('.form-check-input').forEach(checkbox => {
             checkbox.addEventListener('change', function () {
                 const showImage = this.checked ? 'true' : 'false';  // Получаем значение параметра showImage
                 const manualsId = this.id.replace('showImage', ''); // Получаем manuals_id из id чекбокса
-                const form112Links = document.querySelectorAll(`.form112Link`); // Находим все ссылки на Form 112
+                const formLinks = document.querySelectorAll(`.formLink`); // Находим все ссылки на формы
 
-                form112Links.forEach(link => {
+                formLinks.forEach(link => {
                     let url = new URL(link.href); // Получаем текущий URL
                     url.searchParams.set('showImage', showImage); // Устанавливаем значение showImage в URL
                     link.href = url.toString(); // Обновляем href ссылки
@@ -257,6 +260,7 @@
                 });
             });
         });
+
 
 
 

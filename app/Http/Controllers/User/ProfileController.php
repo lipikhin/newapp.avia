@@ -44,6 +44,7 @@ class ProfileController extends Controller
             'stamp' => 'nullable|string|max:255',
             'password' => 'nullable|string|min:3|confirmed',
             'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'sing' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         $user = auth()->user();
@@ -66,6 +67,18 @@ class ProfileController extends Controller
             $avatarName = time() . '.' . $request->avatar->getClientOriginalExtension();
             $request->avatar->storeAs('avatars/', $avatarName, 'public');
             $user->avatar = $avatarName;
+        }
+        // Обработка sign
+        if ($request->hasFile('sign')) {
+            // Удаляем старый sign, если он есть
+            if ($user->sign) {
+                Storage::disk('public')->delete('signs/' . $user->sign);
+            }
+
+            // Сохраняем новый аватар
+            $signName = time() . '.' . $request->sign->getClientOriginalExtension();
+            $request->sign->storeAs('signs/', $signName, 'public');
+            $user->sign = $signName;
         }
 
         // Сохраняем изменения пользователя

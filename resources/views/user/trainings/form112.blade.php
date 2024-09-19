@@ -155,7 +155,8 @@
         </div>
         <div class="col-3 text-black text-center border-bottom border-dark">
             <h5>
-                <strong>{{ \Carbon\Carbon::parse($training->date_training)->subDay(4)->format('M-d-Y') }}</strong>
+                <strong>{{ \Carbon\Carbon::parse($training->date_training)
+                ->subDay(4)->format('M-d-Y') }}</strong>
             </h5>
         </div>
         <div class="col-1 border-bottom border-dark">-</div>
@@ -333,13 +334,22 @@
     <div class="row ps-2 pe-2 mt-4" style="width: 910px">
         <div class="col-8 text-black text-center border-bottom border-dark
     pt-3"></div>
+
         <div class="col-4  text-center border-bottom border-dark">
             <strong>{{ \Carbon\Carbon::parse($training->date_training)
     ->format('M-d-Y') }}</strong>
         </div>
+
+        @if($showImage === 'true')
+        <div class="col-8 text-center align-items-start" style="height: 1px">
+            <img src="{{ asset('storage/image/sign/MLG_ico.png') }}" alt="Sign" class="pb-5 ps-lg-1 ms-4" style="width:
+                     100px">
+        </div>
+        @endif
         <div class="d-flex row justify-contend-between">
             <div class="col-9">
                 Trainee signature
+
             </div>
             <div class="col-1">Date</div>
 
@@ -348,18 +358,13 @@
     </div>
 
     <div class="row ps-2 pe-2 mt-4" style="width: 910px">
-        <div class="col-8 text-black text-center border-bottom border-dark pt-3">
-            <p>Параметр showImage: {{ $showImage }}</p>
 
-            @if($showImage === 'true')
-                <img src="{{ asset('images/form112-image.png') }}" alt="Изображение в форме 112">
-            @else
-                <p>Изображение скрыто.</p>
-            @endif
-        </div>
+
+
+                <div class="col-8 border-bottom border-dark "></div>
+
         <div class="col-4  text-center border-bottom border-dark">
-            <strong>{{ \Carbon\Carbon::parse($training->date_training)
-    ->format('M-d-Y') }}</strong>
+            <strong>{{ \Carbon\Carbon::parse($training->date_training)->format('M-d-Y') }}</strong>
         </div>
         <div class="d-flex row justify-contend-between">
             <div class="col-9">

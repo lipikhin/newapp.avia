@@ -116,10 +116,10 @@
                                                             (Form: {{ $training->form_type }})
                                                         </label>
                                                         @if($training->form_type == '112')
-                                                            <a href="{{ route('user.trainings.form112', ['id'=> $training->id, 'showImage' => 'true']) }}"
+                                                            <a href="{{ route('user.trainings.form112', ['id'=> $training->id, 'showImage' => 'false']) }}"
                                                                class="btn btn-success form112Link"
-                                                               data-manuals-id="{{ $trainingList['first_training']->manuals_id }}"
-                                                               target="_blank">
+                                                               target="_blank"
+                                                               id="form112Link{{ $trainingList['first_training']->manuals_id }}">
                                                                 View/Print Form 112
                                                             </a>
                                                         @elseif($training->form_type == '132')
@@ -130,13 +130,16 @@
                                                 @endforeach
                                             </div>
                                             <div class="modal-footer">
-                                                <div class="form-check">
+                                                @if(Auth::user()->role->name !=='Technician')
+                                                <div class="form-check ">
                                                     <input type="checkbox" class="form-check-input" id="showImage{{ $trainingList['first_training']->manuals_id }}">
                                                     <label class="form-check-label" for="showImage{{ $trainingList['first_training']->manuals_id }}">
-                                                        Показать изображение в Форме 112
+                                                        {{__('Sign In')}}
                                                     </label>
                                                 </div>
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                @endif
+                                                <button type="button" class="btn btn-secondary ms-5"
+                                                        data-dismiss="modal">Close</button>
                                             </div>
                                         </div>
                                     </div>
@@ -242,18 +245,21 @@
 
         document.querySelectorAll('.form-check-input').forEach(checkbox => {
             checkbox.addEventListener('change', function () {
-                const showImage = this.checked ? 'true' : 'false'; // Получаем значение параметра showImage
+                const showImage = this.checked ? 'true' : 'false';  // Получаем значение параметра showImage
                 const manualsId = this.id.replace('showImage', ''); // Получаем manuals_id из id чекбокса
-                const form112Link = document.querySelector(`.form112Link[data-manuals-id="${manualsId}"]`);
+                const form112Links = document.querySelectorAll(`.form112Link`); // Находим все ссылки на Form 112
 
-                if (form112Link) {
-                    const url = new URL(form112Link.href);
+                form112Links.forEach(link => {
+                    let url = new URL(link.href); // Получаем текущий URL
                     url.searchParams.set('showImage', showImage); // Устанавливаем значение showImage в URL
-                    form112Link.href = url.toString(); // Обновляем href ссылки
-                    console.log('Обновленный URL: ', form112Link.href); // Выводим в консоль обновленный URL
-                }
+                    link.href = url.toString(); // Обновляем href ссылки
+                    console.log('Updated URL: ', link.href); // Выводим в консоль обновленный URL
+                });
             });
         });
+
+
+
 
 
 

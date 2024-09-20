@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form 112</title>
+    <title>Form 132</title>
     <link
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
         rel="stylesheet"
@@ -168,7 +168,12 @@
         .trainer-init-1 {
             width: 99px;
         }
+        .form-check-input:checked {
+            background-color: #FFFFFF;
+            /*border-color: #000000;*/
 
+
+        }
     </style>
 </head>
 
@@ -189,10 +194,14 @@
 
     <div class="row justify-content-center">
         <div class="col-11 text-center">
-            <h1 class="pt-2 pb-2 text-black"><strong>TRAINEE OBJECTIVES
+            <h2 class="pt-2  text-black"><strong>TRAINEE OBJECTIVES
                     ASSESSMENT FORM
+
+                </strong></h2>
+            <h2 class=" mt-n2 text-black"><strong>
                     (FOR USE BY THE ASSESSOR)
-                </strong></h1>
+                </strong></h2>
+
         </div>
     </div>
 
@@ -234,24 +243,24 @@
         <div class="col-5 text-center border-l ">
             <h5 class=""><strong>PERFORMANCE ASSESSMENT</strong></h5>
             <div class="row">
-                <div class="col-7 text-center border-t">
+                <div class="col-7 text-center border-t-r">
                     <h5 class=""><strong>ATTEMPTS</strong></h5>
                     <div class="row">
                         <div class="col-4 pt-1 text-center
-                        border-t-r"><h6><strong>1st</strong></h6></div>
+                        border-t"><h6><strong>1st</strong></h6></div>
                         <div class="col-4  pt-1 text-center
-                        border-t-r"><h6><strong>2st</strong></h6></div>
+                        border-l-t"><h6><strong>2st</strong></h6></div>
                         <div class="col-4 pt-1 text-center
-                        border-t"><h6><strong>3st</strong></h6></div>
+                        border-l-t"><h6><strong>3st</strong></h6></div>
                     </div>
                 </div>
-                <div class="col-5 border-l-t">
+                <div class="col-5 border-t">
                     <h5 class=""><strong>RESULT *</strong></h5>
                     <div class="row">
                         <div class="col-6  pt-1 text-center
-                        border-t-r"><h6><strong>U</strong></h6></div>
+                        border-t"><h6><strong>U</strong></h6></div>
                         <div class="col-6 pt-1 text-center
-                        border-t"><h6><strong>S</strong></h6></div>
+                        border-l-t"><h6><strong>S</strong></h6></div>
                     </div>
 
                 </div>
@@ -369,20 +378,20 @@
                     <h6 class="text-center pt-1"><strong>ATTEMPTS</strong></h6>
                     <div class="row">
                         <div class="col-4 pt-1 text-center
-                        border-t-r"><h6><strong>1st</strong></h6></div>
+                        border-t"><h6><strong>1st</strong></h6></div>
                         <div class="col-4 pt-1 text-center
-                        border-t-r"><h6><strong>2st</strong></h6></div>
+                        border-l-t"><h6><strong>2st</strong></h6></div>
                         <div class="col-4 pt-1 text-center
-                        border-t"><h6><strong>3st</strong></h6></div>
+                        border-l-t"><h6><strong>3st</strong></h6></div>
                     </div>
                 </div>
                 <div class="col-5  border-l">
                     <h6 class="text-center pt-1"><strong>RESULT *</strong></h6>
                     <div class="row">
                         <div class="col-6 text-center pt-1
-                        border-t-r"><h6><strong>U</strong></h6></div>
+                        border-t"><h6><strong>U</strong></h6></div>
                         <div class="col-6 text-center pt-1
-                        border-t"><h6><strong>S</strong></h6></div>
+                        border-l-t"><h6><strong>S</strong></h6></div>
                     </div>
 
                 </div>
@@ -467,20 +476,20 @@
                     <h6 class="text-center pt-1"><strong>ATTEMPTS</strong></h6>
                     <div class="row">
                         <div class="col-4 pt-1 text-center
-                        border-t-r"><h6><strong>1st</strong></h6></div>
+                        border-t"><h6><strong>1st</strong></h6></div>
                         <div class="col-4 pt-1 text-center
-                        border-t-r"><h6><strong>2st</strong></h6></div>
+                        border-l-t"><h6><strong>2st</strong></h6></div>
                         <div class="col-4 pt-1 text-center
-                        border-t"><h6><strong>3st</strong></h6></div>
+                        border-l-t"><h6><strong>3st</strong></h6></div>
                     </div>
                 </div>
                 <div class="col-5  border-l">
                     <h6 class="text-center pt-1"><strong>RESULT *</strong></h6>
                     <div class="row">
                         <div class="col-6 text-center pt-1
-                        border-t-r"><h6><strong>U</strong></h6></div>
+                        border-t"><h6><strong>U</strong></h6></div>
                         <div class="col-6 text-center pt-1
-                        border-t"><h6><strong>S</strong></h6></div>
+                        border-l-t"><h6><strong>S</strong></h6></div>
                     </div>
 
                 </div>
@@ -587,6 +596,7 @@
             </div>
         </div>
     </div>
+
     <div class="row border-l-b-r" style="width: 920px">
         <div class="col-7 pt-3">
             <h6><strong>OPERATE IN COMPLIANCE WITH ENVIRONMENT</strong></h6>
@@ -597,20 +607,20 @@
                     <h6 class="text-center pt-1"><strong>ATTEMPTS</strong></h6>
                     <div class="row">
                         <div class="col-4 pt-1 text-center
-                        border-t-r"><h6><strong>1st</strong></h6></div>
+                        border-t"><h6><strong>1st</strong></h6></div>
                         <div class="col-4 pt-1 text-center
-                        border-t-r"><h6><strong>2st</strong></h6></div>
+                        border-l-t"><h6><strong>2st</strong></h6></div>
                         <div class="col-4 pt-1 text-center
-                        border-t"><h6><strong>3st</strong></h6></div>
+                        border-l-t"><h6><strong>3st</strong></h6></div>
                     </div>
                 </div>
                 <div class="col-5  border-l">
                     <h6 class="text-center pt-1"><strong>RESULT *</strong></h6>
                     <div class="row">
                         <div class="col-6 text-center pt-1
-                        border-t-r"><h6><strong>U</strong></h6></div>
+                        border-t"><h6><strong>U</strong></h6></div>
                         <div class="col-6 text-center pt-1
-                        border-t"><h6><strong>S</strong></h6></div>
+                        border-l-t"><h6><strong>S</strong></h6></div>
                     </div>
 
                 </div>
@@ -801,20 +811,20 @@
                     <h6 class="text-center pt-1"><strong>ATTEMPTS</strong></h6>
                     <div class="row">
                         <div class="col-4 pt-1 text-center
-                        border-t-r"><h6><strong>1st</strong></h6></div>
+                        border-t"><h6><strong>1st</strong></h6></div>
                         <div class="col-4 pt-1 text-center
-                        border-t-r"><h6><strong>2st</strong></h6></div>
+                        border-l-t"><h6><strong>2st</strong></h6></div>
                         <div class="col-4 pt-1 text-center
-                        border-t"><h6><strong>3st</strong></h6></div>
+                        border-l-t"><h6><strong>3st</strong></h6></div>
                     </div>
                 </div>
                 <div class="col-5  border-l">
                     <h6 class="text-center pt-1"><strong>RESULT *</strong></h6>
                     <div class="row">
                         <div class="col-6 text-center pt-1
-                        border-t-r"><h6><strong>U</strong></h6></div>
+                        border-t"><h6><strong>U</strong></h6></div>
                         <div class="col-6 text-center pt-1
-                        border-t"><h6><strong>S</strong></h6></div>
+                        border-l-t"><h6><strong>S</strong></h6></div>
                     </div>
 
                 </div>
@@ -901,20 +911,20 @@
                     <h6 class="text-center pt-1"><strong>ATTEMPTS</strong></h6>
                     <div class="row">
                         <div class="col-4 pt-1 text-center
-                        border-t-r"><h6><strong>1st</strong></h6></div>
+                        border-t"><h6><strong>1st</strong></h6></div>
                         <div class="col-4 pt-1 text-center
-                        border-t-r"><h6><strong>2st</strong></h6></div>
+                        border-l-t"><h6><strong>2st</strong></h6></div>
                         <div class="col-4 pt-1 text-center
-                        border-t"><h6><strong>3st</strong></h6></div>
+                        border-l-t"><h6><strong>3st</strong></h6></div>
                     </div>
                 </div>
                 <div class="col-5  border-l">
                     <h6 class="text-center pt-1"><strong>RESULT *</strong></h6>
                     <div class="row">
                         <div class="col-6 text-center pt-1
-                        border-t-r"><h6><strong>U</strong></h6></div>
+                        border-t"><h6><strong>U</strong></h6></div>
                         <div class="col-6 text-center pt-1
-                        border-t"><h6><strong>S</strong></h6></div>
+                        border-l-t"><h6><strong>S</strong></h6></div>
                     </div>
 
                 </div>
@@ -969,11 +979,11 @@
                         </h6>
                         <div class="row">
                             <div class="col-4 pt-1 text-center
-                        border-t-r"><h6><strong>1st</strong></h6></div>
+                        border-t"><h6><strong>1st</strong></h6></div>
                             <div class="col-4 pt-1 text-center
-                        border-t-r"><h6><strong>2st</strong></h6></div>
+                        border-l-t"><h6><strong>2st</strong></h6></div>
                             <div class="col-4 pt-1 text-center
-                        border-t"><h6><strong>3st</strong></h6></div>
+                        border-l-t"><h6><strong>3st</strong></h6></div>
                         </div>
                     </div>
                     <div class="col-5  border-l">
@@ -981,9 +991,9 @@
                         </h6>
                         <div class="row">
                             <div class="col-6 text-center pt-1
-                        border-t-r"><h6><strong>U</strong></h6></div>
+                        border-t"><h6><strong>U</strong></h6></div>
                             <div class="col-6 text-center pt-1
-                        border-t"><h6><strong>S</strong></h6></div>
+                        border-l-t"><h6><strong>S</strong></h6></div>
                         </div>
 
                     </div>
@@ -1069,11 +1079,11 @@
                         </h6>
                         <div class="row">
                             <div class="col-4 pt-1 text-center
-                        border-t-r"><h6><strong>1st</strong></h6></div>
+                        border-t"><h6><strong>1st</strong></h6></div>
                             <div class="col-4 pt-1 text-center
-                        border-t-r"><h6><strong>2st</strong></h6></div>
+                        border-l-t"><h6><strong>2st</strong></h6></div>
                             <div class="col-4 pt-1 text-center
-                        border-t"><h6><strong>3st</strong></h6></div>
+                        border-l-t"><h6><strong>3st</strong></h6></div>
                         </div>
                     </div>
                     <div class="col-5  border-l">
@@ -1081,9 +1091,9 @@
                         </h6>
                         <div class="row">
                             <div class="col-6 text-center pt-1
-                        border-t-r"><h6><strong>U</strong></h6></div>
+                        border-t"><h6><strong>U</strong></h6></div>
                             <div class="col-6 text-center pt-1
-                        border-t"><h6><strong>S</strong></h6></div>
+                        border-l-t"><h6><strong>S</strong></h6></div>
                         </div>
 
                     </div>
@@ -1135,7 +1145,7 @@
                         <div class="row">
                             <div class="col-4 text-center pt-2
                         "><img src="{{ asset('storage/image/sign/check.svg')
-                            }}" alt="check" class="4"
+                            }}" alt="check" class=""
                                style="width: 40px">
                             </div>
                             <div class="col-4 text-center  border-l pt-2
@@ -1193,9 +1203,9 @@
     <div class="row border-l-b-r" style="width: 920px">
         <div class="col-7 ">
             <div class="row">
-                <div class="col-2" style="font-size: 0.85rem;">1st attempt</div>
+                <div class="col-2" style="font-size: 0.85rem;">2st attempt</div>
                 <div class="col-10  pt-3 text-center">
-                    <h6>Found satisfactory </h6>
+                    <h6></h6>
                 </div>
             </div>
         </div>
@@ -1212,19 +1222,20 @@
                 <div class="col-5 ">
                     <div class="row">
                         <div class="col-12 text-center pt-3 ">
-                            <h6> Vadym Nechyporenko</h6>
+                            <h6></h6>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
     <div class="row border-l-b-r" style="width: 920px">
         <div class="col-7 ">
             <div class="row">
-                <div class="col-2" style="font-size: 0.85rem;">1st attempt</div>
+                <div class="col-2" style="font-size: 0.85rem;">3st attempt</div>
                 <div class="col-10  pt-3 text-center">
-                    <h6>Found satisfactory </h6>
+                    <h6></h6>
                 </div>
             </div>
         </div>
@@ -1241,19 +1252,51 @@
                 <div class="col-5 ">
                     <div class="row">
                         <div class="col-12 text-center pt-3 ">
-                            <h6> Vadym Nechyporenko</h6>
+                            <h6></h6>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+
+    <div class="row border-l-b-r" style="width: 920px">
+        <div class="row ">
+            <div class="col-7 ">
+                RESULT OF THE ASSESSMENT
+            </div>
+            <div class="col-5 ">
+                <div class="row">
+                    <div class="col-7">
+                        <div class="col-4"></div>
+                        <div class="col-4"></div>
+                        <div class="col-4 border-l">Succeeded</div>
+                    </div>
+                    <div class="col-5 ">
+                       <div class="row">
+                           <div class="col-2"></div>
+                           <div class="col-3">Remedial</div>
+                       </div>
+
+                    </div>
+
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
     <div class="row border-l-b-r" style="width: 920px">
         <div class="col-7 ">
             <div class="row">
-                <div class="col-2" style="font-size: 0.85rem;">1st attempt</div>
-                <div class="col-10  pt-3 text-center">
-                    <h6>Found satisfactory </h6>
+                <div class="col-10 pt-3">
+                    <h6>RESULT OF THE ASSESSMENT</h6>
+                </div>
+                <div class="col-2  pt-3 text-center">
+                    <h6></h6>
                 </div>
             </div>
         </div>
@@ -1262,16 +1305,30 @@
                 <div class="col-7 ">
                     <div class="row">
                         <div class="col-4"></div>
-                        <div class="col-4"></div>
-                        <div class="col-4 pt-3 border-l " style="height: 48px">
+                        <div class="col-4 "></div>
+                        <div class="col-4 pt-3 border-l"
+                             style="height: 48px">
+                            Succeeded
+                        </div>
 
-                            Succeeded  </div>
                     </div>
                 </div>
                 <div class="col-5 ">
                     <div class="row">
-                        <div class="col-12 text-center pt-3 ">
-                            <h6> Remedial </h6>
+
+                        <div class="col-10 text-center pt-3 ">
+                            <img src="{{ asset
+                            ('storage/image/sign/check_box_mark_16.png') }}"
+                                 alt="cbm" class=" "
+                                 style="width:16px">
+                            Remedial
+
+                        </div>
+                        <div class="col-2 pt-3">
+                            <img src="{{ asset
+                            ('storage/image/sign/check_box_emt_16.png') }}"
+                                 alt="cbm" class=""
+                                 style="width:16px">
                         </div>
                     </div>
                 </div>
@@ -1279,263 +1336,126 @@
         </div>
     </div>
 
-</div>
+    <div class="row border-l-b-r" style="width: 920px">
+        <div class="col-7 pt-1" style="height: 36px">
+            TRAINEE NAME:
+        </div>
+        <div class="col-5 border-l text-center pt-1">
+            {{ $training->user->name }}
+        </div>
+    </div>
+    <div class="row border-l-b-r" style="width: 920px">
+        <div class="col-10 text-center">
+            @if($showImage === 'true')
+                <div class="ps-5" style="height: 1px">
+                    <img src="{{ asset('storage/image/sign/check_mark.svg') }}"
+                         alt="Sign_user" class="pb-3  " style="width:
+                     80px">
+                </div>
+            @endif
+        </div>
+        <div class="col-7 pt-3" >
+            TRAINEE SIGNATURE:
+        </div>
+        <div class="col-5 ">
+            <div class="row">
+                <div class="col-7" >
+                    <div class="row ">
+                        <div class="col-4 border-r"></div>
+                        <div class="col-4  pt-3" >DATE:</div>
+                        <div class="col-4 border-l" style="height: 60px"></div>
+                    </div>
+                </div>
+                <div class="col-5">
+                    <div class="row">
+                        <div class="col-10 pt-4">
+                            {{ \Carbon\Carbon::parse($training->date_training)->format('M-d-Y') }}
+                        </div>
+                        <div class="col-2 pt-2">
 
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-
-
-<div class="row border-l-b-r" style="width: 920px; height: 48px">
-    <div class="col-9">
-        2st attempt
-
-    </div>
-    <div class="col-3"></div>
-</div>
-<div class="row border-l-b-r" style="width: 920px; height: 48px">
-    <div class="col-9">
-        3st attempt
-
-    </div>
-    <div class="col-3"></div>
-</div>
-<div class="row border-l-b-r" style="width: 920px; height: 48px">
-    <div class="col-9">
-        RESULT OF THE ASSESSMENT
-
-    </div>
-    <div class="col-3">Succeeded Remedial</div>
-</div>
-
-
-<div class="row mt-3" style="width: 900px">
-    <div class="col-3 text-black border-bottom border-dark">
-        <h4><strong>For the Week of:</strong></h4>
-    </div>
-    <div class="col-3 text-black text-center border-bottom border-dark">
-        <h5>
-            <strong>{{ \Carbon\Carbon::parse($training->date_training)
-                ->subDay(4)->format('M-d-Y') }}</strong>
-        </h5>
-    </div>
-    <div class="col-1 border-bottom border-dark">-</div>
-    <div class="col-3 text-black text-left border-bottom border-dark">
-        <h5>
-            <strong>{{ \Carbon\Carbon::parse($training->date_training)->format('M-d-Y') }}</strong>
-        </h5>
-    </div>
-    <div class="col-2 border-bottom border-dark"></div>
-</div>
-
-
-@php
-    $earliestTrainingDate = $training->manual->trainings()->where('form_type', 112)->min('date_training');
-@endphp
-
-
-<div class="row mt-2">
-    <div class="col-1 border-l-t-r pt-4 topic-header">
-        <h6><strong>Topic</strong></h6>
-    </div>
-    <div class="col-10 border-bottom pt-4 topic-content text-center">
-        <h5>
-            <strong>{{ $training->manual->title }}: {{
-                $training->manual->units_pn }}</strong>
-        </h5>
-    </div>
-    <div class="col-2 border-l-t-r pt-1 text-center hrs-topic">
-        <h6><strong>Hrs on Topic</strong></h6>
-    </div>
-    <div class="col-1 border-t-r pt-1 text-center trainer-init-1">
-        <h6><strong>Trainers Initials</strong></h6>
-    </div>
-</div>
-
-<div class="row ">
-    <div class="col-9 border-all pt-1 text-left topic-content-2">
-        <h6>1. Introduction, Description and Operation;</h6>
-        <h6>2. Testing and Fault Isolation;</h6>
-    </div>
-    <div class="col-2 border-t-b pt-3 text-center hrs-topic-1">
-        <h5>{{ $training->form_type == 112 && $training->date_training == $earliestTrainingDate ? $training->manual->units_tr : 2 }}</h5>
-    </div>
-    <div class="col-1 border-all pt-3 text-center trainer-init">
-        <h5>{{ __('V.N.') }}</h5>
-    </div>
-</div>
-
-<div class="row mt-2">
-    <div class="col-1 border-l-t-r pt-4 topic-header">
-        <h6><strong>Topic</strong></h6>
-    </div>
-    <div class="col-10 border-bottom pt-4 topic-content text-center">
-        <h5>
-            <strong>{{ $training->manual->title }}: {{
-                $training->manual->units_pn }}</strong>
-        </h5>
-    </div>
-    <div class="col-2  pt-1 text-center hrs-topic">
-        <h6><strong> </strong></h6>
-    </div>
-    <div class="col-1  pt-1 text-center trainer-init-1">
-        <h6><strong></strong></h6>
-    </div>
-</div>
-
-<div class="row ">
-    <div class="col-9 border-all pt-1 text-left topic-content-2">
-        <h6>3. Disassembly; </h6>
-        <h6>4. Cleaning;</h6>
-        <h6>5. Check;</h6>
-    </div>
-    <div class="col-2 border-t-b pt-4 text-center hrs-topic-1">
-        <h5>{{ $training->form_type == 112 && $training->date_training == $earliestTrainingDate ? $training->manual->units_tr : 2 }}</h5>
-    </div>
-    <div class="col-1 border-all pt-4 text-center trainer-init">
-        <h5>{{ __('V.N.') }}</h5>
-    </div>
-</div>
-
-<div class="row mt-2">
-    <div class="col-1 border-l-t-r pt-4 topic-header">
-        <h6><strong>Topic</strong></h6>
-    </div>
-    <div class="col-10 border-bottom pt-4 topic-content text-center">
-        <h5>
-            <strong>{{ $training->manual->title }}: {{
-                $training->manual->units_pn }}</strong>
-        </h5>
-    </div>
-    <div class="col-2  pt-1 text-center hrs-topic">
-        <h6><strong></strong></h6>
-    </div>
-    <div class="col-1  pt-1 text-center trainer-init-1">
-        <h6><strong></strong></h6>
-    </div>
-</div>
-
-<div class="row ">
-    <div class="col-9 border-all pt-1 text-left topic-content-2">
-        <h6>6. Fits and Clearance;</h6>
-        <h6>7. Repair;</h6>
-    </div>
-    <div class="col-2 border-t-b pt-3 text-center hrs-topic">
-        <h5>{{ $training->form_type == 112 && $training->date_training == $earliestTrainingDate ? $training->manual->units_tr : 2 }}</h5>
-    </div>
-    <div class="col-1 border-all pt-3 text-center trainer-init">
-        <h5>{{ __('V.N.') }}</h5>
-    </div>
-</div>
-
-<div class="row mt-2">
-    <div class="col-1 border-l-t-r pt-4 topic-header">
-        <h6><strong>Topic</strong></h6>
-    </div>
-    <div class="col-10 border-bottom pt-4 topic-content text-center">
-        <h5>
-            <strong>{{ $training->manual->title }}: {{
-                $training->manual->units_pn }}</strong>
-        </h5>
+        </div>
     </div>
 
-</div>
-
-<div class="row ">
-    <div class="col-9 border-all pt-1 text-left topic-content-2">
-        <h6>8. Service Bulletins;</h6>
-        <h6>9. Assembly;</h6>
+    <div class="row border-l-b-r" style="width: 920px">
+        <div class="col-7 pt-1" style="height: 36px">
+            ASSESSOR NAME:
+        </div>
+        <div class="col-5 border-l text-center pt-1">
+            Vadym Nechyporenko
+        </div>
     </div>
-    <div class="col-2 border-t-b pt-3 text-center hrs-topic">
-        <h5>{{ $training->form_type == 112 && $training->date_training == $earliestTrainingDate ? $training->manual->units_tr : 2 }}</h5>
-    </div>
-    <div class="col-1 border-all pt-3 text-center trainer-init">
-        <h5>{{ __('V.N.') }}</h5>
-    </div>
-</div>
-
-<div class="row mt-2">
-    <div class="col-1 border-l-t-r pt-4 topic-header">
-        <h6><strong>Topic</strong></h6>
-    </div>
-    <div class="col-10 border-bottom pt-4 topic-content text-center">
-        <h5>
-            <strong>{{ $training->manual->title }}: {{
-                $training->manual->units_pn }}</strong>
-        </h5>
-    </div>
-
-</div>
-
-<div class="row ">
-    <div class="col-9 border-all pt-1 text-left topic-content-2">
-        <h6>10. Special Tools, Fixtures and Equipment;</h6>
-        <h6>11. Final Check.</h6>
-    </div>
-    <div class="col-2 border-t-b pt-3 text-center hrs-topic">
-        <h5>{{ $training->form_type == 112 && $training->date_training == $earliestTrainingDate ? $training->manual->units_tr : 2 }}</h5>
-    </div>
-    <div class="col-1 border-all pt-3 text-center trainer-init">
-        <h5>{{ __('V.N.') }}</h5>
-    </div>
-</div>
-<!-- Повторяем для других блоков... -->
-*Please use another sheet if necessary.
-
-<div class="row ps-2 pe-2 mt-4" style="width: 910px">
-    <div class="col-8 text-black text-center border-bottom border-dark
-    pt-3"></div>
-
-    <div class="col-4  text-center border-bottom border-dark">
-        <strong>{{ \Carbon\Carbon::parse($training->date_training)
-    ->format('M-d-Y') }}</strong>
-    </div>
-
-    @if($showImage === 'true')
-        <div class="col-8 text-center align-items-start" style="height: 1px">
-            <img src="{{ asset('storage/image/sign/check_mark.svg') }}"
-                 alt="Sign" class="pb-5 ps-lg-1 ms-4" style="width:
+    <div class="row border-l-b-r" style="width: 920px">
+        <div class="col-10 text-center">
+            @if($showImage === 'true')
+                <div class="ps-5 pt-1" style="height: 1px">
+                    <img src="{{ asset('storage/image/sign/sign_vn.png') }}"
+                         alt="Sign" class="" style="width:
                      100px">
+                </div>
+            @endif
         </div>
-    @endif
-    <div class="d-flex row justify-contend-between">
-        <div class="col-9">
-            Trainee signature
+        <div class="col-7 pt-3" >
+            ASSESSOR SIGNATURE:
+        </div>
+        <div class="col-5 ">
+            <div class="row">
+                <div class="col-7" >
+                    <div class="row ">
+                        <div class="col-4 border-r"></div>
+                        <div class="col-4  pt-3" >DATE:</div>
+                        <div class="col-4 border-l" style="height: 60px"></div>
+                    </div>
+                </div>
+                <div class="col-5">
+                    <div class="row">
+                        <div class="col-10 pt-4">
+                            {{ \Carbon\Carbon::parse($training->date_training)->format('M-d-Y') }}
+                        </div>
+                        <div class="col-2 pt-2">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
 
         </div>
-        <div class="col-1">Date</div>
-
     </div>
 
+<div class="pt-2">
+    NOTE: * The trainee will be required to demonstrate a comprehensive
+    understanding of the maintenance manuals and other data related to the
+    aircraft component and practical skills to perform maintenance task on
+    which training is being given.
 </div>
+    <style>
 
-<div class="row ps-2 pe-2 mt-4" style="width: 910px">
+    </style>
 
-
-    <div class="col-8 border-bottom border-dark "></div>
-
-    <div class="col-4  text-center border-bottom border-dark">
-        <strong>{{ \Carbon\Carbon::parse($training->date_training)->format('M-d-Y') }}</strong>
+    <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="" id="customCheck1">
+        <label class="form-check-label" for="customCheck1">
+            Custom checkbox
+        </label>
     </div>
-    <div class="d-flex row justify-contend-between">
-        <div class="col-9">
-            Quality Assurance signature
-        </div>
-        <div class="col-1">Date</div>
-
-    </div>
-
 </div>
-<div class="row  mt-3 border border-dark" style="width: 900px">
-    <div class="col-11" style="height: 70px"></div>
-</div>
+
+
+
+
 
 
 <footer>
     <div class="row" style="width: 900px">
         <div class="col-6 text-start">
-            {{__("Form #112")}}
+            {{__("Form #132")}}
         </div>
         <div class="col-6 text-end pe-4 ">
-            {{__('Rev#0, 15/Dec/2012   ')}}
+            {{__('Rev#0, 30/Nov/2018   ')}}
         </div>
     </div>
 

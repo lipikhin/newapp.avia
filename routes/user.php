@@ -43,6 +43,9 @@ Route::prefix('user')->middleware(['auth'])->group(function (){
     Route::get('profile/{profile}/edit', [ProfileController::class, 'edit'])->name('user.profile.edit');
     Route::put('profile/{profile}', [ProfileController::class, 'update'])->name('user.profile.update');
     Route::delete('profile/{profile}', [ProfileController::class, 'destroy'])->name('user.profile.destroy');
+    Route::post('/profile/changePassword', [ProfileController::class, 'changePassword'])->name('user.profile.changePassword');
+
+
 
     Route::get('trainings', [TrainingController::class, 'index'])->name('user.trainings.index');
     Route::get('trainings/create', [TrainingController::class, 'create'])

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
@@ -86,5 +87,25 @@ class ProfileController extends Controller
         $user->update($input);
 
         return redirect()->route('home.index')->with('success', 'Profile updated successfully.');
+    }
+    public function changePassword(Request $request)
+    {
+        $request->validate([
+            'old_password' => 'required',
+            'new_password' => 'required|string|min:3|confirmed',
+        ]);
+
+        $user = Auth::user();
+
+        // Проверка старого пароля
+        if (!Hash::check($request->old_password, $user->password)) {
+            return back()->withErrors(['old_password' => 'The old password is incorrect.']);
+        }
+
+        // Обновление пароля
+        $user->password = Hash::make($request->new_password);
+        $user->save();
+
+        return redirect()->route('home.index')->with('success', 'Password updated successfully.');
     }
 }

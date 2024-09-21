@@ -332,13 +332,14 @@
     <div class="mb-3">
     <!-- Повторяем для других блоков... -->
    <h6>*Please use another sheet if necessary.</h6>
-
+        @if($showImage === 'true')
         <div class=" pb-5 mt-n5 text-center align-items-start"
-             style="height:
-        1px">
+             style="height: 1px">
+
             <img src="{{ asset('storage/avatars/sign/' . Auth::user()->sign) }}"
                  alt="Sign" class="  ms-4" style="width: 200px">
         </div>
+        @endif
     </div>
 
 

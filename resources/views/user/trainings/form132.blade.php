@@ -35,7 +35,7 @@
 
             /* Убедитесь, что вся страница помещается на один лист */
             html, body {
-                height: 98%;
+                height: 100%;
                 width: 105%;
                 margin-left: 1px;
                 padding: 0;
@@ -168,10 +168,6 @@
         .trainer-init-1 {
             width: 99px;
         }
-        .form-check-input:checked {
-            background-color: #FFFFFF;
-            /*border-color: #000000;*/
-
 
         }
     </style>
@@ -1260,41 +1256,10 @@
         </div>
     </div>
 
-
-    <div class="row border-l-b-r" style="width: 920px">
-        <div class="row ">
-            <div class="col-7 ">
-                RESULT OF THE ASSESSMENT
-            </div>
-            <div class="col-5 ">
-                <div class="row">
-                    <div class="col-7">
-                        <div class="col-4"></div>
-                        <div class="col-4"></div>
-                        <div class="col-4 border-l">Succeeded</div>
-                    </div>
-                    <div class="col-5 ">
-                       <div class="row">
-                           <div class="col-2"></div>
-                           <div class="col-3">Remedial</div>
-                       </div>
-
-                    </div>
-
-
-
-                </div>
-
-            </div>
-        </div>
-    </div>
-
     <div class="row border-l-b-r" style="width: 920px">
         <div class="col-7 ">
             <div class="row">
-                <div class="col-10 pt-3">
-                    <h6>RESULT OF THE ASSESSMENT</h6>
-                </div>
+                <div class="col-10 pt-2" style=" height: 36px">RESULT OF THE ASSESSMENT</div>
                 <div class="col-2  pt-3 text-center">
                     <h6></h6>
                 </div>
@@ -1305,30 +1270,24 @@
                 <div class="col-7 ">
                     <div class="row">
                         <div class="col-4"></div>
-                        <div class="col-4 "></div>
-                        <div class="col-4 pt-3 border-l"
-                             style="height: 48px">
-                            Succeeded
-                        </div>
+                        <div class="col-4"></div>
+                        <div class="col-4 border-l " style="height: 36px" >
+                            <div class="d-flex ">
+                               <h6 class="pe-2 pt-2">Succeeded</h6>
+                                <img src="{{asset('/storage/image/sign/check-.svg')}}" alt="">
+                            </div>
 
+                        </div>
                     </div>
                 </div>
                 <div class="col-5 ">
                     <div class="row">
-
-                        <div class="col-10 text-center pt-3 ">
-                            <img src="{{ asset
-                            ('storage/image/sign/check_box_mark_16.png') }}"
-                                 alt="cbm" class=" "
-                                 style="width:16px">
-                            Remedial
-
-                        </div>
-                        <div class="col-2 pt-3">
-                            <img src="{{ asset
-                            ('storage/image/sign/check_box_emt_16.png') }}"
-                                 alt="cbm" class=""
-                                 style="width:16px">
+                        <div class="col-2"></div>
+                        <div class="col-10 text-center  ">
+                            <div class="d-flex ">
+                                <h6 class="ps-2 pe-2 pt-2">Remedial</h6>
+                                <img src="{{asset('/storage/image/sign/square.svg')}}" alt="">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1336,8 +1295,10 @@
         </div>
     </div>
 
+
+
     <div class="row border-l-b-r" style="width: 920px">
-        <div class="col-7 pt-1" style="height: 36px">
+        <div class="col-7 pt-2" style="height: 36px">
             TRAINEE NAME:
         </div>
         <div class="col-5 border-l text-center pt-1">
@@ -1368,7 +1329,7 @@
                 </div>
                 <div class="col-5">
                     <div class="row">
-                        <div class="col-10 pt-4">
+                        <div class="col-10 pt-3">
                             {{ \Carbon\Carbon::parse($training->date_training)->format('M-d-Y') }}
                         </div>
                         <div class="col-2 pt-2">
@@ -1432,18 +1393,8 @@
     aircraft component and practical skills to perform maintenance task on
     which training is being given.
 </div>
-    <style>
 
-    </style>
-
-    <div class="form-check">
-        <input class="form-check-input" type="checkbox" value="" id="customCheck1">
-        <label class="form-check-label" for="customCheck1">
-            Custom checkbox
-        </label>
-    </div>
 </div>
-
 
 
 

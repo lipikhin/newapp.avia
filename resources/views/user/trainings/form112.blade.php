@@ -34,9 +34,9 @@
 
             /* Убедитесь, что вся страница помещается на один лист */
             html, body {
-                height: 98%;
+                height: 90%;
                 width: 105%;
-                margin-left: 1px;
+                margin-left: 10px;
                 padding: 0;
             }
 
@@ -58,7 +58,7 @@
                 text-align: center;
                 font-size: 10px;
                 background-color: #fff;
-                padding: 10px 20px;
+                padding: 5px 10px;
             }
 
             /* Обрезка контента и размещение на одной странице */
@@ -377,7 +377,7 @@
 
     </div>
     <div class="row  mt-3 border border-dark" style="width: 900px">
-        <div class="col-11" style="height: 70px"></div>
+        <div class="col-11" style="height: 60px"></div>
     </div>
 
 

@@ -22,7 +22,7 @@
                                 <div class="d-flex justify-content-center">
                                     @if(auth()->user()->avatar)
                                         <img id="avatar-preview"
-                                             src="{{ asset('storage/avatars/' . auth()->user()->avatar) }}"
+                                             src="{{ asset('public/storage/avatars/' . auth()->user()->avatar) }}"
                                              style="width:120px; margin-top: 10px; cursor: pointer;">
 
                                     @else

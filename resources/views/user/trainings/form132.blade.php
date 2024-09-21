@@ -176,7 +176,7 @@
             width: 99px;
         }
 
-        }
+
     </style>
 </head>
 
@@ -1304,7 +1304,7 @@
 
 
 
-    <div class="row border-l-b-r" style="width: 920px">
+    <div class="row border-l-r" style="width: 920px">
         <div class="col-7 pt-2" style="height: 36px">
             TRAINEE NAME:
         </div>
@@ -1321,10 +1321,10 @@
                 </div>
             @endif
         </div>
-        <div class="col-7 pt-3 border-b" >
+        <div class="col-7 pt-3 border-b border-t" >
             TRAINEE SIGNATURE:
         </div>
-        <div class="col-5 border-b">
+        <div class="col-5 border-b border-t">
             <div class="row">
                 <div class="col-7" >
                     <div class="row ">
@@ -1348,7 +1348,7 @@
         </div>
     </div>
 
-    <div class="row border-l-b-r" style="width: 920px">
+    <div class="row border-l-r" style="width: 920px">
         <div class="col-7 pt-1" style="height: 36px">
             ASSESSOR NAME:
         </div>
@@ -1368,10 +1368,10 @@
             @endif
             @endif
         </div>
-        <div class="col-7 pt-3 border-b" >
+        <div class="col-7 pt-3 border-b border-t" >
             ASSESSOR SIGNATURE:
         </div>
-        <div class="col-5 border-b" style="height:60px">
+        <div class="col-5 border-b border-t" style="height:60px">
             <div class="row">
                 <div class="col-7" >
                     <div class="row ">

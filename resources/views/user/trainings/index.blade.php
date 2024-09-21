@@ -2,25 +2,61 @@
 
 
 @section('content')
+    <style>
+        @media (max-width: 1100px) {
+            .table th:nth-child(2),
+            .table td:nth-child(2) {
+                display: none;
+            }
+        }
+        @media (max-width: 770px) {
+            .table th:nth-child(2),
+            .table td:nth-child(2),/* Revision Date */
 
-    {{--    <style>--}}
-    {{--    .card {--}}
-    {{--        max-width: 850px;--}}
-    {{--    }--}}
-    {{--    .card-body {--}}
-    {{--        max-width: 850px;--}}
-    {{--    }--}}
-    {{--</style>--}}
+            .table th:nth-child(5),
+            .table td:nth-child(5)  {
+                display: none;
+            }
+        }
+        @media (max-width: 590px) {
+            .table th:nth-child(2), /* Image */
+            .table td:nth-child(2),
 
+            .table th:nth-child(4), /* Revision Date */
+            .table td:nth-child(4),
+
+            .table th:nth-child(5),
+            .table td:nth-child(5) {
+                display: none;
+            }
+            @media (max-width: 490px) {
+                .table th:nth-child(2), /* Image */
+                .table td:nth-child(2),
+
+                .table th:nth-child(4), /* Revision Date */
+                .table td:nth-child(4),
+                .table th:nth-child(5), /* Revision Date */
+                .table td:nth-child(5),
+
+                .table th:nth-child(7),
+                .table td:nth-child(7) {
+                    display: none;
+                }
+        }
+    </style>
 
     <div class="container ">
         <div class="card shadow">
             <div class="card-header">
                 <div class="d-flex justify-content-between">
-                    <div class="d-flex" style="width: 450px">
+                    <div class="" style="width: 450px">
                         <h3>{{ __('Trainings') }}</h3>
-                        <a href="#"
-                           class="btn btn-primary ms-3">{{ __('Complete Training') }}</a>
+                    </div>
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox"
+                               id="trainingNotUpdated" >
+                        <label class="form-check-label"
+                               for="trainingNotUpdated">Not updated trainings</label>
                     </div>
                     <div class="align-middle">
                         <a href="{{ route('user.trainings.create') }}"
@@ -37,13 +73,27 @@
                        data-page-size="5" class="table table-bordered">
                     <thead>
                     <tr>
-                        <th class="text-center align-middle">{{ __('Training (Yes/No)') }}</th>
-                        <th class="text-center align-middle">{{ __('Form 132') }}</th>
-                        <th class="text-center align-middle">{{ __('Unit PN') }}</th>
-                        <th class="text-center align-middle">{{ __('Description') }}</th>
-                        <th class="text-center align-middle">{{ __('First Training Date') }}</th>
-                        <th class="text-center align-middle">{{ __('Last Training Date') }}</th>
-                        <th class="text-center align-middle">{{ __('Actions') }}</th>
+                        <th data-priority="1"  data-visible="true"
+                            class="text-center
+                        align-middle">{{ __('Training
+                         (Yes/No)') }}</th>
+                        <th data-priority="2" data-visible="true" class="text-center align-middle">{{ __('Form
+                        132') }}</th>
+                        <th data-priority="3" data-visible="true" class="text-center
+                        align-middle">{{ __('Unit
+                        PN') }}</th>
+                        <th data-priority="4" data-visible="true" class="text-center
+                        align-middle">{{ __
+                        ('Description') }}</th>
+                        <th data-priority="5" data-visible="true" class="text-center
+                        align-middle">{{ __('First
+                        Training Date') }}</th>
+                        <th data-priority="6" data-visible="true" class="text-center
+                        align-middle">{{ __('Last
+                        Training Date') }}</th>
+                        <th data-priority="7" data-visible="true" class="text-center
+                        align-middle">{{ __
+                        ('Actions') }}</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -262,7 +312,33 @@
         });
 
 
+        document.addEventListener('DOMContentLoaded', function() {
+            const trainingNotUpdatedCheckbox = document.getElementById('trainingNotUpdated');
+            const trainingsTableBody = document.querySelector('#trainingsTable tbody');
 
+            trainingNotUpdatedCheckbox.addEventListener('change', function() {
+                const isChecked = this.checked;
+
+                // Проходим по каждой строке таблицы и проверяем условие
+                Array.from(trainingsTableBody.rows).forEach(row => {
+                    const lastTrainingDateCell = row.cells[5]; // ячейка с датой последней тренировки
+
+                    if (isChecked) {
+                        // Показываем строки, где дата последней тренировки больше 340 дней от текущей даты
+                        const lastTrainingDate = new Date(lastTrainingDateCell.textContent.trim());
+                        const daysDiff = Math.floor((new Date() - lastTrainingDate) / (1000 * 60 * 60 * 24));
+                        if (daysDiff <= 340) {
+                            row.style.display = 'none';
+                        } else {
+                            row.style.display = '';
+                        }
+                    } else {
+                        // Показываем все строки, если переключатель не активен
+                        row.style.display = '';
+                    }
+                });
+            });
+        });
 
 
 

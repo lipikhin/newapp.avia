@@ -21,27 +21,25 @@
         @media (max-width: 590px) {
             .table th:nth-child(2), /* Image */
             .table td:nth-child(2),
-
             .table th:nth-child(4), /* Revision Date */
             .table td:nth-child(4),
-
             .table th:nth-child(5),
             .table td:nth-child(5) {
                 display: none;
             }
+
             @media (max-width: 490px) {
                 .table th:nth-child(2), /* Image */
                 .table td:nth-child(2),
-
                 .table th:nth-child(4), /* Revision Date */
                 .table td:nth-child(4),
                 .table th:nth-child(5), /* Revision Date */
                 .table td:nth-child(5),
-
                 .table th:nth-child(7),
                 .table td:nth-child(7) {
                     display: none;
                 }
+            }
         }
     </style>
 

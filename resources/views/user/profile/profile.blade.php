@@ -20,13 +20,23 @@
                             <!-- Профильная информация -->
                             <div class="row">
                                 <div class="d-flex justify-content-center">
-                                    <img id="avatar-preview"
-                                         src="{{ asset('storage/avatars/' . auth()->user()->avatar) }}"
-                                         style="width:120px; margin-top: 10px; cursor: pointer;">
-                                    <input id="avatar" type="file" class="d-none @error('avatar') is-invalid @enderror" name="avatar" accept="image/*">
-                                    @error('avatar')
-                                    <span role="alert" class="text-danger"><strong>{{ $message }}</strong></span>
-                                    @enderror
+                                    @if(auth()->user()->avatar)
+                                        <img id="avatar-preview"
+                                             src="{{ asset('storage/avatars/' . auth()->user()->avatar) }}"
+                                             style="width:120px; margin-top: 10px; cursor: pointer;">
+
+                                    @else
+                                        <img id="avatar-preview"
+                                             src="{{ asset
+                                             ('public/image/noimage.png' .
+                                             auth()->user()->avatar) }}"
+                                             style="width:120px; margin-top: 10px; cursor: pointer;">
+
+                                    @endif
+                                        <input id="avatar" type="file" class="d-none @error('avatar') is-invalid @enderror" name="avatar" accept="image/*">
+                                        @error('avatar')
+                                        <span role="alert" class="text-danger"><strong>{{ $message }}</strong></span>
+                                        @enderror
                                 </div>
                             </div>
 
@@ -146,5 +156,40 @@
             </div>
         </div>
     </div>
+    <script>
+        // Сохранить начальное состояние формы
+        const initialAvatarSrc = document.getElementById('avatar-preview').src; // Исправлено здесь
+        const initialFormState = {
+            name: document.getElementById('name').value,
+            email: document.getElementById('email').value,
+            phone: document.getElementById('phone').value,
+            stamp: document.getElementById('stamp').value,
+        };
 
+        // Нажатие на аватар для выбора файла
+        document.getElementById('avatar-preview').addEventListener('click', function() {
+            document.getElementById('avatar').click(); // Открытие диалогового окна для выбора файла
+        });
+
+        // Предпросмотр нового аватара после выбора файла
+        document.getElementById('avatar').addEventListener('change', function() {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('avatar-preview').src = e.target.result; // Обновление изображения
+            };
+            if (this.files && this.files[0]) {
+                reader.readAsDataURL(this.files[0]); // Чтение выбранного файла
+            }
+        });
+
+        // Сброс полей формы в начальное состояние
+        document.getElementById('cancel-button').addEventListener('click', function() {
+            document.getElementById('avatar-preview').src = initialAvatarSrc; // Исправлено здесь
+            document.getElementById('avatar').value = ''; // Очистка значения ввода
+            document.getElementById('name').value = initialFormState.name;
+            document.getElementById('email').value = initialFormState.email;
+            document.getElementById('phone').value = initialFormState.phone;
+            document.getElementById('stamp').value = initialFormState.stamp;
+        });
+    </script>
 @endsection

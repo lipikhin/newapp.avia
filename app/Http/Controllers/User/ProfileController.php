@@ -69,6 +69,7 @@ class ProfileController extends Controller
             $request->avatar->storeAs('avatars/', $avatarName, 'public');
             $user->avatar = $avatarName;
         }
+
         // Обработка sign
         if ($request->hasFile('sign')) {
             // Удаляем старый sign, если он есть

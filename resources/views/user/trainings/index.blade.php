@@ -135,14 +135,14 @@
                                                 @endforeach
                                             </div>
                                             <div class="modal-footer">
-                                                @if(Auth::user()->role !== null && Auth::user()->role->name !== 'Technician')
+{{--                                                @if(Auth::user()->role !== null && Auth::user()->role->name !== 'Technician')--}}
                                                 <div class="form-check ">
                                                     <input type="checkbox" class="form-check-input" id="showImage{{ $trainingList['first_training']->manuals_id }}">
                                                     <label class="form-check-label" for="showImage{{ $trainingList['first_training']->manuals_id }}">
                                                         {{__('Sign In')}}
                                                     </label>
                                                 </div>
-                                                @endif
+{{--                                                @endif--}}
                                                 <button type="button" class="btn btn-secondary ms-5"
                                                         data-dismiss="modal">Close</button>
                                             </div>

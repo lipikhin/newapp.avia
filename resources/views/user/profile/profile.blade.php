@@ -51,6 +51,17 @@
                                 </div>
                             </div>
 
+
+                            <div class="col-xs-12 col-sm-12 col-md-12 mt-2">
+                                <div class="form-group">
+                                    {{__('Signature:')}}
+                                    <input type="file" name="sign"
+                                           class="form-control"
+                                           placeholder="image">
+                                </div>
+                            </div>
+
+
                             <div class="row">
                                 <div class="mb-3 col-md-6">
                                     <label for="phone" class="form-label">Phone: </label>

@@ -54,7 +54,7 @@
             /* Колонтитул внизу страницы */
             footer {
                 position: fixed;
-                bottom: 0px;
+                bottom: 0;
                 width: 920px;
                 text-align: center;
                 font-size: 10px;
@@ -80,6 +80,10 @@
 
         .border-l {
             border-left: 1px solid black;
+        }
+        .border-l-r {
+            border-left: 1px solid black;
+            border-right: 1px solid black;
         }
 
         .border-r {
@@ -108,7 +112,10 @@
             border-left: 1px solid black;
             border-bottom: 1px solid black;
         }
+        .border-b {
 
+            border-bottom: 1px solid black;
+        }
         .border-l-t-b {
             border-left: 1px solid black;
             border-top: 1px solid black;
@@ -274,7 +281,7 @@
                 <div class="col-7 text-center border-l">
                     <div class="row">
                         <div class="col-4 text-center pt-2
-                        "><img src="{{ asset('storage/image/sign/check.svg')
+                        "><img src="{{ asset('storage/image/forms/check.svg')
                             }}" alt="check" class="4"
                                style="width: 40px"></div>
                         <div class="col-4 text-center  border-l pt-2
@@ -288,7 +295,7 @@
                         <div class="col-6 text-center pt-2
                         "><h3></h3></div>
                         <div class="col-6 text-center  border-l pt-2
-                        "><img src="{{ asset('storage/image/sign/check.svg')
+                        "><img src="{{ asset('storage/image/forms/check.svg')
                             }}" alt="check" class="4"
                                style="width: 40px"></div>
                     </div>
@@ -307,7 +314,7 @@
                 <div class="col-7 text-center border-l">
                     <div class="row">
                         <div class="col-4 text-center pt-2
-                        "><img src="{{ asset('storage/image/sign/check.svg')
+                        "><img src="{{ asset('storage/image/forms/check.svg')
                             }}" alt="check" class="4"
                                style="width: 40px"></div>
                         <div class="col-4 text-center  border-l pt-2
@@ -321,7 +328,7 @@
                         <div class="col-6 text-center pt-2
                         "><h3></h3></div>
                         <div class="col-6 text-center  border-l pt-2
-                        "><img src="{{ asset('storage/image/sign/check.svg')
+                        "><img src="{{ asset('storage/image/forms/check.svg')
                             }}" alt="check" class="4"
                                style="width: 40px"></div>
                     </div>
@@ -340,7 +347,7 @@
                 <div class="col-7 text-center border-l">
                     <div class="row">
                         <div class="col-4 text-center pt-2
-                        "><img src="{{ asset('storage/image/sign/check.svg')
+                        "><img src="{{ asset('storage/image/forms/check.svg')
                             }}" alt="check" class="4"
                                style="width: 40px"></div>
                         <div class="col-4 text-center  border-l pt-2
@@ -354,7 +361,7 @@
                         <div class="col-6 text-center pt-2
                         "><h3></h3></div>
                         <div class="col-6 text-center  border-l pt-2
-                        "><img src="{{ asset('storage/image/sign/check.svg')
+                        "><img src="{{ asset('storage/image/forms/check.svg')
                             }}" alt="check" class="4"
                                style="width: 40px"></div>
                     </div>
@@ -403,7 +410,7 @@
                 <div class="col-7 text-center border-l">
                     <div class="row">
                         <div class="col-4 text-center pt-2
-                        "><img src="{{ asset('storage/image/sign/check.svg')
+                        "><img src="{{ asset('storage/image/forms/check.svg')
                             }}" alt="check" class="4"
                                style="width: 40px"></div>
                         <div class="col-4 text-center  border-l pt-2
@@ -417,7 +424,7 @@
                         <div class="col-6 text-center pt-2
                         "><h3></h3></div>
                         <div class="col-6 text-center  border-l pt-2
-                        "><img src="{{ asset('storage/image/sign/check.svg')
+                        "><img src="{{ asset('storage/image/forms/check.svg')
                             }}" alt="check" class="4"
                                style="width: 40px"></div>
                     </div>
@@ -436,7 +443,7 @@
                 <div class="col-7 text-center border-l">
                     <div class="row">
                         <div class="col-4 text-center pt-2
-                        "><img src="{{ asset('storage/image/sign/check.svg')
+                        "><img src="{{ asset('storage/image/forms/check.svg')
                             }}" alt="check" class="4"
                                style="width: 40px">
                         </div>
@@ -451,7 +458,7 @@
                         <div class="col-6 text-center pt-2
                         "><h3></h3></div>
                         <div class="col-6 text-center  border-l pt-2 ">
-                            <img src="{{ asset('storage/image/sign/check.svg')
+                            <img src="{{ asset('storage/image/forms/check.svg')
                             }}" alt="check" class="4"
                                  style="width: 40px">
                         </div>
@@ -501,7 +508,7 @@
                 <div class="col-7 text-center border-l">
                     <div class="row">
                         <div class="col-4 text-center pt-2
-                        "><img src="{{ asset('storage/image/sign/check.svg')
+                        "><img src="{{ asset('storage/image/forms/check.svg')
                             }}" alt="check" class="4"
                                style="width: 40px"></div>
                         <div class="col-4 text-center  border-l pt-2
@@ -515,7 +522,7 @@
                         <div class="col-6 text-center pt-2
                         "><h3></h3></div>
                         <div class="col-6 text-center  border-l pt-2
-                        "><img src="{{ asset('storage/image/sign/check.svg')
+                        "><img src="{{ asset('storage/image/forms/check.svg')
                             }}" alt="check" class="4"
                                style="width: 40px"></div>
                     </div>
@@ -533,7 +540,7 @@
                 <div class="col-7 text-center border-l">
                     <div class="row">
                         <div class="col-4 text-center pt-2
-                        "><img src="{{ asset('storage/image/sign/check.svg')
+                        "><img src="{{ asset('storage/image/forms/check.svg')
                             }}" alt="check" class="4"
                                style="width: 40px">
                         </div>
@@ -548,7 +555,7 @@
                         <div class="col-6 text-center pt-2
                         "><h3></h3></div>
                         <div class="col-6 text-center  border-l pt-2 ">
-                            <img src="{{ asset('storage/image/sign/check.svg')
+                            <img src="{{ asset('storage/image/forms/check.svg')
                             }}" alt="check" class="4"
                                  style="width: 40px">
                         </div>
@@ -567,7 +574,7 @@
                 <div class="col-7 text-center border-l">
                     <div class="row">
                         <div class="col-4 text-center pt-2
-                        "><img src="{{ asset('storage/image/sign/check.svg')
+                        "><img src="{{ asset('storage/image/forms/check.svg')
                             }}" alt="check" class="4"
                                style="width: 40px">
                         </div>
@@ -582,7 +589,7 @@
                         <div class="col-6 text-center pt-2
                         "><h3></h3></div>
                         <div class="col-6 text-center  border-l pt-2 ">
-                            <img src="{{ asset('storage/image/sign/check.svg')
+                            <img src="{{ asset('storage/image/forms/check.svg')
                             }}" alt="check" class="4"
                                  style="width: 40px">
                         </div>
@@ -633,7 +640,7 @@
                 <div class="col-7 text-center border-l">
                     <div class="row">
                         <div class="col-4 text-center pt-2
-                        "><img src="{{ asset('storage/image/sign/check.svg')
+                        "><img src="{{ asset('storage/image/forms/check.svg')
                             }}" alt="check" class="4"
                                style="width: 40px"></div>
                         <div class="col-4 text-center  border-l pt-2
@@ -647,7 +654,7 @@
                         <div class="col-6 text-center pt-2
                         "><h3></h3></div>
                         <div class="col-6 text-center  border-l pt-2
-                        "><img src="{{ asset('storage/image/sign/check.svg')
+                        "><img src="{{ asset('storage/image/forms/check.svg')
                             }}" alt="check" class="4"
                                style="width: 40px"></div>
                     </div>
@@ -665,7 +672,7 @@
                 <div class="col-7 text-center border-l">
                     <div class="row">
                         <div class="col-4 text-center pt-2
-                        "><img src="{{ asset('storage/image/sign/check.svg')
+                        "><img src="{{ asset('storage/image/forms/check.svg')
                             }}" alt="check" class="4"
                                style="width: 40px">
                         </div>
@@ -680,7 +687,7 @@
                         <div class="col-6 text-center pt-2
                         "><h3></h3></div>
                         <div class="col-6 text-center  border-l pt-2 ">
-                            <img src="{{ asset('storage/image/sign/check.svg')
+                            <img src="{{ asset('storage/image/forms/check.svg')
                             }}" alt="check" class="4"
                                  style="width: 40px">
                         </div>
@@ -699,7 +706,7 @@
                 <div class="col-7 text-center border-l">
                     <div class="row">
                         <div class="col-4 text-center pt-2
-                        "><img src="{{ asset('storage/image/sign/check.svg')
+                        "><img src="{{ asset('storage/image/forms/check.svg')
                             }}" alt="check" class="4"
                                style="width: 40px">
                         </div>
@@ -714,7 +721,7 @@
                         <div class="col-6 text-center pt-2
                         "><h3></h3></div>
                         <div class="col-6 text-center  border-l pt-2 ">
-                            <img src="{{ asset('storage/image/sign/check.svg')
+                            <img src="{{ asset('storage/image/forms/check.svg')
                             }}" alt="check" class="4"
                                  style="width: 40px">
                         </div>
@@ -733,7 +740,7 @@
                 <div class="col-7 text-center border-l">
                     <div class="row">
                         <div class="col-4 text-center pt-2
-                        "><img src="{{ asset('storage/image/sign/check.svg')
+                        "><img src="{{ asset('storage/image/forms/check.svg')
                             }}" alt="check" class="4"
                                style="width: 40px">
                         </div>
@@ -748,7 +755,7 @@
                         <div class="col-6 text-center pt-2
                         "><h3></h3></div>
                         <div class="col-6 text-center  border-l pt-2 ">
-                            <img src="{{ asset('storage/image/sign/check.svg')
+                            <img src="{{ asset('storage/image/forms/check.svg')
                             }}" alt="check" class="4"
                                  style="width: 40px">
                         </div>
@@ -768,7 +775,7 @@
                 <div class="col-7 text-center border-l">
                     <div class="row">
                         <div class="col-4 text-center pt-2
-                        "><img src="{{ asset('storage/image/sign/check.svg')
+                        "><img src="{{ asset('storage/image/forms/check.svg')
                             }}" alt="check" class="4"
                                style="width: 40px">
                         </div>
@@ -783,7 +790,7 @@
                         <div class="col-6 text-center pt-2
                         "><h3></h3></div>
                         <div class="col-6 text-center  border-l pt-2 ">
-                            <img src="{{ asset('storage/image/sign/check.svg')
+                            <img src="{{ asset('storage/image/forms/check.svg')
                             }}" alt="check" class="4"
                                  style="width: 40px">
                         </div>
@@ -838,7 +845,7 @@
                 <div class="col-7 text-center border-l">
                     <div class="row">
                         <div class="col-4 text-center pt-2
-                        "><img src="{{ asset('storage/image/sign/check.svg')
+                        "><img src="{{ asset('storage/image/forms/check.svg')
                             }}" alt="check" class="4"
                                style="width: 40px; height: 62px"></div>
                         <div class="col-4 text-center  border-l pt-2
@@ -852,7 +859,7 @@
                         <div class="col-6 text-center pt-2
                         "><h3></h3></div>
                         <div class="col-6 text-center  border-l pt-2
-                        "><img src="{{ asset('storage/image/sign/check.svg')
+                        "><img src="{{ asset('storage/image/forms/check.svg')
                             }}" alt="check" class="4"
                                style="width: 40px; height: 62px"></div>
                     </div>
@@ -871,7 +878,7 @@
                 <div class="col-7 text-center border-l">
                     <div class="row">
                         <div class="col-4 text-center pt-2
-                        "><img src="{{ asset('storage/image/sign/check.svg')
+                        "><img src="{{ asset('storage/image/forms/check.svg')
                             }}" alt="check" class="4"
                                style="width: 40px">
                         </div>
@@ -886,7 +893,7 @@
                         <div class="col-6 text-center pt-2
                         "><h3></h3></div>
                         <div class="col-6 text-center  border-l pt-2 ">
-                            <img src="{{ asset('storage/image/sign/check.svg')
+                            <img src="{{ asset('storage/image/forms/check.svg')
                             }}" alt="check" class="4"
                                  style="width: 40px">
                         </div>
@@ -938,7 +945,7 @@
                 <div class="col-7 text-center border-l">
                     <div class="row">
                         <div class="col-4 text-center pt-2
-                        "><img src="{{ asset('storage/image/sign/check.svg')
+                        "><img src="{{ asset('storage/image/forms/check.svg')
                             }}" alt="check" class="4"
                                style="width: 40px"></div>
                         <div class="col-4 text-center  border-l pt-2
@@ -952,7 +959,7 @@
                         <div class="col-6 text-center pt-2
                         "><h3></h3></div>
                         <div class="col-6 text-center  border-l pt-2
-                        "><img src="{{ asset('storage/image/sign/check.svg')
+                        "><img src="{{ asset('storage/image/forms/check.svg')
                             }}" alt="check" class="4"
                                style="width: 40px"></div>
                     </div>
@@ -1005,7 +1012,7 @@
                     <div class="col-7 text-center border-l">
                         <div class="row">
                             <div class="col-4 text-center pt-2
-                        "><img src="{{ asset('storage/image/sign/check.svg')
+                        "><img src="{{ asset('storage/image/forms/check.svg')
                             }}" alt="check" class="4"
                                style="width: 40px"></div>
                             <div class="col-4 text-center  border-l pt-2
@@ -1019,7 +1026,7 @@
                             <div class="col-6 text-center pt-2
                         "><h3></h3></div>
                             <div class="col-6 text-center  border-l pt-2
-                        "><img src="{{ asset('storage/image/sign/check.svg')
+                        "><img src="{{ asset('storage/image/forms/check.svg')
                             }}" alt="check" class="4"
                                style="width: 40px"></div>
                         </div>
@@ -1038,7 +1045,7 @@
                     <div class="col-7 text-center border-l">
                         <div class="row">
                             <div class="col-4 text-center pt-2
-                        "><img src="{{ asset('storage/image/sign/check.svg')
+                        "><img src="{{ asset('storage/image/forms/check.svg')
                             }}" alt="check" class="4"
                                style="width: 40px">
                             </div>
@@ -1053,7 +1060,7 @@
                             <div class="col-6 text-center pt-2
                         "><h3></h3></div>
                             <div class="col-6 text-center  border-l pt-2 ">
-                                <img src="{{ asset('storage/image/sign/check.svg')
+                                <img src="{{ asset('storage/image/forms/check.svg')
                             }}" alt="check" class="4"
                                      style="width: 40px">
                             </div>
@@ -1107,7 +1114,7 @@
                     <div class="col-7 text-center border-l">
                         <div class="row">
                             <div class="col-4 text-center pt-2
-                        "><img src="{{ asset('storage/image/sign/check.svg')
+                        "><img src="{{ asset('storage/image/forms/check.svg')
                             }}" alt="check" class="4"
                                style="width: 40px"></div>
                             <div class="col-4 text-center  border-l pt-2
@@ -1121,7 +1128,7 @@
                             <div class="col-6 text-center pt-2
                         "><h3></h3></div>
                             <div class="col-6 text-center  border-l pt-2
-                        "><img src="{{ asset('storage/image/sign/check.svg')
+                        "><img src="{{ asset('storage/image/forms/check.svg')
                             }}" alt="check" class="4"
                                style="width: 40px"></div>
                         </div>
@@ -1140,7 +1147,7 @@
                     <div class="col-7 text-center border-l">
                         <div class="row">
                             <div class="col-4 text-center pt-2
-                        "><img src="{{ asset('storage/image/sign/check.svg')
+                        "><img src="{{ asset('storage/image/forms/check.svg')
                             }}" alt="check" class=""
                                style="width: 40px">
                             </div>
@@ -1155,7 +1162,7 @@
                             <div class="col-6 text-center pt-2
                         "><h3></h3></div>
                             <div class="col-6 text-center  border-l pt-2 ">
-                                <img src="{{ asset('storage/image/sign/check.svg')
+                                <img src="{{ asset('storage/image/forms/check.svg')
                             }}" alt="check" class="4"
                                      style="width: 40px">
                             </div>
@@ -1274,7 +1281,7 @@
                         <div class="col-4 border-l " style="height: 36px" >
                             <div class="d-flex ">
                                <h6 class="pe-2 pt-2">Succeeded</h6>
-                                <img src="{{asset('/storage/image/sign/check-.svg')}}" alt="">
+                                <img src="{{asset('/storage/image/forms/check-.svg')}}" alt="">
                             </div>
 
                         </div>
@@ -1286,7 +1293,7 @@
                         <div class="col-10 text-center  ">
                             <div class="d-flex ">
                                 <h6 class="ps-2 pe-2 pt-2">Remedial</h6>
-                                <img src="{{asset('/storage/image/sign/square.svg')}}" alt="">
+                                <img src="{{asset('/storage/image/forms/square.svg')}}" alt="">
                             </div>
                         </div>
                     </div>
@@ -1305,20 +1312,19 @@
             {{ $training->user->name }}
         </div>
     </div>
-    <div class="row border-l-b-r" style="width: 920px">
+    <div class="row border-l-r" style="width: 920px">
         <div class="col-10 text-center">
             @if($showImage === 'true')
                 <div class="ps-5" style="height: 1px">
-                    <img src="{{ asset('storage/image/sign/check_mark.svg') }}"
-                         alt="Sign_user" class="pb-3  " style="width:
-                     80px">
+                    <img src="{{ asset('storage/avatars/sign/' . Auth::user()->sign) }}"
+                         alt="Sign_user" class="pb-3  " style="width: 175px">
                 </div>
             @endif
         </div>
-        <div class="col-7 pt-3" >
+        <div class="col-7 pt-3 border-b" >
             TRAINEE SIGNATURE:
         </div>
-        <div class="col-5 ">
+        <div class="col-5 border-b">
             <div class="row">
                 <div class="col-7" >
                     <div class="row ">
@@ -1350,31 +1356,33 @@
             Vadym Nechyporenko
         </div>
     </div>
-    <div class="row border-l-b-r" style="width: 920px">
+    <div class="row border-l-r" style="width: 920px">
         <div class="col-10 text-center">
             @if($showImage === 'true')
-                <div class="ps-5 pt-1" style="height: 1px">
+                @if(Auth::user()->role !== null && Auth::user()->role->name !==
+           'Component Technician')
+                <div class="ps-5 " style="height: 1px">
                     <img src="{{ asset('storage/image/sign/sign_vn.png') }}"
-                         alt="Sign" class="" style="width:
-                     100px">
+                         alt="Sign" class="" style="width: 150px">
                 </div>
             @endif
+            @endif
         </div>
-        <div class="col-7 pt-3" >
+        <div class="col-7 pt-3 border-b" >
             ASSESSOR SIGNATURE:
         </div>
-        <div class="col-5 ">
+        <div class="col-5 border-b" style="height:60px">
             <div class="row">
                 <div class="col-7" >
                     <div class="row ">
-                        <div class="col-4 border-r"></div>
+                        <div class="col-4 border-r" style="height: 60px"></div>
                         <div class="col-4  pt-3" >DATE:</div>
-                        <div class="col-4 border-l" style="height: 60px"></div>
+                        <div class="col-4 border-l" ></div>
                     </div>
                 </div>
                 <div class="col-5">
                     <div class="row">
-                        <div class="col-10 pt-4">
+                        <div class="col-10 pt-3">
                             {{ \Carbon\Carbon::parse($training->date_training)->format('M-d-Y') }}
                         </div>
                         <div class="col-2 pt-2">
@@ -1387,7 +1395,7 @@
         </div>
     </div>
 
-<div class="pt-2">
+<div class="pt-3">
     NOTE: * The trainee will be required to demonstrate a comprehensive
     understanding of the maintenance manuals and other data related to the
     aircraft component and practical skills to perform maintenance task on

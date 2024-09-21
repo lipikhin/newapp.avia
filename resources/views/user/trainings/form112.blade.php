@@ -329,8 +329,18 @@
             <h5>{{ __('V.N.') }}</h5>
         </div>
     </div>
+    <div class="mb-3">
     <!-- Повторяем для других блоков... -->
-    *Please use another sheet if necessary.
+   <h6>*Please use another sheet if necessary.</h6>
+
+        <div class=" pb-5 mt-n5 text-center align-items-start"
+             style="height:
+        1px">
+            <img src="{{ asset('storage/avatars/sign/' . Auth::user()->sign) }}"
+                 alt="Sign" class="  ms-4" style="width: 200px">
+        </div>
+    </div>
+
 
     <div class="row ps-2 pe-2 mt-4" style="width: 910px">
         <div class="col-8 text-black text-center border-bottom border-dark
@@ -342,11 +352,16 @@
         </div>
 
         @if($showImage === 'true')
-        <div class="col-8 text-center align-items-start" style="height: 1px">
-            <img src="{{ asset('storage/image/sign/MLG_ico.png') }}" alt="Sign" class="pb-5 ps-lg-1 ms-4" style="width:
-                     100px">
-        </div>
+            @if(Auth::user()->role !== null && Auth::user()->role->name !==
+            'Component Technician')
+                <div class="col-8 text-center align-items-start" style="height: 1px">
+                    <img src="{{ asset('storage/image/sign/sign_vn.png') }}"
+                         alt="Sign" class="pb-5 ps-lg-1 ms-4" style="width:
+                             200px">
+                </div>
+            @endif
         @endif
+
         <div class="d-flex row justify-contend-between">
             <div class="col-9">
                 Trainee signature

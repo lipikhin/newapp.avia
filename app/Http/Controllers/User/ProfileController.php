@@ -72,12 +72,13 @@ class ProfileController extends Controller
         if ($request->hasFile('sign')) {
             // Удаляем старый sign, если он есть
             if ($user->sign) {
-                Storage::disk('public')->delete('signs/' . $user->sign);
+                Storage::disk('public')->delete('avatars/sign/' . $user->sign);
             }
 
             // Сохраняем новый аватар
-            $signName = time() . '.' . $request->sign->getClientOriginalExtension();
-            $request->sign->storeAs('signs/', $signName, 'public');
+            $signName = time() . '.' .
+                $request->sign->getClientOriginalExtension();
+            $request->sign->storeAs('avatars/sign/', $signName, 'public');
             $user->sign = $signName;
         }
 

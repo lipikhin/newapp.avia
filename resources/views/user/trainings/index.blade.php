@@ -50,7 +50,7 @@
                     <div class="" style="width: 450px">
                         <h3>{{ __('Trainings') }}</h3>
                     </div>
-                    <div class="form-check form-switch">
+                    <div class="form-check form-switch pt-1">
                         <input class="form-check-input" type="checkbox"
                                id="trainingNotUpdated" >
                         <label class="form-check-label"

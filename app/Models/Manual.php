@@ -44,4 +44,8 @@ class Manual extends Model
     {
         return $this->hasMany(Training::class, 'manuals_id');
     }
+    public function manuals()
+    {
+        return $this->hasMany(Manual::class, 'manuals_id');
+    }
 }

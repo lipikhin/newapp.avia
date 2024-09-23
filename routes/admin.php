@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\PlaneController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\ScopeController;
 use App\Http\Controllers\Admin\TeamController;
+use App\Http\Controllers\Admin\UnitController;
 use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\User\TrainingController;
 use Illuminate\Support\Facades\Route;
@@ -78,18 +79,18 @@ Route::prefix('admin')->middleware(['auth'])->group(function (){
     Route::post('/scopes/store',
         [ScopeController::class,'store'])->name('admin.scopes.store');
 
-//    Route::get('units',[UnitController::class, 'index'])->name('admin.units.index');
-//    Route::get('units/create',
-//        [UnitController::class,'create'])->name('admin.units.create');
-//    Route::post('units',[UnitController::class,'store'])->name('admin.units.store');
-//    Route::get('units/{unit}',[UnitController::class,
-//        'show'])->name('admin.units.show');
-//    Route::get('units/{unit}/edit',[UnitController::class,
-//        'edit'])->name('admin.units.edit');
-//    Route::put('units/{unit}',[UnitController::class,
-//        'update'])->name('admin.units.update');
-//    Route::delete('units/{unit}',[UnitController::class,
-//        'destroy'])->name('admin.units.destroy');
+    Route::get('units',[UnitController::class, 'index'])->name('admin.units.index');
+    Route::get('units/create',
+        [UnitController::class,'create'])->name('admin.units.create');
+    Route::post('units',[UnitController::class,'store'])->name('admin.units.store');
+    Route::get('units/{unit}',[UnitController::class,
+        'show'])->name('admin.units.show');
+    Route::get('units/{unit}/edit',[UnitController::class,
+        'edit'])->name('admin.units.edit');
+    Route::put('units/{unit}',[UnitController::class,
+        'update'])->name('admin.units.update');
+    Route::delete('units/{unit}',[UnitController::class,
+        'destroy'])->name('admin.units.destroy');
 
     Route::get('/users', [UsersController::class, 'index'])->name('admin.users.index');
     Route::get('/users/create', [UsersController::class, 'create'])->name('admin.users.create');

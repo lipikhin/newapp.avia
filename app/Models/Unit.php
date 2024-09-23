@@ -15,7 +15,7 @@ class Unit extends Model
         'manuals_id',
         ];
 
-    public function cmm()
+    public function manuals()
     {
         return $this->belongsTo(Manual::class, 'manuals_id');
     }

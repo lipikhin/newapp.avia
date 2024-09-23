@@ -29,6 +29,13 @@
                         </li>
                         <li class="nav-item ms-2">
                             <h3>
+                                <a href="{{route('admin.units.index')}}" class="btn btn-primary"
+                                >Units</a>
+                            </h3>
+
+                        </li>
+                        <li class="nav-item ms-2">
+                            <h3>
                                 <a href="{{route('admin.users.index')}}" class="btn btn-primary"
                                 >Users</a>
                             </h3>

@@ -23,11 +23,11 @@ class UnitController extends Controller
 //                return $unit->manuals ? $unit->manuals->number : 'No CMM';
 //            });
 
-//        $units = Unit::with('manuals')->get()->groupBy(function ($unit) {
-//            return $unit->manual ? $unit->manual->number : 'No CMM';
-//        });
+        $units = Unit::with('manuals')->get()->groupBy(function ($unit) {
+            return $unit->manual ? $unit->manual->number : 'No CMM';
+        });
 
-        $units = Unit::with('manuals')->get();
+//        $units = Unit::with('manuals')->get();
 
 
         $manuals = Manual::all(); // Fetch all Manuals

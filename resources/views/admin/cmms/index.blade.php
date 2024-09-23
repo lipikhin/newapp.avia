@@ -39,6 +39,7 @@
 
     <div class="container">
         <div class="card shadow">
+
             <div class="card-header">
                 <div class="d-flex justify-content-between">
                     <h3>{{__('Manage CMMs')}}</h3>
@@ -46,6 +47,7 @@
                     btn-primary mb-3">{{ __('Add CMM') }}</a>
                 </div>
             </div>
+
             <div class="card-body">
                 <table id="cmmTable"
                     data-toggle="table"
@@ -58,19 +60,24 @@
                         <th data-field="number" data-visible="true"
                             data-priority="1" class="text-center">{{__
                             ('Number')}} </th>
-                        <th data-field="title" data-visible="true" data-priority="2" class="text-center">{{__
+                        <th data-field="title" data-visible="true"
+                            data-priority="2" class="text-center">{{__
                         ('Title')}}</th>
-                        <th data-field="units_pn" data-visible="true" data-priority="3" class="text-center">{{__
+                        <th data-field="units_pn" data-visible="true"
+                            data-priority="3" class="text-center">{{__
                         ('Units PN')}}</th>
-                        <th data-field="img" data-visible="true" data-priority="4" class="text-center">{{__
+                        <th data-field="img" data-visible="true"
+                            data-priority="4" class="text-center">{{__
                         ('Unit Image')}}</th>
 
-                        <th data-field="revision_date" data-visible="true" data-priority="5"
+                        <th data-field="revision_date" data-visible="true"
+                            data-priority="5"
                             class="text-center">{{__('Revision Date')}}</th>
                         <th data-field="lib" data-visible="true" data-priority="6"
                             class="text-center">{{__('Library')}}</th>
 
-                        <th data-field="action" data-visible="true" data-priority="7" class="text-center">{{__
+                        <th data-field="action" data-visible="true"
+                            data-priority="7" class="text-center">{{__
                         ('Action')}}</th>
                     </tr>
                     </thead>

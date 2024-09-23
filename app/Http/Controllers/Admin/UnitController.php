@@ -18,33 +18,21 @@ class UnitController extends Controller
      */
     public function index()
     {
-        //where('active', true)
-//            ->groupBy(function ($unit) {
-//                return $unit->manuals ? $unit->manuals->number : 'No CMM';
-//            });
-
+        // Получаем все units и связанные с ними manuals
         $units = Unit::with('manuals')->get()->groupBy(function ($unit) {
-            return $unit->manual ? $unit->manual->number : 'No CMM';
+            return $unit->manuals ? $unit->manuals->number : 'No CMM';
         });
 
-//        $units = Unit::with('manuals')->get();
+        // Получаем все записи из Manual
+        $manuals = Manual::all();
 
-
-        $manuals = Manual::all(); // Fetch all Manuals
-
-        // Assuming you also need these for rendering in the view
+        // Подготовка данных для отображения в виде
         $planes = Plane::pluck('type', 'id');
         $builders = Builder::pluck('name', 'id');
         $scopes = Scope::pluck('scope', 'id');
 
+        // Передаем данные в представление
         return view('admin.units.index', compact('units', 'manuals', 'planes', 'builders', 'scopes'));
-
-
-
-
-//        $manuals = Manual::all(); // Получаем все записи из manuals
-//        $units = Unit::with('manuals')->get(); // Получаем все units с данными из manuals
-//        return view('admin.units.index', compact('units', 'manuals'));
     }
 
     /**
@@ -52,28 +40,36 @@ class UnitController extends Controller
      */
     public function create()
     {
-        //
+        $manuals = Manual::all();
+        $planes = Plane::all(); // Получить все объекты AirCraft
+        $builders = Builder::all(); // Получить все объекты MFR
+        $scopes = Scope::all(); // Получить все объекты Scope
+
+        return view('admin.units.create', compact('manuals','planes', 'builders',
+            'scopes'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request) {
-        $validated = $request->validate([
+    public function store(Request $request)
+    {
+        $request->validate([
             'cmm_id' => 'required|exists:manuals,id',
-            'part_numbers' => 'required|array|min:1',
-            'part_numbers.*' => 'required|string|max:255',
+            'part_numbers' => 'required|array',
+            'part_numbers.*' => 'string|distinct',
         ]);
 
-        foreach ($validated['part_numbers'] as $partNumber) {
+        foreach ($request->part_numbers as $partNumber) {
             Unit::create([
+                'manuals_id' => $request->cmm_id,
                 'part_number' => $partNumber,
-                'manuals_id' => $validated['cmm_id']
             ]);
         }
 
         return response()->json(['success' => true]);
     }
+
 
 
     /**
@@ -87,24 +83,66 @@ class UnitController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($manuals_id)
     {
-        //
+        $manuals = Manual::with('units')->find($manuals_id); // Получаем
+        // мануал с юнитами
+        return view('admin.units.index', compact('manuals'));
     }
+
+
+//    public function edit(string $id)
+//    {
+//        $unit = Unit::findOrFail($id);
+//        $manuals = Manual::pluck('number', 'id');
+//
+////        dd($cmms); // Временная проверка
+//
+//
+//        return view('admin.units.edit', compact('unit', 'manuals'));
+//    }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Unit $unit)
     {
-        //
+        $validated = $request->validate([
+            'part_numbers' => 'required|array',
+            'part_numbers.*' => 'string|max:255',
+        ]);
+
+        // Получаем все Part Numbers и обновляем их для данного unit
+        $unit->part_number = json_encode($validated['part_numbers']); // If part_number is stored as a JSON field, adapt this
+        $unit->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Unit updated successfully'
+        ]);
     }
+
+
+//    public function update(Request $request, string $id)
+//    {
+//        $validatedData = $request->validate([
+//            'part_number' => 'required|string|max:255',
+//            'active' => 'boolean',
+//            'manuals_id' => 'required|exists:manuals,id',
+//        ]);
+//
+//        Unit::whereId($id)->update($validatedData);
+//        return redirect()->route('admin.units.index')->with('success', 'Unit has been updated');
+//    }
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
     {
-        //
+        $unit = Unit::findOrFail($id);
+        $unit->delete();
+        return redirect()->route('admin.units.index')->with('success', 'Unit has been deleted');
+
     }
 }

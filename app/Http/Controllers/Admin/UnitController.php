@@ -19,7 +19,16 @@ class UnitController extends Controller
     public function index()
     {
         // Получаем все units и связанные с ними manuals
-        $units = Unit::with('manuals')->get()->groupBy(function ($unit) {
+        $units = Unit::with('manuals')->get();
+
+        // Проверка загруженных данных
+        if ($units->isEmpty()) {
+            // Выводим сообщение, если units пусты
+            return view('admin.units.index', ['message' => 'No units found.']);
+        }
+
+        // Группируем по manuals->number, если у unit есть связанные manuals
+        $groupedUnits = $units->groupBy(function ($unit) {
             return $unit->manuals ? $unit->manuals->number : 'No CMM';
         });
 
@@ -32,7 +41,7 @@ class UnitController extends Controller
         $scopes = Scope::pluck('scope', 'id');
 
         // Передаем данные в представление
-        return view('admin.units.index', compact('units', 'manuals', 'planes', 'builders', 'scopes'));
+        return view('admin.units.index', compact('groupedUnits', 'manuals', 'planes', 'builders', 'scopes'));
     }
 
     /**
@@ -140,9 +149,15 @@ class UnitController extends Controller
      */
     public function destroy(string $id)
     {
-        $unit = Unit::findOrFail($id);
-        $unit->delete();
-        return redirect()->route('admin.units.index')->with('success', 'Unit has been deleted');
+        // Удаляем все юниты, связанные с выбранным мануалом
+        Unit::where('manuals_id', $manualId)->delete();
 
+        // Перенаправляем на индекс с сообщением об успехе
+        return redirect()->route('admin.units.index')->with('success', 'Все юниты удалены успешно.');
     }
+//        $unit = Unit::findOrFail($id);
+//        $unit->delete();
+//        return redirect()->route('admin.units.index')->with('success', 'Unit has been deleted');
+
+
 }

@@ -37,25 +37,25 @@
                     <tbody>
                     @php $pp = 1; @endphp
 
-                    @foreach($units as $manualNumber => $groupedUnits)
+                    @foreach($groupedUnits as $manualNumber => $units)
                         <tr>
                             <td class="text-center">{{ $pp++ }}</td>
 
                             <td>
                                 <select class="form-select">
-                                    @foreach($groupedUnits as $unit)
-                                        @if ($unit->manuals)
-                                            <option value="{{ $unit->part_number }}">{{ $unit->part_number }}</option>
-                                        @else
-                                            <option value="" disabled>Нет данных CMM</option>
-                                        @endif
+                                    @foreach($units as $unit)  <!-- Итерируем по $units, а не $groupedUnits -->
+                                    @if ($unit->manuals)
+                                        <option value="{{ $unit->part_number }}">{{ $unit->part_number }}</option>
+                                    @else
+                                        <option value="" disabled>Нет данных CMM</option>
+                                    @endif
                                     @endforeach
                                 </select>
                             </td>
 
                             <td class="text-center">
-                                @if ($groupedUnits->isNotEmpty() && $groupedUnits->first()->manuals)
-                                    <a href="#" class="view-cmm-btn" data-cmm-id="{{ $groupedUnits->first()->manuals->id }}">
+                                @if ($units->isNotEmpty() && $units->first()->manuals)
+                                    <a href="#" class="view-cmm-btn" data-cmm-id="{{ $units->first()->manuals->id }}">
                                         {{ $manualNumber }}
                                     </a>
                                 @else
@@ -64,61 +64,64 @@
                             </td>
 
                             <td class="text-center">
-                                @if ($groupedUnits->isNotEmpty() && $groupedUnits->first()->manuals)
-                                    <a href="#" data-bs-toggle="modal" data-bs-target="#imageModal{{ $groupedUnits->first()->manuals->id }}">
-                                        <img src="{{ asset('storage/image/cmm/' . $groupedUnits->first()->manuals->img) }}" style="max-width: 50px; border:1px" alt="Изображение">
+                                @if ($units->isNotEmpty() && $units->first()->manuals)
+                                    <a href="#" data-bs-toggle="modal" data-bs-target="#imageModal{{ $units->first()->manuals->id }}">
+                                        <img src="{{ asset('storage/image/cmm/' . $units->first()->manuals->img) }}" style="max-width: 50px; border:1px" alt="Изображение">
                                     </a>
                                 @else
                                     Нет изображения
                                 @endif
                             </td>
+
                             <td class="text-center">
-                                @php
-                                    $partNumbers = is_array($unit->part_numbers) ? $unit->part_numbers : explode(',', $unit->part_numbers);
-                                @endphp
+                                @foreach($units as $unit)
+                                    @php
+                                        $partNumbers = is_array($unit->part_numbers) ? $unit->part_numbers : explode(',', $unit->part_numbers);
+                                    @endphp
 
-                                <div class="d-inline-block mb-2">
-                                    <button class="edit-unit-btn"
-                                            data-id="{{ $unit->id }}"
-                                            data-cmm="{{ $unit->cmm_id }}"
-                                            data-pn="{{ $unit->part_number }}"
-                                            data-part-numbers="{{ implode(',', $partNumbers) }}"
-                                            data-bs-toggle="modal"
-                                            data-bs-target="#editUnitModal">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
-
-                                    <form action="{{ route('admin.units.destroy', $unit->id) }}" method="post" style="display: inline-block">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button class="btn btn-danger btn-sm" type="submit">
-                                            <i class="fas fa-trash-alt"></i>
+                                    <div class="d-inline-block mb-2">
+                                        <button class="edit-unit-btn"
+                                                data-id="{{ $unit->id }}"
+                                                data-cmm="{{ $unit->cmm_id }}"
+                                                data-pn="{{ $unit->part_number }}"
+                                                data-part-numbers="{{ implode(',', $partNumbers) }}"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#editUnitModal">
+                                            <i class="fas fa-edit"></i>
                                         </button>
-                                    </form>
-                                </div>
 
+                                        <<form action="{{ route('admin.units.destroy', $manualNumber) }}" method="post" style="display: inline-block">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="btn btn-danger btn-sm" type="submit" onclick="return confirm('Вы уверены, что хотите удалить все юниты в этой группе?');">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
+                                        </form>
 
-                                <br>
+                                    </div>
+                                    <br>
+                                @endforeach
                             </td>
                         </tr>
 
-                        @if ($groupedUnits->first()->manuals && $groupedUnits->first()->manuals->img)
+                        @if ($units->first()->manuals && $units->first()->manuals->img)
                             <!-- Модальное окно для показа большого изображения -->
-                            <div class="modal fade" id="imageModal{{ $groupedUnits->first()->manuals->id }}" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel{{ $groupedUnits->first()->manuals->id }}" aria-hidden="true">
+                            <div class="modal fade" id="imageModal{{ $units->first()->manuals->id }}" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel{{ $units->first()->manuals->id }}" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="imageModalLabel{{ $groupedUnits->first()->manuals->id }}">{{ $groupedUnits->first()->manuals->title }}</h5>
+                                            <h5 class="modal-title" id="imageModalLabel{{ $units->first()->manuals->id }}">{{ $units->first()->manuals->title }}</h5>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
                                         </div>
                                         <div class="modal-body text-center">
-                                            <img src="{{ asset('storage/image/cmm/' . $groupedUnits->first()->manuals->img) }}" style="max-width: 100%; max-height: 100%;" alt="{{ $groupedUnits->first()->manuals->title }}">
+                                            <img src="{{ asset('storage/image/cmm/' . $units->first()->manuals->img) }}" style="max-width: 100%; max-height: 100%;" alt="{{ $units->first()->manuals->title }}">
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         @endif
                     @endforeach
+
                     </tbody>
                 </table>
             </div>

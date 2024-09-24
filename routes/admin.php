@@ -92,6 +92,11 @@ Route::prefix('admin')->middleware(['auth'])->group(function (){
     Route::delete('units/{unit}',[UnitController::class,
         'destroy'])->name('admin.units.destroy');
 
+// В вашем routes/web.php
+    Route::get('units/manuals/{manualId}', [UnitController::class, 'getUnitsByManual'])->name('units.byManual');
+
+
+
     Route::get('/users', [UsersController::class, 'index'])->name('admin.users.index');
     Route::get('/users/create', [UsersController::class, 'create'])->name('admin.users.create');
     Route::post('/users',[UsersController::class,'store'])->name('admin.users.store');

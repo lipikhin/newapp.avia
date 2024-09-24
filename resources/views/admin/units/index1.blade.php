@@ -103,9 +103,6 @@
                                     @endphp
                                 @endforeach
                                     <div class="d-inline-block mb-2">
-
-                                            <button class="btn btn-info view-unit" data-id="{{ $unit->id }}">View</button>
-
                                         <button class="edit-unit-btn"
                                                 data-id="{{ $unit->id }}"
                                                 data-cmm="{{ $unit->manuals_id }}"
@@ -116,7 +113,6 @@
 
                                             <i class="fas fa-edit"></i>
                                         </button>
-
 
                                         <form action="{{ route('admin.units.destroy', $manualNumber) }}" method="post" style="display: inline-block">
                                             @csrf
@@ -244,24 +240,50 @@
         </div>
     </div>
 
-    <!-- Modal -->
-    <!-- Модальное окно -->
-    <div class="modal fade" id="unitDetailsModal" tabindex="-1" role="dialog" aria-labelledby="unitDetailsModalLabel" aria-hidden="true">
+    <!-- Модальное окно Edit Unit  -->
+
+    <div class="modal fade" id="editUnitModal" tabindex="-1" role="dialog"
+         aria-labelledby="editUnitModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="unitDetailsModalLabel">Unit Details</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <h5 class="modal-title" id="editUnitModalLabel">
+                        Unit: {{ $manual->title ?? 'Manual Not Found' }}
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p><strong>Part Number:</strong> <span id="partNumber"></span></p>
-                    <p><strong>Manual Title:</strong> <span id="manualTitle"></span></p>
-                    <p><strong>Manual Number:</strong> <span id="manualNumber"></span></p>
+                    <div class="row">
+                        <div class="col">
+                            <div class="modal-body text-center">
+                                <img src="{{ asset('storage/image/cmm/' . $units->first()->manuals->img) }}" style="max-width: 100%; max-height: 100%;" alt="{{ $units->first()->manuals->title }}">
+                            </div>
+                        </div>
+                        <div class="col">
+
+
+                            @if ($units && $units->count() > 0)
+                                <p>CMM: {{ $manual->number }}</p>
+                            {{$units->count()}}
+                                @foreach ($units as $unit)
+                                    <div class="mb-2 d-flex">
+                                        <input type="text" class="form-control"
+                                               style="width: 200px"
+                                               value="{{ $unit->part_number }}" readonly>
+                                        <button type="button" class="btn btn-danger
+                                btn-sm ms-1" onclick="deletePartNumber('{{
+                                $unit->part_number }}')">Del</button>
+                                    </div>
+                                @endforeach
+                            @else
+                                <p>No part numbers found for this manual.</p>
+                            @endif
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="updateUnitButton">Update</button>
                 </div>
             </div>
         </div>
@@ -272,33 +294,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
-    <!-- Include Bootstrap CSS and JS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
     <script>
-        $(document).ready(function() {
-            $('.view-unit').on('click', function() {
-                var unitId = $(this).data('id');
-
-                $.ajax({
-                    url: '/units/' + unitId, // Убедитесь, что это совпадает с вашим маршрутом
-                    method: 'GET',
-                    success: function(data) {
-                        $('#partNumber').text(data.part_number);
-                        $('#manualTitle').text(data.manual.title); // Предполагается, что у вас есть поле title в модели Manual
-                        $('#manualNumber').text(data.manual.number); // Предполагается, что у вас есть поле number в модели Manual
-                        $('#unitDetailsModal').modal('show');
-                    },
-                    error: function(jqXHR, textStatus, errorThrown) {
-                        console.error('Error: ' + textStatus, errorThrown);
-                        alert('Error retrieving unit data. Please check the console for more details.');
-                    }
-                });
-            });
-        });
 
         function deletePartNumber(partNumber) {
             // Логика удаления номера детали
@@ -405,6 +402,67 @@
             }
         });
 
+        // Логика для Edit Unit
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.edit-unit-btn').forEach(function(button) {
+                button.addEventListener('click', function() {
+                    const unitId = button.getAttribute('data-id');
+                    const manualId = button.getAttribute('data-manuals-id');
+                    const pn = button.getAttribute('data-pn');
+                    const manualTitle = button.getAttribute('data-manual'); // Получите название мануала
+
+                    // Установка деталей в модальном окне редактирования
+                    document.getElementById('partNumberSelect').value = unitId;
+                    document.getElementById('editPnField').value = pn;
+                    document.getElementById('manualTitle').innerText = `Unit: ${manualTitle}`; // Установка названия мануала
+
+                    // Запрос юнитов, связанных с данным мануалом
+                    fetch(`/units/manuals/${manualId}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            const partNumbersList = document.getElementById('partNumbersList');
+                            partNumbersList.innerHTML = ''; // Очистите текущий список
+
+                            // Проверяем, есть ли юниты
+                            if (data.units && data.units.length > 0) {
+                                data.units.forEach(function(unit) {
+                                    const listItem = document.createElement('div');
+                                    listItem.className = 'mb-2 d-flex';
+
+                                    const input = document.createElement('input');
+                                    input.type = 'text';
+                                    input.className = 'form-control';
+                                    input.style.width = '200px';
+                                    input.value = unit.part_number;
+                                    input.readOnly = true;
+
+                                    const deleteButton = document.createElement('button');
+                                    deleteButton.className = 'btn btn-danger btn-sm ms-1';
+                                    deleteButton.innerText = 'Del';
+                                    deleteButton.onclick = function() {
+                                        deletePartNumber(unit.part_number); // Ваша функция удаления
+                                    };
+
+                                    listItem.appendChild(input);
+                                    listItem.appendChild(deleteButton);
+                                    partNumbersList.appendChild(listItem); // Добавляем элемент списка в контейнер
+                                });
+                            } else {
+                                const noUnitsItem = document.createElement('div');
+                                noUnitsItem.className = 'mb-2';
+                                noUnitsItem.innerText = 'No part numbers found for this manual.';
+                                partNumbersList.appendChild(noUnitsItem);
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Ошибка при загрузке юнитов:', error);
+                        });
+
+                    // Открытие модального окна редактирования
+                    $('#editUnitModal').modal('show');
+                });
+            });
+        });
 
 
 

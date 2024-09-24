@@ -69,12 +69,14 @@ class UnitController extends Controller
             'part_numbers.*' => 'string|distinct',
         ]);
 
-        foreach ($request->part_numbers as $partNumber) {
-            Unit::create([
-                'manuals_id' => $request->cmm_id,
-                'part_number' => $partNumber,
-            ]);
-        }
+        \DB::transaction(function() use ($request) {
+            foreach ($request->part_numbers as $partNumber) {
+                Unit::create([
+                    'manuals_id' => $request->cmm_id,
+                    'part_number' => $partNumber,
+                ]);
+            }
+        });
 
         return response()->json(['success' => true]);
     }
@@ -84,21 +86,30 @@ class UnitController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($id)
     {
-        //
+        $unit = Unit::with('manual')->findOrFail($id); // Предполагается, что у вас есть связь 'manual' в модели Unit
+        return response()->json($unit);
     }
+
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($manuals_id)
+    public function edit($manualsId)
     {
-        $manuals = Manual::with('units')->find($manuals_id); // Получаем
-        // мануал с юнитами
-        return view('admin.units.index', compact('manuals'));
-    }
+        // Проверяем, что manual существует
+        $manual = Manual::findOrFail($manualsId);
 
+        // Получаем все units, связанные с данным manuals_id
+        $units = Unit::where('manuals_id', $manualsId)->get();
+
+        if ($units->isEmpty()) {
+            return redirect()->back()->with('error', 'No units found for the selected manual.');
+        }
+
+        return view('admin.units.edit', compact('manual', 'units'));
+    }
 
 //    public function edit(string $id)
 //    {
@@ -121,8 +132,12 @@ class UnitController extends Controller
             'part_numbers.*' => 'string|max:255',
         ]);
 
-        // Получаем все Part Numbers и обновляем их для данного unit
-        $unit->part_number = json_encode($validated['part_numbers']); // If part_number is stored as a JSON field, adapt this
+        // Если part_number хранится как массив строк (JSON)
+        // $unit->part_number = json_encode($validated['part_numbers']);
+
+        // Если part_number - это просто строка (например, один номер детали)
+        $unit->part_number = implode(',', $validated['part_numbers']);
+
         $unit->save();
 
         return response()->json([
@@ -147,13 +162,13 @@ class UnitController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $manualId)
     {
         // Удаляем все юниты, связанные с выбранным мануалом
         Unit::where('manuals_id', $manualId)->delete();
 
         // Перенаправляем на индекс с сообщением об успехе
-        return redirect()->route('admin.units.index')->with('success', 'Все юниты удалены успешно.');
+        return redirect()->route('admin.units.index')->with('success', 'All units removed successfully.');
     }
 //        $unit = Unit::findOrFail($id);
 //        $unit->delete();

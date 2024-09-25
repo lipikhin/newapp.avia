@@ -86,12 +86,14 @@ class UnitController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($id)
+    public function show(string $manualId)
     {
-        $unit = Unit::with('manual')->findOrFail($id); // Предполагается, что у вас есть связь 'manual' в модели Unit
-        return response()->json($unit);
-    }
+        // Убедитесь, что вы правильно получаете юниты
+        $units = Unit::where('manuals_id', $manualId)->get();
 
+        // Возвращаем данные в формате JSON
+        return response()->json(['units' => $units]);
+    }
 
     /**
      * Show the form for editing the specified resource.
@@ -109,6 +111,15 @@ class UnitController extends Controller
         }
 
         return view('admin.units.edit', compact('manual', 'units'));
+    }
+
+    public function getUnitsByManual($manualId)
+    {
+        $units = Unit::where('manuals_id', $manualId)->get();
+dd($units);
+        return response()->json([
+            'units' => $units,
+        ]);
     }
 
 //    public function edit(string $id)
@@ -164,12 +175,22 @@ class UnitController extends Controller
      */
     public function destroy(string $manualId)
     {
-        // Удаляем все юниты, связанные с выбранным мануалом
-        Unit::where('manuals_id', $manualId)->delete();
+        // Получаем мануал по полю 'number'
+        $manual = Manual::where('number', $manualId)->first();
 
-        // Перенаправляем на индекс с сообщением об успехе
-        return redirect()->route('admin.units.index')->with('success', 'All units removed successfully.');
+        // Если мануал найден, удаляем связанные юниты
+        if ($manual) {
+            // Удаляем все юниты, связанные с выбранным мануалом
+            Unit::where('manuals_id', $manual->id)->delete();
+
+            // Перенаправляем на индекс с сообщением об успешном удалении
+            return redirect()->route('admin.units.index')->with('success', 'Все юниты успешно удалены.');
+        }
+
+        // Если мануал не найден, возвращаем ошибку
+        return redirect()->route('admin.units.index')->with('error', 'Мануал не найден.');
     }
+
 //        $unit = Unit::findOrFail($id);
 //        $unit->delete();
 //        return redirect()->route('admin.units.index')->with('success', 'Unit has been deleted');

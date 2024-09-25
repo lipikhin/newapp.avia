@@ -102,32 +102,32 @@
                                         $partNumbers = is_array($unit->part_numbers) ? $unit->part_numbers : explode(',', $unit->part_numbers);
                                     @endphp
                                 @endforeach
-                                    <div class="d-inline-block mb-2">
+                                <div class="d-inline-block mb-2">
 
-                                            <button class="btn btn-info view-unit" data-id="{{ $unit->id }}">View</button>
+                                    <button class="edit-unit-btn"
+                                            data-id="{{ $unit->id }}"
+                                            data-manuals-id="{{ $unit->manuals_id }}"
+                                            data-manual="{{ $unit->manuals->title }}"
+                                            data-manual-number="{{ $unit->manuals->number }}"
+{{--                                            data-manual-image="{{ $unit->manuals->img }}"--}}
+                                            data-manual-image="{{
+                                           $units->first()->manuals->img}}"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#editUnitModal">
 
-                                        <button class="edit-unit-btn"
-                                                data-id="{{ $unit->id }}"
-                                                data-cmm="{{ $unit->manuals_id }}"
-                                                data-pn="{{ $unit->part_number }}"
-                                                data-part-numbers="{{ implode(',', $partNumbers) }}"
-                                                data-bs-toggle="modal"
-                                                data-bs-target="#editUnitModal">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
 
-                                            <i class="fas fa-edit"></i>
+                           <form action="{{ route('admin.units.destroy', $manualNumber) }}" method="post" style="display: inline-block">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="btn btn-danger btn-sm" type="submit" onclick="return confirm('Вы уверены, что хотите удалить все юниты в этой группе?');">
+                                            <i class="fas fa-trash-alt"></i>
                                         </button>
+                                    </form>
 
-
-                                        <form action="{{ route('admin.units.destroy', $manualNumber) }}" method="post" style="display: inline-block">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button class="btn btn-danger btn-sm" type="submit" onclick="return confirm('Вы уверены, что хотите удалить все юниты в этой группе?');">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </button>
-                                        </form>
-
-                                    </div>
-                                    <br>
+                                </div>
+                                <br>
 
                             </td>
                         </tr>
@@ -244,61 +244,53 @@
         </div>
     </div>
 
-    <!-- Modal -->
-    <!-- Модальное окно -->
-    <div class="modal fade" id="unitDetailsModal" tabindex="-1" role="dialog" aria-labelledby="unitDetailsModalLabel" aria-hidden="true">
+    <!-- Модальное окно Edit Unit  -->
+
+    <div class="modal fade" id="editUnitModal" tabindex="-1" role="dialog" aria-labelledby="editUnitModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="unitDetailsModalLabel">Unit Details</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <h5 class="modal-title" id="editUnitModalLabel"> </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p><strong>Part Number:</strong> <span id="partNumber"></span></p>
-                    <p><strong>Manual Title:</strong> <span id="manualTitle"></span></p>
-                    <p><strong>Manual Number:</strong> <span id="manualNumber"></span></p>
+
+                    <div class="row">
+                        <div class="col">
+                            <div class="modal-body text-center">
+                                <img id="cmmImage" src="" style="max-width: 150px;" alt="Image CMM">
+{{--                                <img src="{{ asset('storage/image/cmm/' .--}}
+{{--                                     $manual->img) }}"  style="max-width:--}}
+{{--                                     150px;" alt="Image CMM">--}}
+                            </div>
+                        </div>
+                        <div class="col">
+
+                            @if ($units && $units->count() > 0)
+                                <p id="editUnitModalNumber"></p>
+                                <div id="partNumbersList"></div>
+                            @else
+                                <p>No part numbers found for this manual.</p>
+                            @endif
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="updateUnitButton">Update</button>
                 </div>
             </div>
         </div>
     </div>
 
 
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
-    <!-- Include Bootstrap CSS and JS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
     <script>
-        $(document).ready(function() {
-            $('.view-unit').on('click', function() {
-                var unitId = $(this).data('id');
-
-                $.ajax({
-                    url: '/units/' + unitId, // Убедитесь, что это совпадает с вашим маршрутом
-                    method: 'GET',
-                    success: function(data) {
-                        $('#partNumber').text(data.part_number);
-                        $('#manualTitle').text(data.manual.title); // Предполагается, что у вас есть поле title в модели Manual
-                        $('#manualNumber').text(data.manual.number); // Предполагается, что у вас есть поле number в модели Manual
-                        $('#unitDetailsModal').modal('show');
-                    },
-                    error: function(jqXHR, textStatus, errorThrown) {
-                        console.error('Error: ' + textStatus, errorThrown);
-                        alert('Error retrieving unit data. Please check the console for more details.');
-                    }
-                });
-            });
-        });
 
         function deletePartNumber(partNumber) {
             // Логика удаления номера детали
@@ -405,38 +397,122 @@
             }
         });
 
+        // Логика для Edit Unit
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.edit-unit-btn').forEach(function(button) {
+                button.addEventListener('click', function() {
+                    const unitId = button.getAttribute('data-id');
+                    const manualId = button.getAttribute('data-manuals-id');
+                    const manualTitle = button.getAttribute('data-manual');
+                    const manualImage = button.getAttribute('data-manual-image'); // Получаем путь к изображению
+
+                    // Проверка, что путь к изображению передан
+                    console.log('Manual Image:', manualImage);
 
 
+                    const manualNumber = button.getAttribute
+                    ('data-manual-number');
 
+                    // Установка данных в модальное окно
+                    document.getElementById('editUnitModalLabel').innerText = `Unit: ${manualTitle}`;
+                    document.getElementById('editUnitModalNumber').innerText =
+                        `CMM: ${manualNumber}`;
 
-
-
-        // Логика для update Unit
-        document.getElementById('updateUnitBtn').addEventListener('click', function() {
-            const unitId = document.getElementById('partNumberSelect').value;
-            const newPn = document.getElementById('editPnField').value.trim();
-
-            if (unitId && newPn) {
-                $.ajax({
-                    url: `{{ url('units') }}/${unitId}`, // Обновите с вашим маршрутом обновления
-                    type: 'PUT',
-                    data: {
-                        part_number: newPn,
-                        _token: '{{ csrf_token() }}' // CSRF токен для Laravel
-                    },
-                    success: function(response) {
-                        console.log(response);
-                        location.reload(); // Перезагрузка страницы, чтобы увидеть обновленный юнит в таблице
-                    },
-                    error: function(xhr) {
-                        console.error(xhr.responseText);
-                        alert('An error occurred while updating the unit. Please try again.');
+                    // Установка изображения
+                    const cmmImage = document.getElementById('cmmImage');
+                    if (manualImage) {
+                        cmmImage.src = `/storage/image/cmm/${manualImage}`;
+                    } else {
+                        cmmImage.src = `/storage/image/Noimage.svg`;  // Путь к
+                        // изображению по умолчанию
                     }
+
+
+                    // console.log('Fetching units for manualId:', manualId);
+
+                    // Отправка запроса для получения юнитов, связанных с мануалом
+                    fetch(`units/${manualId}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            const partNumbersList = document.getElementById('partNumbersList');
+
+                            if (partNumbersList) {
+                                partNumbersList.innerHTML = ''; // Очистите текущий список
+                            } else {
+                                console.error('Элемент с id "partNumbersList" не найден.');
+                            }
+
+                            if (data.units && data.units.length > 0) {
+                                data.units.forEach(function(unit) {
+                                    const listItem = document.createElement('div');
+                                    listItem.className = 'mb-2 d-flex';
+
+                                    const input = document.createElement('input');
+                                    input.type = 'text';
+                                    input.className = 'form-control';
+                                    input.style.width = '200px';
+                                    input.value = unit.part_number;
+                                    input.readOnly = true;
+
+                                    const deleteButton = document.createElement('button');
+                                    deleteButton.className = 'btn btn-danger btn-sm ms-1';
+                                    deleteButton.innerText = 'Del';
+                                    deleteButton.onclick = function() {
+                                        deletePartNumber(unit.part_number);
+                                    };
+
+                                    listItem.appendChild(input);
+                                    listItem.appendChild(deleteButton);
+                                    partNumbersList.appendChild(listItem);
+                                });
+                            } else {
+                                const noUnitsItem = document.createElement('div');
+                                noUnitsItem.className = 'mb-2';
+                                noUnitsItem.innerText = 'No part numbers found for this manual.';
+                                partNumbersList.appendChild(noUnitsItem);
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error loading units:', error);
+                        });
+
+                    // Открываем модальное окно
+                    $('#editUnitModal').modal('show');
                 });
-            } else {
-                alert('Please select a unit and enter a new PN.');
-            }
+            });
         });
+
+
+
+
+
+
+        {{--// Логика для update Unit--}}
+        {{--document.getElementById('updateUnitBtn').addEventListener('click', function() {--}}
+        {{--    const unitId = document.getElementById('partNumberSelect').value;--}}
+        {{--    const newPn = document.getElementById('editPnField').value.trim();--}}
+
+        {{--    if (unitId && newPn) {--}}
+        {{--        $.ajax({--}}
+        {{--            url: `{{ url('units') }}/${unitId}`, // Обновите с вашим маршрутом обновления--}}
+        {{--            type: 'PUT',--}}
+        {{--            data: {--}}
+        {{--                part_number: newPn,--}}
+        {{--                _token: '{{ csrf_token() }}' // CSRF токен для Laravel--}}
+        {{--            },--}}
+        {{--            success: function(response) {--}}
+        {{--                console.log(response);--}}
+        {{--                location.reload(); // Перезагрузка страницы, чтобы увидеть обновленный юнит в таблице--}}
+        {{--            },--}}
+        {{--            error: function(xhr) {--}}
+        {{--                console.error(xhr.responseText);--}}
+        {{--                alert('An error occurred while updating the unit. Please try again.');--}}
+        {{--            }--}}
+        {{--        });--}}
+        {{--    } else {--}}
+        {{--        alert('Please select a unit and enter a new PN.');--}}
+        {{--    }--}}
+        {{--});--}}
 
         // Инициализация DataTables
         $(document).ready(function() {

@@ -92,8 +92,9 @@ Route::prefix('admin')->middleware(['auth'])->group(function (){
     Route::delete('units/{unit}',[UnitController::class,
         'destroy'])->name('admin.units.destroy');
 
-// В вашем routes/web.php
-    Route::get('units/manuals/{manualId}', [UnitController::class, 'getUnitsByManual'])->name('units.byManual');
+// В вашем routes/
+    Route::get('units/{manualId}', [UnitController::class,
+        'getUnitsByManual'])->name('admin.units.byManual');
 
 
 

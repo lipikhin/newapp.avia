@@ -8,6 +8,7 @@ use App\Models\Manual;
 use App\Models\Plane;
 use App\Models\Scope;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ManualController extends Controller
 {

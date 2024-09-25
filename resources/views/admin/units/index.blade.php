@@ -251,8 +251,11 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="editUnitModalLabel"> </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <h5 class="modal-title" id="editUnitModalLabel"> </h5>
+                            <button type="button" class="btn btn-primary"
+                                    id="addUnitButton"><i class="bi bi-file-plus"></i></button>
+{{--                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>--}}
+
                 </div>
                 <div class="modal-body">
 
@@ -293,17 +296,17 @@
 
     <script>
 
-        function deletePartNumber(partNumber) {
-            // Логика удаления номера детали
-            alert("Deleting part number: " + partNumber);
-            // Здесь добавьте свой код для удаления части
-        }
-
-        document.getElementById('updateUnitButton').addEventListener('click', function() {
-            // Логика обновления единицы
-            alert("Updating unit...");
-            // Здесь добавьте свой код для обновления единицы
-        });
+        // function deletePartNumber(partNumber) {
+        //     // Логика удаления номера детали
+        //     alert("Deleting part number: " + partNumber);
+        //     // Здесь добавьте свой код для удаления части
+        // }
+        //
+        // document.getElementById('updateUnitButton').addEventListener('click', function() {
+        //     // Логика обновления единицы
+        //     alert("Updating unit...");
+        //     // Здесь добавьте свой код для обновления единицы
+        // });
 
         document.addEventListener('DOMContentLoaded', function () {
             // Initialize DataTable
@@ -406,16 +409,14 @@
                     const manualId = button.getAttribute('data-manuals-id');
                     const manualTitle = button.getAttribute('data-manual');
                     const manualImage = button.getAttribute('data-manual-image'); // Получаем путь к изображению
-
-                    // Проверка, что путь к изображению передан
-                    console.log('Manual Image:', manualImage);
-
-
                     const manualNumber = button.getAttribute
                     ('data-manual-number');
+                    // Проверка, что путь к изображению передан
+                    // console.log('Manual Image:', manualImage);
+
 
                     // Установка данных в модальное окно
-                    document.getElementById('editUnitModalLabel').innerText = `Unit: ${manualTitle}`;
+                    document.getElementById('editUnitModalLabel').innerText = `${manualTitle}`;
                     document.getElementById('editUnitModalNumber').innerText =
                         `CMM: ${manualNumber}`;
 
@@ -428,43 +429,65 @@
                         // изображению по умолчанию
                     }
 
+                        // Очистить текущий список part_number
+                    const partNumbersList = document.getElementById('partNumbersList');
+                    partNumbersList.innerHTML = '';
 
                     // console.log('Fetching units for manualId:', manualId);
 
                     // Отправка запроса для получения юнитов, связанных с мануалом
+                    // fetch(`units/${manualId}`)
+                    //     .then(response => response.json())
+                    //     .then(data => {
+                    //         const partNumbersList = document.getElementById('partNumbersList');
+                    //
+                    //         if (partNumbersList) {
+                    //             partNumbersList.innerHTML = ''; // Очистите текущий список
+                    //         } else {
+                    //             console.error('Элемент с id "partNumbersList" не найден.');
+                    //         }
+                    //
+                    //         if (data.units && data.units.length > 0) {
+                    //             data.units.forEach(function(unit) {
+                    //                 const listItem = document.createElement('div');
+                    //                 listItem.className = 'mb-2 d-flex';
+                    //
+                    //                 const input = document.createElement('input');
+                    //                 input.type = 'text';
+                    //                 input.className = 'form-control';
+                    //                 input.style.width = '200px';
+                    //                 input.value = unit.part_number;
+                    //                 input.readOnly = true;
+                    //
+                    //                 const deleteButton = document.createElement('button');
+                    //                 deleteButton.className = 'btn btn-danger btn-sm ms-1';
+                    //                 deleteButton.innerText = 'Del';
+                    //                 deleteButton.onclick = function() {
+                    //                     deletePartNumber(unit.part_number);
+                    //                 };
+                    //
+                    //                 listItem.appendChild(input);
+                    //                 listItem.appendChild(deleteButton);
+                    //                 partNumbersList.appendChild(listItem);
+                    //             });
+                    //         } else {
+                    //             const noUnitsItem = document.createElement('div');
+                    //             noUnitsItem.className = 'mb-2';
+                    //             noUnitsItem.innerText = 'No part numbers found for this manual.';
+                    //             partNumbersList.appendChild(noUnitsItem);
+                    //         }
+                    //     })
+                    //     .catch(error => {
+                    //         console.error('Error loading units:', error);
+                    //     });
+
+                // Отправка запроса для получения юнитов, связанных с мануалом
                     fetch(`units/${manualId}`)
                         .then(response => response.json())
                         .then(data => {
-                            const partNumbersList = document.getElementById('partNumbersList');
-
-                            if (partNumbersList) {
-                                partNumbersList.innerHTML = ''; // Очистите текущий список
-                            } else {
-                                console.error('Элемент с id "partNumbersList" не найден.');
-                            }
-
                             if (data.units && data.units.length > 0) {
                                 data.units.forEach(function(unit) {
-                                    const listItem = document.createElement('div');
-                                    listItem.className = 'mb-2 d-flex';
-
-                                    const input = document.createElement('input');
-                                    input.type = 'text';
-                                    input.className = 'form-control';
-                                    input.style.width = '200px';
-                                    input.value = unit.part_number;
-                                    input.readOnly = true;
-
-                                    const deleteButton = document.createElement('button');
-                                    deleteButton.className = 'btn btn-danger btn-sm ms-1';
-                                    deleteButton.innerText = 'Del';
-                                    deleteButton.onclick = function() {
-                                        deletePartNumber(unit.part_number);
-                                    };
-
-                                    listItem.appendChild(input);
-                                    listItem.appendChild(deleteButton);
-                                    partNumbersList.appendChild(listItem);
+                                    addPartNumberRow(unit.part_number);
                                 });
                             } else {
                                 const noUnitsItem = document.createElement('div');
@@ -476,11 +499,72 @@
                         .catch(error => {
                             console.error('Error loading units:', error);
                         });
-
                     // Открываем модальное окно
                     $('#editUnitModal').modal('show');
                 });
             });
+// Добавить новую строку с вводом для нового part_number
+            document.getElementById('addUnitButton').addEventListener('click', function() {
+                addPartNumberRow('');
+            });
+
+            // Функция для добавления новой строки с part_number
+            function addPartNumberRow(partNumber = '') {
+                const partNumbersList = document.getElementById('partNumbersList');
+
+                const listItem = document.createElement('div');
+                listItem.className = 'mb-2 d-flex align-items-center';
+
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.className = 'form-control';
+                input.style.width = '200px';
+                input.value = partNumber;
+
+                const deleteButton = document.createElement('button');
+                deleteButton.className = 'btn btn-danger btn-sm ms-1';
+                deleteButton.innerText = 'Del';
+                deleteButton.onclick = function() {
+                    listItem.remove();
+                };
+
+                listItem.appendChild(input);
+                listItem.appendChild(deleteButton);
+                partNumbersList.appendChild(listItem);
+            }
+
+            // Обработчик кнопки Update
+            document.getElementById('updateUnitButton').addEventListener('click', function() {
+                const partNumbers = Array.from(document.querySelectorAll('#partNumbersList input')).map(input => input.value);
+                const manualId = document.querySelector('.edit-unit-btn').getAttribute('data-manuals-id');
+
+                // Отправляем запрос на обновление part_numbers
+                fetch(`/units/update/${manualId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                    body: JSON.stringify({
+                        part_numbers: partNumbers
+                    })
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert('Units updated successfully');
+                            $('#editUnitModal').modal('hide');
+                        } else {
+                            alert('Error updating units');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error updating units:', error);
+                    });
+            });
+
+
+
         });
 
 

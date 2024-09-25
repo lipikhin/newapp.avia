@@ -116,7 +116,7 @@ class UnitController extends Controller
     public function getUnitsByManual($manualId)
     {
         $units = Unit::where('manuals_id', $manualId)->get();
-dd($units);
+
         return response()->json([
             'units' => $units,
         ]);
@@ -155,6 +155,31 @@ dd($units);
             'success' => true,
             'message' => 'Unit updated successfully'
         ]);
+    }
+
+    public function updateUnits(Request $request, $manualId)
+    {
+        $manual = Manual::findOrFail($manualId);
+
+        // Получить существующие part_numbers
+        $existingPartNumbers = $manual->units()->pluck('part_number')->toArray();
+
+        // Новые part_numbers из запроса
+        $newPartNumbers = $request->input('part_numbers');
+
+        // Удаляем те, которых нет в новых данных
+        $manual->units()->whereNotIn('part_number', $newPartNumbers)->delete();
+
+        // Добавляем новые part_numbers, которых не было
+        foreach ($newPartNumbers as $partNumber) {
+            if (!in_array($partNumber, $existingPartNumbers)) {
+                $manual->units()->create([
+                    'part_number' => $partNumber
+                ]);
+            }
+        }
+
+        return response()->json(['success' => true]);
     }
 
 

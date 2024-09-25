@@ -104,7 +104,8 @@
                                 @endforeach
                                 <div class="d-inline-block mb-2">
 
-                                    <button class="edit-unit-btn"
+                                    <button class="edit-unit-btn btn btn-primary
+                                    btn-sm"
                                             data-id="{{ $unit->id }}"
                                             data-manuals-id="{{ $unit->manuals_id }}"
                                             data-manual="{{ $unit->manuals->title }}"
@@ -115,7 +116,7 @@
                                             data-bs-toggle="modal"
                                             data-bs-target="#editUnitModal">
 
-                                        <i class="fas fa-edit"></i>
+                                        <i class="bi bi-pencil-square"></i>
                                     </button>
 
                            <form action="{{ route('admin.units.destroy', $manualNumber) }}" method="post" style="display: inline-block">

@@ -296,17 +296,7 @@
 
     <script>
 
-        // function deletePartNumber(partNumber) {
-        //     // Логика удаления номера детали
-        //     alert("Deleting part number: " + partNumber);
-        //     // Здесь добавьте свой код для удаления части
-        // }
-        //
-        // document.getElementById('updateUnitButton').addEventListener('click', function() {
-        //     // Логика обновления единицы
-        //     alert("Updating unit...");
-        //     // Здесь добавьте свой код для обновления единицы
-        // });
+
 
         document.addEventListener('DOMContentLoaded', function () {
             // Initialize DataTable
@@ -515,7 +505,10 @@
                             alert('Units updated successfully');
                             $('#editUnitModal').modal('hide');
                             // Обновляем страницу после закрытия модального окна
-                            window.location.reload();
+                            // window.location.reload();
+                            window.location.href = '/admin/units';
+
+
                         } else {
                             alert('Error updating units');
                         }

@@ -33,7 +33,13 @@ class UnitController extends Controller
         });
 
         // Получаем все записи из Manual
-        $manuals = Manual::all();
+        $allManuals = Manual::all();
+
+        // Получаем ID всех manuals (CMM), которые уже добавлены в units
+        $addedManualsIds = Unit::pluck('manuals_id')->toArray();
+
+        // Получаем только те manuals, которые еще не добавлены в units
+        $manuals = Manual::whereNotIn('id', $addedManualsIds)->get();
 
         // Подготовка данных для отображения в виде
         $planes = Plane::pluck('type', 'id');
@@ -41,7 +47,8 @@ class UnitController extends Controller
         $scopes = Scope::pluck('scope', 'id');
 
         // Передаем данные в представление
-        return view('admin.units.index', compact('groupedUnits', 'manuals', 'planes', 'builders', 'scopes'));
+        return view('admin.units.index', compact('groupedUnits', 'allManuals','manuals',
+        'planes', 'builders', 'scopes'));
     }
 
     /**
@@ -141,16 +148,6 @@ class UnitController extends Controller
     }
 
 
-//    public function edit(string $id)
-//    {
-//        $unit = Unit::findOrFail($id);
-//        $manuals = Manual::pluck('number', 'id');
-//
-////        dd($cmms); // Временная проверка
-//
-//
-//        return view('admin.units.edit', compact('unit', 'manuals'));
-//    }
 
     /**
      * Update the specified resource in storage.

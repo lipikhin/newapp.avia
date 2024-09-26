@@ -171,30 +171,30 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    @foreach ($allManuals as $allManual)
-                        <div id="cmm-{{ $allManual->id }}" class="cmm-details"
+                    @foreach ($manuals as $manual)
+                        <div id="cmm-{{ $manual->id }}" class="cmm-details"
                              style="display: none;">
                             <div class="d-flex">
                                 <div class="me-2">
                                     <img src="{{ asset('storage/image/cmm/' .
-                                     $allManual->img) }}"  style="max-width:
+                                     $manual->img) }}"  style="max-width:
                                      200px;" alt="Image CMM">
                                 </div>
                                 <div>
-                                    <p><strong>{{ __('CMM:') }}</strong> {{ $allManual->number }}</p>
+                                    <p><strong>{{ __('CMM:') }}</strong> {{ $manual->number }}</p>
                                     <p><strong>{{ __('Description:') }}</strong>
-                                        {{ $allManual->title }}</p>
+                                        {{ $manual->title }}</p>
                                     <p><strong>{{ __('Revision Date:')
-                                    }}</strong> {{ $allManual->revision_date }}</p>
+                                    }}</strong> {{ $manual->revision_date }}</p>
                                     <p><strong>{{ __('AirCraft Type:')
                                     }}</strong>
-                                        {{ $planes[$allManual->planes_id] ?? 'N/A' }}</p>
+                                        {{ $planes[$manual->planes_id] ?? 'N/A' }}</p>
                                     <p><strong>{{ __('MFR:') }}</strong> {{
-                                    $builders[$allManual->builders_id] ?? 'N/A' }}</p>
+                                    $builders[$manual->builders_id] ?? 'N/A' }}</p>
                                     <p><strong>{{ __('Scope:') }}</strong> {{
-                                    $scopes[$allManual->scopes_id] ?? 'N/A' }}</p>
+                                    $scopes[$manual->scopes_id] ?? 'N/A' }}</p>
                                     <p><strong>{{ __('Library:') }}</strong> {{
-                                    $allManual->lib }}</p>
+                                    $manual->lib }}</p>
                                 </div>
                             </div>
                         </div>
@@ -216,14 +216,14 @@
 
                     <!-- Выпадающий список для выбора CMM -->
                     <div class="mb-3">
-                        <label for="cmmSelect" class="form-label">Select CMM</label>
+                        <label for="cmmSelect" class="form-label">Select CMM
+                        </label>
                         <select class="form-select" id="cmmSelect">
                             @foreach($manuals as $manual)
                                 <option value="{{ $manual->id }}">{{ $manual->title }} ({{ $manual->number }})</option>
                             @endforeach
                         </select>
                     </div>
-
 
                     <!-- Поле для ввода PN -->
                     <div id="pnInputs">
@@ -263,9 +263,7 @@
                         <div class="col">
                             <div class="modal-body text-center">
                                 <img id="cmmImage" src="" style="max-width: 150px;" alt="Image CMM">
-                                <img src="{{ asset('storage/image/cmm/' .
-                                     $manual->img) }}"  style="max-width:
-                                     150px;" alt="Image CMM">
+
                             </div>
                         </div>
                         <div class="col">
@@ -295,8 +293,6 @@
     <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
 
     <script>
-
-
 
         document.addEventListener('DOMContentLoaded', function () {
             // Initialize DataTable
@@ -334,12 +330,9 @@
                     });
                 });
             }
-
             // Initial binding
             bindViewCMMEvent();
         });
-
-
 
 
         // // Добавление нового поля ввода PN

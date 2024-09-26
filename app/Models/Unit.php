@@ -17,6 +17,6 @@ class Unit extends Model
 
     public function manuals()
     {
-        return $this->belongsTo(Manual::class);
+        return $this->belongsTo(Manual::class,'manuals_id');
     }
 }

@@ -279,7 +279,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer justify-content-between">
+                <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                     <button type="button" class="btn btn-primary" id="updateUnitButton">Update</button>
                 </div>
@@ -313,17 +313,17 @@
             var table = $('.data-table').DataTable({
                 "order": [],
                 "pageLength": 5, // Adjust page length as needed
-                "language": {
-                    "search": "Поиск:",
-                    "paginate": {
-                        "first": "Первая",
-                        "last": "Последняя",
-                        "next": "Следующая",
-                        "previous": "Предыдущая"
-                    },
-                    "info": "Показано _START_ до _END_ из _TOTAL_ записей",
-                    "lengthMenu": "Показать _MENU_ записей",
-                }
+                // "language": {
+                //     "search": "Поиск:",
+                //     "paginate": {
+                //         "first": "Первая",
+                //         "last": "Последняя",
+                //         "next": "Следующая",
+                //         "previous": "Предыдущая"
+                //     },
+                //     "info": "Показано _START_ до _END_ из _TOTAL_ записей",
+                //     "lengthMenu": "Показать _MENU_ записей",
+                // }
             });
 
             // Ensure modal works with pagination
@@ -356,12 +356,10 @@
         document.getElementById('addPnField').addEventListener('click', function() {
             const newPnField = document.createElement('div');
             newPnField.className = 'input-group mb-2 pn-field';
-            newPnField.innerHTML = ` <input type="text" class="form-control"
-                                    placeholder="Enter PN"
-                                     style="width: 200px;" name="pn[]">
-                <button class="btn btn-danger removePnField" type="button">
-                        Delete
-                </button> `;
+            newPnField.innerHTML = `
+                <input type="text" class="form-control" placeholder="Введите PN" style="width: 200px;" name="pn[]">
+                <button class="btn btn-danger removePnField" type="button">Удалить</button>
+            `;
             document.getElementById('pnInputs').appendChild(newPnField);
         });
 
@@ -411,31 +409,77 @@
                     const manualId = button.getAttribute('data-manuals-id');
                     const manualTitle = button.getAttribute('data-manual');
                     const manualImage = button.getAttribute('data-manual-image'); // Получаем путь к изображению
-                    const manualNumber = button.getAttribute('data-manual-number');// Проверка, что путь к изображению передан
-
+                    const manualNumber = button.getAttribute
+                    ('data-manual-number');
+                    // Проверка, что путь к изображению передан
                     // console.log('Manual Image:', manualImage);
-                    console.log('Manual ID:', manualId);
-                    console.log('Manual Title:', manualTitle);
-                    console.log('Manual Number:', manualNumber);
-                    console.log('Manual Image:', manualImage);
+
 
                     // Установка данных в модальное окно
                     document.getElementById('editUnitModalLabel').innerText = `${manualTitle}`;
-                    document.getElementById('editUnitModalNumber').innerText =`CMM: ${manualNumber}`;
+                    document.getElementById('editUnitModalNumber').innerText =
+                        `CMM: ${manualNumber}`;
 
                     // Установка изображения
                     const cmmImage = document.getElementById('cmmImage');
                     if (manualImage) {
                         cmmImage.src = `/storage/image/cmm/${manualImage}`;
                     } else {
-                        cmmImage.src = `/storage/image/Noimage.svg`;  // Путь
-                        // к изображению по умолчанию
+                        cmmImage.src = `/storage/image/Noimage.svg`;  // Путь к
+                        // изображению по умолчанию
                     }
 
                         // Очистить текущий список part_number
                     const partNumbersList = document.getElementById('partNumbersList');
                     partNumbersList.innerHTML = '';
 
+                    // console.log('Fetching units for manualId:', manualId);
+
+                    // Отправка запроса для получения юнитов, связанных с мануалом
+                    // fetch(`units/${manualId}`)
+                    //     .then(response => response.json())
+                    //     .then(data => {
+                    //         const partNumbersList = document.getElementById('partNumbersList');
+                    //
+                    //         if (partNumbersList) {
+                    //             partNumbersList.innerHTML = ''; // Очистите текущий список
+                    //         } else {
+                    //             console.error('Элемент с id "partNumbersList" не найден.');
+                    //         }
+                    //
+                    //         if (data.units && data.units.length > 0) {
+                    //             data.units.forEach(function(unit) {
+                    //                 const listItem = document.createElement('div');
+                    //                 listItem.className = 'mb-2 d-flex';
+                    //
+                    //                 const input = document.createElement('input');
+                    //                 input.type = 'text';
+                    //                 input.className = 'form-control';
+                    //                 input.style.width = '200px';
+                    //                 input.value = unit.part_number;
+                    //                 input.readOnly = true;
+                    //
+                    //                 const deleteButton = document.createElement('button');
+                    //                 deleteButton.className = 'btn btn-danger btn-sm ms-1';
+                    //                 deleteButton.innerText = 'Del';
+                    //                 deleteButton.onclick = function() {
+                    //                     deletePartNumber(unit.part_number);
+                    //                 };
+                    //
+                    //                 listItem.appendChild(input);
+                    //                 listItem.appendChild(deleteButton);
+                    //                 partNumbersList.appendChild(listItem);
+                    //             });
+                    //         } else {
+                    //             const noUnitsItem = document.createElement('div');
+                    //             noUnitsItem.className = 'mb-2';
+                    //             noUnitsItem.innerText = 'No part numbers found for this manual.';
+                    //             partNumbersList.appendChild(noUnitsItem);
+                    //         }
+                    //     })
+                    //     .catch(error => {
+                    //         console.error('Error loading units:', error);
+                    //     });
 
                 // Отправка запроса для получения юнитов, связанных с мануалом
                     fetch(`units/${manualId}`)
@@ -459,7 +503,7 @@
                     $('#editUnitModal').modal('show');
                 });
             });
-                // Добавить новую строку с вводом для нового part_number
+// Добавить новую строку с вводом для нового part_number
             document.getElementById('addUnitButton').addEventListener('click', function() {
                 addPartNumberRow('');
             });
@@ -494,12 +538,8 @@
                 const partNumbers = Array.from(document.querySelectorAll('#partNumbersList input')).map(input => input.value);
                 const manualId = document.querySelector('.edit-unit-btn').getAttribute('data-manuals-id');
 
-                console.log("Part Numbers:", partNumbers);  // Для проверки
-                console.log("Manual ID:", manualId);  // Для проверки
-
-
                 // Отправляем запрос на обновление part_numbers
-                fetch(`units/update/${manualId}`, {
+                fetch(`/units/update/${manualId}`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -514,21 +554,50 @@
                         if (data.success) {
                             alert('Units updated successfully');
                             $('#editUnitModal').modal('hide');
-                            // Обновляем страницу после закрытия модального окна
-                            window.location.reload();
                         } else {
                             alert('Error updating units');
                         }
                     })
-
                     .catch(error => {
                         console.error('Error updating units:', error);
                     });
             });
+
+
+
         });
 
 
 
+
+
+
+        {{--// Логика для update Unit--}}
+        {{--document.getElementById('updateUnitBtn').addEventListener('click', function() {--}}
+        {{--    const unitId = document.getElementById('partNumberSelect').value;--}}
+        {{--    const newPn = document.getElementById('editPnField').value.trim();--}}
+
+        {{--    if (unitId && newPn) {--}}
+        {{--        $.ajax({--}}
+        {{--            url: `{{ url('units') }}/${unitId}`, // Обновите с вашим маршрутом обновления--}}
+        {{--            type: 'PUT',--}}
+        {{--            data: {--}}
+        {{--                part_number: newPn,--}}
+        {{--                _token: '{{ csrf_token() }}' // CSRF токен для Laravel--}}
+        {{--            },--}}
+        {{--            success: function(response) {--}}
+        {{--                console.log(response);--}}
+        {{--                location.reload(); // Перезагрузка страницы, чтобы увидеть обновленный юнит в таблице--}}
+        {{--            },--}}
+        {{--            error: function(xhr) {--}}
+        {{--                console.error(xhr.responseText);--}}
+        {{--                alert('An error occurred while updating the unit. Please try again.');--}}
+        {{--            }--}}
+        {{--        });--}}
+        {{--    } else {--}}
+        {{--        alert('Please select a unit and enter a new PN.');--}}
+        {{--    }--}}
+        {{--});--}}
 
         // Инициализация DataTables
         $(document).ready(function() {

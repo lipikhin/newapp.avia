@@ -49,7 +49,7 @@ class Manual extends Model
     // Отношение с моделью Unit
     public function units()
     {
-        return $this->hasMany(Unit::class);
+        return $this->hasMany(Unit::class,'manuals_id');
     }
     public function manuals()
     {

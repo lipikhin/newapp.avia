@@ -96,7 +96,8 @@ Route::prefix('admin')->middleware(['auth'])->group(function (){
     Route::get('units/{manualId}', [UnitController::class,
         'getUnitsByManual'])->name('admin.units.byManual');
 // web.php
-    Route::post('units/update/{manual}', [UnitController::class, 'updateUnits'])->name('admin.units.update');
+    Route::post('/units/update/{manualId}', [UnitController::class, 'updateUnits'])->name('units.update');
+
 
 
 

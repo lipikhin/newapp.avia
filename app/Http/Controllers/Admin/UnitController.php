@@ -33,13 +33,13 @@ class UnitController extends Controller
         });
 
         // Получаем все записи из Manual
-        $allManuals = Manual::all();
+        $manuals = Manual::all();
 
         // Получаем ID всех manuals (CMM), которые уже добавлены в units
         $addedManualsIds = Unit::pluck('manuals_id')->toArray();
 
         // Получаем только те manuals, которые еще не добавлены в units
-        $manuals = Manual::whereNotIn('id', $addedManualsIds)->get();
+        $restManuals = Manual::whereNotIn('id', $addedManualsIds)->get();
 
         // Подготовка данных для отображения в виде
         $planes = Plane::pluck('type', 'id');
@@ -47,7 +47,8 @@ class UnitController extends Controller
         $scopes = Scope::pluck('scope', 'id');
 
         // Передаем данные в представление
-        return view('admin.units.index', compact('groupedUnits', 'allManuals','manuals',
+        return view('admin.units.index', compact('groupedUnits',
+            'restManuals','manuals',
         'planes', 'builders', 'scopes'));
     }
 
